@@ -98,7 +98,7 @@
               (click)="file.click()"
          
           matTooltip="Click To Select the file"
-          >Select Icon</button>
+          >Select Brand Image</button>
           <span><mat-label>{{selectedFile?.name}}</mat-label></span>
                 
                 </li><br>
@@ -124,10 +124,31 @@
               </li>
               <li>
                 <mat-form-field  [style.width.px]=327 >
-                  <input matInput formControlName="maincategory" placeholder="Category Name">
+                  <input matInput formControlName="maincategory" placeholder="Brand Name">
                   </mat-form-field>
               </li>
 
+              <li>
+                <mat-form-field>
+                  <mat-label>States</mat-label>
+                  <mat-select [formControl]="states" multiple>
+                    <mat-option >UP</mat-option>
+                    <mat-option >UP</mat-option>
+                    <mat-option >UP</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field>
+                  <mat-label>States</mat-label>
+                  <mat-select [formControl]="districts" multiple>
+                    <mat-option >UP</mat-option>
+                    <mat-option >UP</mat-option>
+                    <mat-option >UP</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </li>
               <li>
                 <mat-form-field  [style.width.px]=327 >
                   <input matInput formControlName="seo_title" placeholder="SEO TITLE">

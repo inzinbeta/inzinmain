@@ -171,7 +171,9 @@ ngOnInit()
    page_content:[""],
    seo_keyword:[""],
    isParent:[""],
-   parentCategory:[""]
+   parentCategory:[""],
+   states:[""],
+   districts:[""]
    
  });
 
