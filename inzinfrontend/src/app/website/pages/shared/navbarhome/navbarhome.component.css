@@ -1,157 +1,215 @@
-/* 02. Header */
+/*====================== 
+   Theme Header
+========================*/
 
+/* Header-Top */
 
-/* ================================================== */
-
-header {
-	background: transparent;
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 9;
+.head-top {
+    font-size: 14px;
 }
 
-header.header-small {
-	box-shadow: 0px 0px 5px #c1c1c1;
-	z-index: 9;
-	transition: all 0.3s ease 0s;
-	opacity: 0.9;
-	background: #18196e;
+.head-top-one {
+    background-color: #ff3a54;
+    color: #fff;
 }
 
-header.header-small .header-top {
-	display: none;
-	transition: all 0.3s ease 0s;
+.head-top-two {
+    background-color: #fff;
+    border-bottom: 1px solid #ff3a54;
 }
 
-.header-top {
-	padding: 10px 0;
+.head-top .socials {
+    color: #fff;
 }
 
-.header-topbar {
-	background: #f9a60f;
+.socials-header {
+    margin: 12px 0;
 }
 
-.top-left {
-	display: inline-block;
+.socials a {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 13px;
+    padding-right: 13px;
+    border-right: 1px solid #fff;
 }
 
-.top-right {
-	display: inline-block;
-	float: right;
+.footer .socials a {
+    border-right: 1px solid #e1e1e1;
 }
 
-.top-right .left {
-	display: inline-block;
+.head-top-two .socials a {
+    color: #858585;
+    border-right-color: #e1e1e1;
 }
 
-.top-right .right {
-	display: inline-block;
+.socials a:hover {
+    color: #000
 }
 
-.top-right .left ul li {
-	display: inline-block;
-	border-right: 2px solid #fff;
-	padding-right: 20px;
-	margin-right: 20px;
-	margin-top: 15px;
+.head-top-two .socials a:hover {
+    color: #ff3a54;
 }
 
-.top-right .left ul li:last-child {
-	border-right: none;
+.socials a:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: 0;
 }
 
-.top-right .left ul li a {
-	font-size: 18px;
-	line-height: 24px;
-	font-weight: 600;
-	color: #fff;
+.head-contact li {
+    text-transform: capitalize;
+    line-height: 1;
+    display: inline-block;
+    margin: 5px 0;
+    margin-left: 13px;
+    padding: 5px 0;
+    padding-left: 13px;
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.top-right .left ul li a:hover {
-	color: #fdb531;
-	text-decoration: underline !important;
+.head-top-two .head-contact li {
+    border-color: #e1e1e1;
 }
 
-.navbar {
-	padding: 0;
+.head-top-two .head-contact li a {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.header-bottom {
-	background: rgb(253, 181, 49);
-	padding: 10px 0;
+.head-top-two .head-contact li:hover>a {
+    color: #ff3a54;
 }
 
-.header-bottom .bottom-left {
-	display: inline-block;
+.head-contact li i {
+    margin-right: 7px;
 }
 
-.header-bottom .bottom-right {
-	display: inline-block;
+.head-top-two .head-contact li i {
+    color: #ff3a54
 }
 
-.header-bottom .bottom-left ul.navbar-nav li {
-	display: inline-block;
-	padding: 0 10px;
+.head-contact li:first-child {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
 }
 
-.header-bottom .bottom-left ul.navbar-nav li a {
-	padding: 0 10px;
-	line-height: 24px;
-	font-weight: 600;
-	text-transform: uppercase;
-	border-bottom: 3px solid transparent;
-	color: #000;
-	padding-bottom: 16px;
+.head-contact li.ad-list {
+    border-left: 0
 }
 
-.header-bottom .bottom-left ul.navbar-nav li a:hover {
-	color: #ed5623;
-	border-color: #fdb531;
+.language-drop .dropdown-item {
+    padding: 10px;
+    text-transform: capitalize;
+    background-color: #fff;
+    font-size: 14px;
 }
 
-.header-bottom .bottom-left ul.navbar-nav li.nav-item.active a {
-	color: #000;
-	border-color: #fdb531;
+.language-drop .dropdown-menu {
+    min-width: 100px;
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
 }
 
-.header-bottom .bottom-right ul li {
-	display: inline-block;
+.language-drop .dropdown-item:hover {
+    color: #ff3a54;
 }
 
-.header-bottom .bottom-right ul li a {
-	display: inline-block;
-	background: #fff;
-	color: #090a62;
-	border-radius: 50%;
-	font-size: 18px;
-	line-height: 25px;
-	padding: 5px;
-	width: 35px;
-	height: 35px;
-	vertical-align: middle;
-	text-align: center;
-	margin-left: 15px;
+.login-sign a {
+    color: #000;
+    font-weight: 600;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
-.header-bottom .bottom-right ul li a:hover {
-	background: #fdb531;
+/*-- header menu ---- */
+
+.header {
+    position: relative;
+    z-index: 2;
 }
 
-.btn.book-ride {
-	font-size: 16px;
-	line-height: 24px;
-	font-weight: 600;
-	text-transform: uppercase;
-	color: #fff;
-	background: #ed5623;
-	padding: 12px 20px;
-	border-radius: 8px;
-	border: 0;
+.theme-header-one {
+    padding: 10px 0;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.btn.book-ride:hover {
-	opacity: 0.9;
-	transition: all 0.3s ease 0s;
+.theme-header-two {
+    background-color: #fff;
+}
+
+.theme-header-two.affix.sticky-menu {
+    background-color: #fff;
+    padding: 0;
+}
+
+.join-nav {
+    position: relative;
+    padding-left: 30px;
+}
+
+.join-nav::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 21px;
+    height: 21px;
+    width: 1px;
+    background-color: #e1e1e1;
+}
+
+.logo-two {
+    padding: 11px 20px 0;
+    background-color: #ff3a54;
+    position: relative;
+    z-index: 99;
+    height: 100%;
+    text-align: center;
+    max-width: 255px;
+}
+
+.menu-two .navbar-toggler {
+    top: -56px;
+}
+
+.logo-two::after {
+    position: absolute;
+    height: calc(100% + 10px);
+    width: 100%;
+    content: "";
+    background-color: #ff3a54;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.logo-two a {
+    position: relative;
+    z-index: 9;
+}
+
+.menu-two .navbar-nav .nav-item a,
+.menu-two .navbar-nav .dropdown-item a,
+.menu-two .navbar-expand-lg .navbar-nav .nav-link {
+    color: #000
+}
+
+.menu-two .navbar-nav .nav-item .nav-btn {
+    padding: 11px 30px 8px;
+    color: #fff
+}
+
+.menu .fa-search {
+    font-size: 14px;
 }
