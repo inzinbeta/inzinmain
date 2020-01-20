@@ -14,4 +14,5 @@ router.get("/user",indexMiddleware.registerUser,indexController.registerUser);
  */
 
  router.post("/login",indexController.userLogin);
+ router.post("/oauthlogin",indexController.oauthLogin);
 module.exports = router;

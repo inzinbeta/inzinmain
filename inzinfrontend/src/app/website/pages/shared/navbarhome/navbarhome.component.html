@@ -4,7 +4,7 @@
 </a>
 
 <!-- Preloader start-->
-<div class="preloader">
+<div class="preloader" [style.display]="preloader?'block':'none'">
     <div class="loader-inner">
         <div class="dash one">
             <i class="fa fa-map-marker-alt"></i>
@@ -101,15 +101,8 @@
                             <div class="main-menu collapse navbar-collapse" id="nav-content">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle current" data-toggle="dropdown">home</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="dropdown-item dropdown">
-                                                <a href="index.html">home 1</a>
-                                            </li>
-                                            <li class="dropdown-item dropdown">
-                                                <a href="index-2.html">home 2</a>
-                                            </li>
-                                        </ul>
+                                        <a routerLink="/" class="nav-link  current" data-toggle="dropdown">home</a>
+                                       
                                     </li>
 
                                     <li class="nav-item">
@@ -249,10 +242,28 @@
                                             <i class="fa fa-search"></i>
                                         </a>
                                     </li>
-                                    <li class="nav-item join-nav d-lg-block d-none">
-                                        <a class="nav-link" href="login.html">
-                                            <i class="fa fa-user c-theme mr-2"></i> join us</a>
+                                    
+                                    <li *ngIf="websiteauth.isAuthenticated() ;else other_content"  class="nav-item dropdown">
+                                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-user c-theme mr-2"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-item">
+                                                <a class="nav-link"  (click)="logOut()">
+                                                    <i class="fa fa-user c-theme mr-2" ></i> Logout</a>
+                                            </li>
+                                            <li class="dropdown-item">
+                                                <a class="nav-link" routerLink="/dashboard">
+                                                    <i class="fa fa-user c-theme mr-2"></i> Dashboard</a>
+                                            </li>
+                                            
+                                        </ul>
                                     </li>
+                                   
+                                   
+                                    <ng-template #other_content>
+                                        <a class="nav-link" routerLink="/login">
+                                            <i class="fa fa-user c-theme mr-2"></i> joinus</a>
+
+                                    </ng-template>
                                 </ul>
                             </div>
                         </nav>

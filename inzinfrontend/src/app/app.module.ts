@@ -9,6 +9,8 @@ import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebsiteAuthGuard } from './auth/websiteauth-guard.service';
+import { WebsiteAuthService } from './auth/websiteauth.service';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule // important for forms
    
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,AuthGuard,WebsiteAuthGuard,WebsiteAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

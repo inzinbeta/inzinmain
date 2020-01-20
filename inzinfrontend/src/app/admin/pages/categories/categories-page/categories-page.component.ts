@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormControl,FormArray } from '@angu
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { CategoryModel } from '../../shared/models/CategoryModel';
 import { environment } from '../../../../../environments/environment';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Component({
   selector: 'app-categories-page',
   templateUrl: './categories-page.component.html',
@@ -33,6 +33,55 @@ export class CategoriesPageComponent implements OnInit {
   selectedFile=null;
   iconpath=environment.path;
  
+  /**
+   * editor config
+   * 
+   */
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+};
   
 
   @ViewChild(MatPaginator,{"static":false}) paginator: MatPaginator;
@@ -59,8 +108,8 @@ openSnackBar(message:string) {
 }
   openDialog(): void {
     const dialogRef = this.dialog.open(this.template, {
-      height: '400px',
-     width: '600px',
+      height: '800px',
+     width: '400px',
     
     });
 

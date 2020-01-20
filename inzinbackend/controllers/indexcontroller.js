@@ -14,4 +14,9 @@ indexContoller.userLogin=async(req,res)=>{
     res.json(response);
 }
 
+indexContoller.oauthLogin=async(req,res)=>{
+    let response=await indexService.oauthLogin(req.body.userdata);
+    res.json(response);
+}
+
 module.exports=indexContoller;

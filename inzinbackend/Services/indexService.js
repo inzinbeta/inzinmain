@@ -77,5 +77,91 @@ indexService.getUserByUsername=async(username,password)=>{
 
 }
 
+indexService.oauthLogin=async(data)=>{
+
+  try {
+    let user = await User.findOne({
+      username: data.email,
+      isactive:true
+    });
+    if (!user) {
+      // register user here
+      let _user =new User({
+        username: data.email,
+      isactive:true,
+      role:"user",
+      password:data.email,
+      email:data.email,
+      name:data.name,
+
+      })
+
+      await _user.save();
+
+     // signing in user
+
+      // authentication success
+      const token = jwt.sign({
+        "username": data.email,
+        "role": "user",
+        "time":new Date()
+        
+      }, "black", {
+        expiresIn: "1h"
+      })
+
+      
+     return {
+         "status":true,
+        "message": "Successfull Login",
+        "token": token,
+        "user": data.email,
+        "role":"user",
+      
+        
+      }
+
+    } 
+    else {
+     
+
+       
+        // authentication success
+        const token = jwt.sign({
+          "username": data.email,
+          "role": "user",
+          "time":new Date()
+          
+        }, "black", {
+          expiresIn: "1h"
+        })
+
+        
+       return {
+           "status":true,
+          "message": "Successfull Login",
+          "token": token,
+          "user": data.email,
+          "role": "user",
+        
+          
+        }
+
+     
+    }
+  } catch (err) {
+    console.log(err);
+   // log.error({type:"error while requesting username",date:new Date(),error:err});
+    return{
+        status:false,
+        message:"Internal Server Error Occurred"
+    }
+  }
+
+
+
+
+}
+
 
 module.exports=indexService;
