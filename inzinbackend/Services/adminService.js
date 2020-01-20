@@ -7,6 +7,8 @@
 const jwt = require("jsonwebtoken");
 const User=require('../models/users');
 const Category=require("../models/categories");
+const StateAndDistrict=require("../models/stateanddistricts");
+const Brand=require('../models/brands');
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -110,6 +112,11 @@ adminService.checkExistingCredentials=async(credential,type)=>{
 
 }
 
+adminService.deleteUser=async(username)=>{
+return await User.deleteOne({username:username});
+
+}
+
 /**
  * Categories Services
  * 
@@ -183,6 +190,62 @@ adminService.checkExistingCredentials=async(credential,type)=>{
  }
 
 
+ adminService.deleteCategory=async(category,parentCategory)=>{
+   if(parentCategory)
+   {
+     // parent Category is not null so have to remove the category from the subcategory array
+     return await Category.updateOne({category_name:parentCategory},{ $pull: { 'subcategories': { category_name: category } } })
+   }
 
+   else{
+     // directly remove the category 
+     return await Category.deleteOne({category_name:category});
+   }
+
+ }
+
+ adminService.updateCategory=async(category,parentCategory)=>
+ {
+
+  if(parentCategory)
+   {
+     // update the subcategory array
+   }
+
+   else{
+     // directly remove the category // update the category parts
+    
+   }
+
+ }
+
+
+ /**
+  * 
+  * Brands
+  * 
+  */
+adminService.saveBrand=async(data)=>{
+
+}
+
+adminService.getBrands=async()=>{
+
+  return await Brand.find({});
+
+
+}
+
+/**
+ * 
+ * States and Districts for Brands
+ * 
+ */
+
+ adminService.getAllStates=async(data)=>{
+return await StateAndDistrict.find({});
+
+
+ }
 
 module.exports=adminService;

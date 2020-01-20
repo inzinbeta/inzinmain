@@ -80,6 +80,18 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header > IsParent </mat-header-cell>
                     <mat-cell *matCellDef="let row" > {{row.isParent}}  </mat-cell>
                   </ng-container>
+
+                      <!-- Progress Column -->
+                      <ng-container matColumnDef="edit" >
+                        <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
+                        <mat-cell *matCellDef="let row" style="cursor:pointer;"><mat-icon (click)="editData(row)">edit</mat-icon> </mat-cell>
+                      </ng-container>
+  
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="delete" >
+                          <mat-header-cell *matHeaderCellDef mat-sort-header > Delete</mat-header-cell>
+                          <mat-cell *matCellDef="let row" style="cursor:pointer;"> <mat-icon (click)="deleteData(row)">delete_forever</mat-icon> </mat-cell>
+                        </ng-container>
               
           
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -173,6 +185,85 @@
              
               matTooltip="Click To Submit The Form"
               >Submit</button>
+            
+              </li>
+            </ol>
+          </form>
+          
+          </ng-template>
+
+
+          <ng-template #editdialog>
+            <li>
+          
+              <input type="file"  style="display: none;" accept="image/*" (change)="onFileSelected($event)" #file>
+              <button mat-raised-button color="primary"
+              type="button" 
+              (click)="file.click()"
+         
+          matTooltip="Click To Select the file"
+          >Select Icon</button>
+          <span><mat-label>{{selectedFile?.name}}</mat-label></span>
+                
+                </li><br>
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+
+          
+            <ol>
+             
+
+              
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="maincategory" placeholder="Category Name">
+                  </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="seo_title" placeholder="SEO TITLE">
+                   </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="seo_heading" placeholder="SEO HEADING">
+                 </mat-form-field>
+              </li>
+
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="seo_slug" placeholder="SEO SLUG">
+                   </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <textarea matInput formControlName="seo_category_Description"  placeholder="SEO CATEGORY DESCRIPTION"></textarea>
+                  </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <textarea matInput formControlName="page_content"  placeholder="PAGE CONTENT"></textarea>
+              </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <textarea matInput formControlName="seo_keyword"  placeholder="SEO KEYWORDS"></textarea>
+                 </mat-form-field>
+              </li>
+
+               <li>
+                
+                
+                  <button mat-raised-button color="primary"
+                  type="submit" 
+             
+              matTooltip="Click To Submit The Form"
+              >Update</button>
             
               </li>
             </ol>

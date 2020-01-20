@@ -66,8 +66,20 @@
                   <!-- Progress Column -->
                   <ng-container matColumnDef="isactive">
                     <mat-header-cell *matHeaderCellDef mat-sort-header > Isactive </mat-header-cell>
-                    <mat-cell *matCellDef="let row" > {{row.isactive}}  </mat-cell>
+                    <mat-cell *matCellDef="let row" > <img width="12" height="12" [src]="row.isactive?'assets/admin/images/active.png':'assets/admin/images/inactive.png'">  </mat-cell>
                   </ng-container>
+
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="edit" >
+                      <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
+                      <mat-cell *matCellDef="let row" style="cursor:pointer;"><mat-icon (click)="editData(row)">edit</mat-icon> </mat-cell>
+                    </ng-container>
+
+                      <!-- Progress Column -->
+                      <ng-container matColumnDef="delete" >
+                        <mat-header-cell *matHeaderCellDef mat-sort-header > Delete</mat-header-cell>
+                        <mat-cell *matCellDef="let row" style="cursor:pointer;"> <mat-icon (click)="deleteData(row)">delete_forever</mat-icon> </mat-cell>
+                      </ng-container>
             
               
           
@@ -130,8 +142,23 @@
               </li>
               <li>
 
+               
+
                 <li>
-                  
+                  <mat-form-field [style.width.px]=327>
+                    <mat-label>Select Status</mat-label>
+                    <mat-select formControlName="isactive">
+                      <mat-option  value="active">
+                       Active
+                      </mat-option>
+                      <mat-option  value="inactive">
+                        Inactive
+                       </mat-option>
+                       
+                    </mat-select>
+                  </mat-form-field>
+                    
+                
                 </li>
                 <li>
                 
@@ -141,6 +168,88 @@
              
               matTooltip="Click To Submit The Form"
               >Submit</button>
+            
+              </li>
+            </ol>
+          </form>
+          </ng-template>
+
+          <ng-template #editdialog>
+            <form [formGroup]="userForm" (ngSubmit)="onEdit()">
+
+          
+            <ol>
+              <li>
+                <mat-form-field  [style.width.px]=327   >
+                  <input matInput formControlName="name" placeholder="Please Enter name?">
+                  
+                  <mat-error *ngIf="errors.name">{{errors.name}}</mat-error>
+                
+                </mat-form-field>
+              </li>
+              <li>
+                <mat-form-field [style.width.px]=327>
+                  <input matInput formControlName="username" placeholder="Select a User name?">
+                  <mat-error *ngIf="errors.username">{{errors.username}}</mat-error>
+                </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field [style.width.px]=327>
+                  <input matInput formControlName="email" placeholder="Please Enter email?" >
+                  <mat-error *ngIf="errors.email">{{errors.email}}</mat-error>
+                 </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field [style.width.px]=327>
+                
+                  <input matInput formControlName="password" placeholder="Please Enter password">
+                  <mat-error *ngIf="errors.password">{{errors.password}}</mat-error>
+                </mat-form-field>
+              </li>
+              <li>
+                <mat-form-field [style.width.px]=327>
+                  <mat-label>Select Role</mat-label>
+                  <mat-select formControlName="role">
+                    <mat-option  value="admin">
+                     Admin
+                    </mat-option>
+                    <mat-option  value="user">
+                      User
+                     </mat-option>
+                     <mat-option  value="distributor">
+                      Distributor
+                     </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </li>
+              <li>
+
+                <li>
+                  <mat-form-field [style.width.px]=327>
+                    <mat-label>Select Status</mat-label>
+                    <mat-select formControlName="isactive">
+                      <mat-option  value="active">
+                       Active
+                      </mat-option>
+                      <mat-option  value="inactive">
+                        Inactive
+                       </mat-option>
+                       
+                    </mat-select>
+                  </mat-form-field>
+                    
+                
+                </li>
+                <li>
+                
+                
+                  <button mat-raised-button color="primary"
+                  type="submit" 
+             
+              matTooltip="Click To Submit The Form"
+              >Update</button>
             
               </li>
             </ol>

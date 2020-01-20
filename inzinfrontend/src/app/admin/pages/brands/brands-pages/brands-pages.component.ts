@@ -32,6 +32,9 @@ export class BrandsPagesComponent implements OnInit {
   parentCategories:string[]=["home","menu"];
   selectedFile=null;
   iconpath=environment.path;
+  state_all_data=[];
+  states=[];
+  districts=[];
  
   
 
@@ -101,16 +104,22 @@ openSnackBar(message:string) {
       {
         const fd=new FormData();
         let file_ext=this.selectedFile.name.split(".");
-        fd.append('image',this.selectedFile,`categoryicon.${file_ext[1]}`);
-        fd.append('category_name',this.f.maincategory.value);
+        fd.append('brand_img',this.selectedFile,`categoryicon.${file_ext[1]}`);
         fd.append('seo_title',this.f.seo_title.value);
         fd.append('seo_heading',this.f.seo_heading.value);
         fd.append('seo_slug',this.f.seo_slug.value);
-        fd.append('seo_category_Description',this.f.seo_category_Description.value);
+        fd.append('seo_description',this.f.seo_category_Description.value);
         fd.append('seo_keywords',this.f. seo_keyword.value);
-        fd.append('isParent',this.f.isParent.value);
         fd.append('parentCategory',this.f.parentCategory.value);
-   
+        fd.append('states',this.f.states.value);
+        fd.append('districts',this.f.districts.value);
+        fd.append('investments',this.f.investments.value);
+        fd.append('business_exp',this.f.business_exp.value);
+        fd.append('sizes',this.f.sizes.value);
+        fd.append('brand',this.f.brand.value);
+
+
+     
        
         this.adminservice.saveCategory(fd).subscribe(data=>{
           this.openSnackBar(data["message"]);
@@ -128,6 +137,21 @@ openSnackBar(message:string) {
      
         
         
+  }
+
+  getStates()
+  {
+    this.adminservice.getAllStates().subscribe(data=>{
+     this.states=data["states"].map(({state})=>state);
+     this.state_all_data=data["states"];
+
+    })
+  }
+
+  stateChange(states)
+  {
+     this.districts=this.state_all_data.filter(({state})=>states.includes(state)).flatMap(({districts})=>districts);
+    
   }
 
   getParentCategories()
@@ -162,18 +186,21 @@ ngOnInit()
 {
   this.getParentCategories();
   this.getAllCategories();
+  this.getStates();
   this.categoryForm = this.formBuilder.group({
-   maincategory:["",Validators.required],
    seo_title:[""],
    seo_heading:[""],
    seo_slug:[""],
    seo_category_Description:[""],
    page_content:[""],
    seo_keyword:[""],
-   isParent:[""],
    parentCategory:[""],
    states:[""],
-   districts:[""]
+   districts:[""],
+   investments:[""],
+   business_exp:[""],
+   size:[""],
+   brand:[""]
    
  });
 

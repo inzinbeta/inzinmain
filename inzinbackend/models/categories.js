@@ -11,6 +11,7 @@ const categoriesSchema= new Schema({
     seo_heading:String,
     seo_slug:String,
     seo_category_Description:String, // to be shown on particular page of category
+    page_content:String,
     seo_keywords:String,
     isParent:Boolean,
     subcategories:[

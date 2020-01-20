@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
 
  router.post("/login",adminController.userLogin);
  router.post("/getUsers",adminController.getUsers);
+ router.post("/deleteUser",adminController.deleteUser);
  router.post("/registeruser",adminMiddleware.registerUser,adminController.registerUser);
  router.post("/checkEmail",adminMiddleware.registerUser,adminController.checkEmail);
  router.post("/checkUsername",adminMiddleware.registerUser,adminController.checkUsername);
@@ -32,9 +33,21 @@ router.get('/', function(req, res, next) {
  router.post("/getParentsCategory",adminMiddleware.registerUser,adminController.getParentsCategory);
 
  router.post("/getAllCategory",adminMiddleware.registerUser,adminController.getAllCategories);
-
+ router.post("/deleteCategory",adminController.deleteCategory)
 
  /**
-  * Categories
+  * Brands
   */
+ router.post("/getAllBrands",adminMiddleware.registerUser,adminController.getAllBrands);
+
+
+/**
+ * 
+ * States
+ */
+
+router.post("/getAllStates",adminMiddleware.registerUser,adminController.getAllStates);
+
+
+
 module.exports = router;

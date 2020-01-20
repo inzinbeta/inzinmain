@@ -4,6 +4,7 @@ import { HttpClient } from  "@angular/common/http";
 import { Observable } from 'rxjs';
 import { UserModel } from '../models/UserModel';
 import { CategoryModel } from '../models/CategoryModel';
+import {BrandsModel} from '../models/BrandsModel';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,17 @@ export class AdminserviceService {
   
   }
 
+  deleteUser(username)
+  {
+    return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteUser`,{username:username});
+
+  }
+  editUser(username:string,password:string,role:string,isactive:boolean,name:string,email:string)
+  {
+    return this.http.post(`http://${environment.url}:${environment.port}/admin/registeruser`,{username:username,password:password,isactive:isactive,name:name,email:email,role:role});
+
+  }
+
   /*
   Categories Service 
   */
@@ -63,6 +75,39 @@ export class AdminserviceService {
  {
    console.log("fd",formdata);
   return this.http.post(`http://${environment.url}:${environment.port}/admin/saveCategory`,formdata);
+
+ }
+
+
+ deleteCategory(category,parentCategory)
+ {
+   return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteCategory`,{category:category,parentCategory:parentCategory});
+
+ }
+ editCategory(username:string,password:string,role:string,isactive:boolean,name:string,email:string)
+ {
+   return this.http.post(`http://${environment.url}:${environment.port}/admin/registeruser`,{username:username,password:password,isactive:isactive,name:name,email:email,role:role});
+
+ }
+
+
+/**
+ * 
+ * Brands Services
+ */
+
+getAllBrands()
+{
+ return this.http.post<BrandsModel[]>(`http://${environment.url}:${environment.port}/admin/getAllBrands`,{});
+
+}
+
+ /**
+  * States and Districts
+  */
+ getAllStates()
+ {
+  return this.http.post(`http://${environment.url}:${environment.port}/admin/getAllStates`,{});
 
  }
 

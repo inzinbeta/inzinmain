@@ -17,7 +17,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class CategoriesPageComponent implements OnInit {
 
-  displayedColumns = ['photo_icon','category_name', 'seo_title','seo_heading','seo_slug','seo_category_Description','seo_keywords','isParent'];
+  displayedColumns = ['photo_icon','category_name', 'seo_title','seo_heading','seo_slug','seo_category_Description','seo_keywords','isParent','edit','delete'];
   //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
   dataSource: MatTableDataSource<CategoryModel>;
   categoryForm:FormGroup;
@@ -38,6 +38,7 @@ export class CategoriesPageComponent implements OnInit {
   @ViewChild(MatPaginator,{"static":false}) paginator: MatPaginator;
   @ViewChild(MatSort,{"static":false}) sort: MatSort;
   @ViewChild('dialog',{"static":false}) template: TemplateRef<HTMLElement>;
+  @ViewChild('editdialog',{"static":false}) edittemplate: TemplateRef<HTMLElement>;
   constructor( private adminservice:AdminserviceService,private _snackBar: MatSnackBar,public dialog: MatDialog,private formBuilder: FormBuilder) {}
 
   applyFilter(filterValue: string) {
@@ -69,6 +70,49 @@ openSnackBar(message:string) {
     });
   }
 
+
+  editData(row)
+  {
+
+    
+    const dialogRef = this.dialog.open(this.edittemplate, {
+      height: '400px',
+     width: '600px',
+    
+    });
+
+   
+    // seeting the form values accordingly except username
+    this.f.maincategory.setValue(row.category_name);
+    this.f.seo_title.setValue(row.seo_title);
+    this.f.seo_heading.setValue(row.seo_heading);
+    this.f.seo_slug.setValue(row.seo_slug);
+    this.f.seo_category_Description.setValue(row.seo_category_Description);
+    this.f.page_content.setValue(row.page_content);
+    this.f.seo_keyword.setValue(row.seo_keywords);
+    //this.f.isParent(row.isParent);
+    this.f.parentCategory.setValue(row.parentCategory);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      this.categoryForm.reset();
+     
+    });
+  }
+
+  deleteData(row)
+  {
+    console.log(row);
+    let parentcategory;
+    if(row.isParent)
+    {
+    parentcategory=null;
+    }
+    this.adminservice.deleteCategory(row.category_name,parentcategory).subscribe(data=>{
+      console.log(data);
+      this.getAllCategories();
+    })
+
+  }
 
   linkImg(fileName) {
     let file=fileName.split("/")[1];
@@ -109,6 +153,7 @@ openSnackBar(message:string) {
         fd.append('seo_category_Description',this.f.seo_category_Description.value);
         fd.append('seo_keywords',this.f. seo_keyword.value);
         fd.append('isParent',this.f.isParent.value);
+        fd.append('page_content',this.f.page_content.value);
         fd.append('parentCategory',this.f.parentCategory.value);
    
        
@@ -145,6 +190,7 @@ openSnackBar(message:string) {
     this.spinner=true;
  
     this.adminservice.getAllCategory().subscribe(data=>{
+      console.log(data);
       this.dataSource = new MatTableDataSource <CategoryModel>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

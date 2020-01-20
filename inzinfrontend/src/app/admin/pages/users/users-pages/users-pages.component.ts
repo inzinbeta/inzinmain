@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 })
 export class UsersPagesComponent implements OnInit {
 
-  displayedColumns = ['name','username', 'password','email','role','isactive'];
+  displayedColumns = ['name','username', 'password','email','role','isactive','edit','delete'];
   //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
   dataSource: MatTableDataSource<UserModel>;
   userForm:FormGroup;
@@ -31,6 +31,7 @@ export class UsersPagesComponent implements OnInit {
   @ViewChild(MatPaginator,{"static":false}) paginator: MatPaginator;
   @ViewChild(MatSort,{"static":false}) sort: MatSort;
   @ViewChild('dialog',{"static":false}) template: TemplateRef<HTMLElement>;
+  @ViewChild('editdialog',{"static":false}) edittemplate: TemplateRef<HTMLElement>;
   constructor( private adminservice:AdminserviceService,private _snackBar: MatSnackBar,public dialog: MatDialog,private formBuilder: FormBuilder) {}
 
   applyFilter(filterValue: string) {
@@ -63,6 +64,74 @@ openSnackBar(message:string) {
 
   closeDialog(){
     this.dialog.closeAll();
+  }
+
+
+
+  editData(row)
+  {
+    console.log(row);
+    const dialogRef = this.dialog.open(this.edittemplate, {
+      width: '550px',
+    
+    });
+
+
+    // seeting the form values accordingly except username
+
+    this.f.email.setValue(row.email);
+    this.f.name.setValue(row.name);
+    this.f.role.setValue(row.role);
+    this.f.password.setValue(row.password);
+    this.f.username.setValue(row.username);
+    this.f.username.disable();
+    if(row.isactive)
+    {
+      this.f.isactive.setValue("active");
+    }
+    else{
+      this.f.isactive.setValue("inactive");
+    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      // form values will be cleared here 
+      this.userForm.reset();
+     
+     
+    });
+  }
+
+  deleteData(row)
+  {
+    this.adminservice.deleteUser(row.username).subscribe(data=>{
+      console.log(data);
+      this.getUsers();
+      this.openSnackBar("User Removed");
+      
+    })
+  }
+
+
+  onEdit()
+  {
+     let isactive=true;
+     if(this.f.isactive.value=="inactive")
+     {
+     isactive=false;
+     }
+      this.adminservice.registerUser(this.f.username.value,this.f.password.value,this.f.role.value,isactive,this.f.name.value,this.f.email.value).subscribe(data=>{
+        if(data["status"])
+        {
+          this.openSnackBar(data["message"]);
+          this.closeDialog();
+          this.getUsers();
+        }
+        else{
+          this.openSnackBar("username or email already registered");
+        }
+        //console.log(data);
+      })  
+        
   }
 
   // Submitting the form to register the users

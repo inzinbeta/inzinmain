@@ -106,11 +106,7 @@
 
           
             <ol>
-              <li > 
-                <mat-label>IS Parent?</mat-label><br>
-                <mat-checkbox id="amateur" class="amateur" color="primary"
-                formControlName="isParent" (change)="parentTrue($event)" >Is Parent?</mat-checkbox>
-              </li>
+             
 
               <li [style.display]="isParent?'none':'block' ">
                 <mat-form-field>
@@ -124,31 +120,29 @@
               </li>
               <li>
                 <mat-form-field  [style.width.px]=327 >
-                  <input matInput formControlName="maincategory" placeholder="Brand Name">
+                  <input matInput formControlName="brand" placeholder="Brand Name">
                   </mat-form-field>
               </li>
 
               <li>
                 <mat-form-field>
                   <mat-label>States</mat-label>
-                  <mat-select [formControl]="states" multiple>
-                    <mat-option >UP</mat-option>
-                    <mat-option >UP</mat-option>
-                    <mat-option >UP</mat-option>
+                  <mat-select formControlName="districts"  (selectionChange)="stateChange($event.value)"  multiple>
+                    <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                   
+                  </mat-select>
+                </mat-form-field>
+              </li>
+              <li>
+                <mat-form-field>
+                  <mat-label>Districts</mat-label>
+                  <mat-select formControlName="states" multiple>
+                    <mat-option *ngFor="let district of districts" [value]="district">{{district}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </li>
 
-              <li>
-                <mat-form-field>
-                  <mat-label>States</mat-label>
-                  <mat-select [formControl]="districts" multiple>
-                    <mat-option >UP</mat-option>
-                    <mat-option >UP</mat-option>
-                    <mat-option >UP</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </li>
+        
               <li>
                 <mat-form-field  [style.width.px]=327 >
                   <input matInput formControlName="seo_title" placeholder="SEO TITLE">
@@ -183,6 +177,26 @@
               <li>
                 <mat-form-field  [style.width.px]=327 >
                   <textarea matInput formControlName="seo_keyword"  placeholder="SEO KEYWORDS"></textarea>
+                 </mat-form-field>
+              </li>
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="investments"  placeholder="Investment">
+                 
+                 </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="business_exp"  placeholder="Business Exp">
+                  
+                 </mat-form-field>
+              </li>
+
+              <li>
+                <mat-form-field  [style.width.px]=327 >
+                  <input matInput formControlName="sizes"  placeholder="Sizes">
+                 
                  </mat-form-field>
               </li>
 

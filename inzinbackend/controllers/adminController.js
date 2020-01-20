@@ -60,6 +60,13 @@ adminController.checkUsername=async(req,res)=>{
 
   
 }
+
+adminController.deleteUser=async(req,res)=>{
+  let _res=adminService.deleteUser(req.body.username);
+  res.json(_res);
+}
+
+
 /**
  * Categories Controllers
  * 
@@ -101,7 +108,7 @@ let response=parent_cate.map(ele=>ele.category_name);
 
 adminController.getAllCategories=async(req,res)=>{
   let data_res=await adminService.getParentCategories();
-  let response=data_res.reduce((acc,{_id,parentCategory,isParent,category_name,seo_title,seo_heading,seo_slug,photo_icon,subcategories})=>{
+  let response=data_res.reduce((acc,{_id,parentCategory,seo_keywords,seo_category_Description,isParent,category_name,seo_title,seo_heading,seo_slug,photo_icon,subcategories})=>{
     let new_parent_obj=
 
     {"_id":_id,
@@ -111,7 +118,9 @@ adminController.getAllCategories=async(req,res)=>{
     "seo_slug": seo_slug,
     "photo_icon": photo_icon,
     "parentCategory":parentCategory,
-    "isParent":isParent
+    "isParent":isParent,
+    "seo_category_Description":seo_category_Description,
+    "seo_keywords":seo_keywords
   }
     acc.push(...subcategories);
     
@@ -123,6 +132,40 @@ adminController.getAllCategories=async(req,res)=>{
   res.json(response);
 
 }
+
+adminController.deleteCategory=async(req,res)=>{
+
+let _res=await adminService.deleteCategory(req.body.category,req.body.parentCategory);
+console.log(_res);
+res.json({"status":true});
+
+}
+
+/*
+Brands
+*/
+
+adminController.getAllBrands=async(req,res)=>{
+ let _branddata=adminService.getBrands();
+
+ res.json(_branddata);
+
+
+}
+
+
+
+/**
+ * 
+ * States and Districts
+ * 
+ */
+
+ adminController.getAllStates=async(req,res)=>{
+    let states=await adminService.getAllStates();
+     res.json({states:states});
+
+ }
 
 
 module.exports=adminController;
