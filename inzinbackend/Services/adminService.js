@@ -159,32 +159,17 @@ return await User.deleteOne({username:username});
 
  adminService.saveCategory=async(data)=>{
   
-   if(data.isParent)
-   {
-     // this category is parent save it normally 
-     if(await Category.findOne({category_name:data.category_name}))
-     {
-      // category already exists in the database 
-      return false;
-     }
+   try{
 
-     else{
-      let category=new Category(data);
+    let category=new Category(data);
       category.subcategories=[]; // assigning empty array to subcategory
        return await category.save();
-     }
-     
-   }
-   else{
-     // its not a parent category 
-     data.isParent=false;
-     // find the category with particular name,and update
-     return await Category.updateOne({category_name:data.parentCategory},{$addToSet:{subcategories:data}});
-
-     
 
    }
-  
+   catch(e)
+   {
+
+   }
   
   
  }
@@ -204,18 +189,11 @@ return await User.deleteOne({username:username});
 
  }
 
- adminService.updateCategory=async(category,parentCategory)=>
+ adminService.updateCategory=async(category)=>
  {
 
-  if(parentCategory)
-   {
-     // update the subcategory array
-   }
+ return await Category.updateOne({category_name:category.name},category);
 
-   else{
-     // directly remove the category // update the category parts
-    
-   }
 
  }
 

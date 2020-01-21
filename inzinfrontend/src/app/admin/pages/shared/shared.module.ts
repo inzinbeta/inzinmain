@@ -19,6 +19,7 @@ import { ErrorvisualPipe } from './pipes/errorvisual.pipe';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { Select2Module } from 'ng2-select2';
 @NgModule({
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, SettingsComponent, ErrorvisualPipe],
   imports: [
@@ -38,12 +39,13 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatSelectModule,
     MatRadioModule,
     MatCheckboxModule,
-    AngularEditorModule
+    AngularEditorModule,
+    Select2Module
   
   
   ]
   // export is very important such that theese modules can be used in other components as well
-  ,exports:[AngularEditorModule,MatCheckboxModule,MatRadioModule,MatSelectModule,FooterComponent,FormsModule, ReactiveFormsModule,ErrorvisualPipe, NavbarComponent,MatTooltipModule, SidebarComponent, SettingsComponent,MatDialogModule,MatButtonModule,MatTableModule,MatSnackBarModule, MatPaginatorModule,MatSortModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatIconModule] // This export is necessary such that footer can be used in every componet under page
+  ,exports:[Select2Module,AngularEditorModule,MatCheckboxModule,MatRadioModule,MatSelectModule,FooterComponent,FormsModule, ReactiveFormsModule,ErrorvisualPipe, NavbarComponent,MatTooltipModule, SidebarComponent, SettingsComponent,MatDialogModule,MatButtonModule,MatTableModule,MatSnackBarModule, MatPaginatorModule,MatSortModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatIconModule] // This export is necessary such that footer can be used in every componet under page
   ,providers: [],
 })
 export class SharedModule { }

@@ -77,7 +77,8 @@ adminController.deleteUser=async(req,res)=>{
 adminController.saveCategory=async(req,res)=>{
   console.log(req);
   
-  req.body.photo_icon=req.files.image.path
+  req.body.imagelogo=req.files.imagelogo.path
+  req.body.imagesidebar=req.files.imagesidebar.path
   let resw=await adminService.saveCategory(req.body);
   console.log(resw);
 
@@ -108,28 +109,9 @@ let response=parent_cate.map(ele=>ele.category_name);
 
 adminController.getAllCategories=async(req,res)=>{
   let data_res=await adminService.getParentCategories();
-  let response=data_res.reduce((acc,{_id,parentCategory,seo_keywords,seo_category_Description,isParent,category_name,seo_title,seo_heading,seo_slug,photo_icon,subcategories})=>{
-    let new_parent_obj=
+  
 
-    {"_id":_id,
-      "category_name":category_name ,
-    "seo_title": seo_title,
-    "seo_heading": seo_heading,
-    "seo_slug": seo_slug,
-    "photo_icon": photo_icon,
-    "parentCategory":parentCategory,
-    "isParent":isParent,
-    "seo_category_Description":seo_category_Description,
-    "seo_keywords":seo_keywords
-  }
-    acc.push(...subcategories);
-    
-    acc.push(new_parent_obj);
-    return acc;
-
-  },[])
-
-  res.json(response);
+  res.json(data_res);
 
 }
 

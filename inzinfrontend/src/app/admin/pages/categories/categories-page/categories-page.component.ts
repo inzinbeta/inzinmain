@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { CategoryModel } from '../../shared/models/CategoryModel';
 import { environment } from '../../../../../environments/environment';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Select2OptionData } from 'ng2-select2';
 @Component({
   selector: 'app-categories-page',
   templateUrl: './categories-page.component.html',
@@ -17,7 +18,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class CategoriesPageComponent implements OnInit {
 
-  displayedColumns = ['photo_icon','category_name', 'seo_title','seo_heading','seo_slug','seo_category_Description','seo_keywords','isParent','edit','delete'];
+  displayedColumns = ['imagelogo','imagesidebar','name', 'metatitle','heading','brands','description','keywords','isParent','edit','delete'];
   //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
   dataSource: MatTableDataSource<CategoryModel>;
   categoryForm:FormGroup;
@@ -30,20 +31,41 @@ export class CategoriesPageComponent implements OnInit {
   spinner:boolean=false;
   isParent:boolean=false;
   parentCategories:string[]=["home","menu"];
-  selectedFile=null;
+  selectedFilelogo=null;
+  selectedFilesidebar=null;
   iconpath=environment.path;
- 
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+  brands=[{
+    id: 'multiple1',
+    text: 'Multiple 1'
+  },
+  {
+    id: 'multiple2',
+    text: 'Multiple 2'
+  },
+  {
+    id: 'multiple3',
+    text: 'Multiple 3'
+  },
+  {
+    id: 'multiple4',
+    text: 'Multiple 4'
+  }]
   /**
    * editor config
    * 
    */
+  public exampleData: Array<Select2OptionData>;
+  public options: Select2Options;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
-      height: 'auto',
-      minHeight: '0',
-      maxHeight: 'auto',
+      height: '800',
+      minHeight: '900',
+      maxHeight: '900',
       width: 'auto',
       minWidth: '0',
       translate: 'yes',
@@ -74,11 +96,11 @@ export class CategoriesPageComponent implements OnInit {
         tag: 'h1',
       },
     ],
-    uploadUrl: 'v1/image',
+ 
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['bold', 'italic'],
+      ['bold', 'italic','insertVideo','insertImage'],
       ['fontSize']
     ]
 };
@@ -108,8 +130,8 @@ openSnackBar(message:string) {
 }
   openDialog(): void {
     const dialogRef = this.dialog.open(this.template, {
-      height: '800px',
-     width: '400px',
+      height: '500px',
+     width: '700px',
     
     });
 
@@ -190,21 +212,31 @@ openSnackBar(message:string) {
   {
    
  
-      if(this.selectedFile)
+      if(this.selectedFilelogo)
       {
-        const fd=new FormData();
-        let file_ext=this.selectedFile.name.split(".");
-        fd.append('image',this.selectedFile,`categoryicon.${file_ext[1]}`);
-        fd.append('category_name',this.f.maincategory.value);
-        fd.append('seo_title',this.f.seo_title.value);
-        fd.append('seo_heading',this.f.seo_heading.value);
-        fd.append('seo_slug',this.f.seo_slug.value);
-        fd.append('seo_category_Description',this.f.seo_category_Description.value);
-        fd.append('seo_keywords',this.f. seo_keyword.value);
-        fd.append('isParent',this.f.isParent.value);
-        fd.append('page_content',this.f.page_content.value);
-        fd.append('parentCategory',this.f.parentCategory.value);
    
+        const fd=new FormData();
+        let file_ext=this.selectedFilelogo.name.split(".");
+        let file_extt=this.selectedFilesidebar.name.split(".");
+        fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
+        fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
+        fd.append('name',this.f.name.value);
+        fd.append('metatitle',this.f.metatitle.value);
+        fd.append('heading',this.f.heading.value);
+        fd.append('brands',this.f.brands.value);
+        fd.append('description',this.f.description.value);
+        fd.append('keywords',this.f.keywords.value);
+       
+        fd.append('content',this.f.content.value);
+        if(this.f.parentcategory.value)
+        {
+          fd.append('isParent',"no");
+        }
+        else{
+          fd.append('isParent',"yes");
+        }
+        fd.append('parentcategory',this.f.parentcategory.value);
+       console.log(fd);
        
         this.adminservice.saveCategory(fd).subscribe(data=>{
           this.openSnackBar(data["message"]);
@@ -248,9 +280,13 @@ openSnackBar(message:string) {
   }
   onFileSelected(event)
   {
-    this.selectedFile=<File>event.target.files[0];
+    this.selectedFilelogo=<File>event.target.files[0];
   }
 
+  onFileSelectedside(event)
+  {
+    this.selectedFilesidebar=<File>event.target.files[0];
+  }
   
 
 ngOnInit()
@@ -258,21 +294,42 @@ ngOnInit()
   this.getParentCategories();
   this.getAllCategories();
   this.categoryForm = this.formBuilder.group({
-   maincategory:["",Validators.required],
-   seo_title:[""],
-   seo_heading:[""],
-   seo_slug:[""],
-   seo_category_Description:[""],
-   page_content:[""],
-   seo_keyword:[""],
-   isParent:[""],
-   parentCategory:[""]
+   name:["",Validators.required],
+   metatitle:[""],
+   heading:[""],
+   brands:[""],
+   description:[""],
+   content:[""],
+   keywords:[""],
+   parentcategory:[""]
    
  });
 
-//
+ this.exampleData = [
+  {
+    id: 'multiple1',
+    text: 'Multiple 1'
+  },
+  {
+    id: 'multiple2',
+    text: 'Multiple 2'
+  },
+  {
+    id: 'multiple3',
+    text: 'Multiple 3'
+  },
+  {
+    id: 'multiple4',
+    text: 'Multiple 4'
+  }
+];
 
- 
+//this.value = ['multiple2', 'multiple4'];
+
+this.options = {
+  multiple: true
+}
+
 }
 
 }
