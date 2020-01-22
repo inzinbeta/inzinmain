@@ -118,9 +118,32 @@ adminController.getAllCategories=async(req,res)=>{
 
 adminController.deleteCategory=async(req,res)=>{
 
-let _res=await adminService.deleteCategory(req.body.category,req.body.parentCategory);
+let _res=await adminService.deleteCategory(req.body.category._id);
 console.log(_res);
 res.json({"status":true});
+
+}
+
+adminController.updateCategory=async(req,res)=>{
+  req.body.imagelogo=req.files.imagelogo.path
+  req.body.imagesidebar=req.files.imagesidebar.path
+  req.body.brands=req.body.brands.split(",");
+  let resw=await adminService.updateCategory(req.body);
+  console.log(resw);
+
+  if(resw)
+  {
+    res.json({status:true,"message":"Category Added"})
+  }
+
+  else{
+    res.json({status:false,"message":"Category Already exists"})
+  }
+
+  console.log(resw);
+
+res.json({"status":true,"message":_res});
+
 
 }
 

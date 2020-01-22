@@ -84,9 +84,9 @@ export class AdminserviceService {
    return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteCategory`,{category:category,parentCategory:parentCategory});
 
  }
- editCategory(username:string,password:string,role:string,isactive:boolean,name:string,email:string)
+ editCategory(formdata)
  {
-   return this.http.post(`http://${environment.url}:${environment.port}/admin/registeruser`,{username:username,password:password,isactive:isactive,name:name,email:email,role:role});
+   return this.http.post(`http://${environment.url}:${environment.port}/admin/updateCategory`,formdata);
 
  }
 

@@ -175,17 +175,18 @@ return await User.deleteOne({username:username});
  }
 
 
- adminService.deleteCategory=async(category,parentCategory)=>{
-   if(parentCategory)
-   {
-     // parent Category is not null so have to remove the category from the subcategory array
-     return await Category.updateOne({category_name:parentCategory},{ $pull: { 'subcategories': { category_name: category } } })
-   }
+ adminService.deleteCategory=async(categoryid)=>{
+  let category_=await Category.findById(categoryid);
+  if(category_.isParent)
+  {
+  let _one=  Category.deleteOne({_id:categoryid});
+    let _two=Category.deleteMany({parentcategory:category_.name});
+    return await Promise.all([_one,_two])
 
-   else{
-     // directly remove the category 
-     return await Category.deleteOne({category_name:category});
-   }
+  }
+  else{
+    return await Category.deleteOne({_id:categoryid});
+  }
 
  }
 

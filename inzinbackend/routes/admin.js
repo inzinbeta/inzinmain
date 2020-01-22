@@ -34,6 +34,7 @@ router.get('/', function(req, res, next) {
 
  router.post("/getAllCategory",adminMiddleware.registerUser,adminController.getAllCategories);
  router.post("/deleteCategory",adminController.deleteCategory)
+ router.post("/updateCategory",adminMiddleware.registerUser,multipartMiddleware,adminController.updateCategory)
 
  /**
   * Brands

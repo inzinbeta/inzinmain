@@ -20,6 +20,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { Select2Module } from 'ng2-select2';
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, SettingsComponent, ErrorvisualPipe],
   imports: [
@@ -40,12 +41,13 @@ import { Select2Module } from 'ng2-select2';
     MatRadioModule,
     MatCheckboxModule,
     AngularEditorModule,
-    Select2Module
+    Select2Module,
+    DataTablesModule
   
   
   ]
   // export is very important such that theese modules can be used in other components as well
-  ,exports:[Select2Module,AngularEditorModule,MatCheckboxModule,MatRadioModule,MatSelectModule,FooterComponent,FormsModule, ReactiveFormsModule,ErrorvisualPipe, NavbarComponent,MatTooltipModule, SidebarComponent, SettingsComponent,MatDialogModule,MatButtonModule,MatTableModule,MatSnackBarModule, MatPaginatorModule,MatSortModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatIconModule] // This export is necessary such that footer can be used in every componet under page
+  ,exports:[DataTablesModule,Select2Module,AngularEditorModule,MatCheckboxModule,MatRadioModule,MatSelectModule,FooterComponent,FormsModule, ReactiveFormsModule,ErrorvisualPipe, NavbarComponent,MatTooltipModule, SidebarComponent, SettingsComponent,MatDialogModule,MatButtonModule,MatTableModule,MatSnackBarModule, MatPaginatorModule,MatSortModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatIconModule] // This export is necessary such that footer can be used in every componet under page
   ,providers: [],
 })
 export class SharedModule { }

@@ -28,7 +28,7 @@ export class CategoriesPageComponent implements OnInit {
   password=new FormControl('', [Validators.required]);
   name=new FormControl('', [Validators.required]);
   errors:any={};
-  spinner:boolean=false;
+  spinner:boolean=true;
   isParent:boolean=false;
   parentCategories:string[]=["home","menu"];
   selectedFilelogo=null;
@@ -60,7 +60,7 @@ export class CategoriesPageComponent implements OnInit {
    */
   public exampleData: Array<Select2OptionData>;
   public options: Select2Options;
-
+  public value: string[];
   editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
@@ -146,27 +146,28 @@ openSnackBar(message:string) {
   editData(row)
   {
 
-    
+  //  console.log(row.brands);
     const dialogRef = this.dialog.open(this.edittemplate, {
-      height: '400px',
-     width: '600px',
+      height: '500px',
+      width: '700px',
     
     });
 
    
     // seeting the form values accordingly except username
-    this.f.maincategory.setValue(row.category_name);
-    this.f.seo_title.setValue(row.seo_title);
-    this.f.seo_heading.setValue(row.seo_heading);
-    this.f.seo_slug.setValue(row.seo_slug);
-    this.f.seo_category_Description.setValue(row.seo_category_Description);
-    this.f.page_content.setValue(row.page_content);
-    this.f.seo_keyword.setValue(row.seo_keywords);
+    this.f.name.setValue(row.name);
+    this.f.metatitle.setValue(row.metatitle);
+    this.f.heading.setValue(row.heading);
+    //this.f.seo_slug.setValue(row.seo_slug);
+    this.f.description.setValue(row.description);
+    this.f.content.setValue(row.content);
+    this.f.keywords.setValue(row.keywords);
     //this.f.isParent(row.isParent);
-    this.f.parentCategory.setValue(row.parentCategory);
-    
+    this.f.parentcategory.setValue(row.parentcategory);
+    this.value = row.brands
     dialogRef.afterClosed().subscribe(result => {
       this.categoryForm.reset();
+      this.value=[];
      
     });
   }
@@ -210,6 +211,56 @@ openSnackBar(message:string) {
   // Submitting the form to register the users
 
   onSubmit()
+  {
+   //console.log(this.selectedbrand);
+ 
+      if(this.selectedFilelogo && this.selectedFilesidebar && this.selectedbrand.length>0)
+      {
+   
+        const fd=new FormData();
+        let file_ext=this.selectedFilelogo.name.split(".");
+        let file_extt=this.selectedFilesidebar.name.split(".");
+        fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
+        fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
+        fd.append('name',this.f.name.value);
+        fd.append('metatitle',this.f.metatitle.value);
+        fd.append('heading',this.f.heading.value);
+        fd.append('brands',this.selectedbrand.join(","));
+        fd.append('description',this.f.description.value);
+        fd.append('keywords',this.f.keywords.value);
+       
+        fd.append('content',this.f.content.value);
+        if(this.f.parentcategory.value)
+        {
+          fd.append('isParent',"no");
+        }
+        else{
+          fd.append('isParent',"yes");
+        }
+        fd.append('parentcategory',this.f.parentcategory.value);
+       console.log(fd);
+       
+        this.adminservice.saveCategory(fd).subscribe(data=>{
+          this.openSnackBar(data["message"]);
+          this.closeDialog();
+          this.getAllCategories();
+          //console.log(data["message"]);
+        })
+      }
+
+      else{
+        this.openSnackBar("Please Fill All the Fields");
+      }
+  
+  
+     
+        
+        
+  }
+
+
+
+  onEdit()
   {
    //console.log(this.selectedbrand);
  
