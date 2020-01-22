@@ -75,10 +75,11 @@ adminController.deleteUser=async(req,res)=>{
 // Uploading the catgories
 
 adminController.saveCategory=async(req,res)=>{
-  console.log(req);
+  //console.log(req);
   
   req.body.imagelogo=req.files.imagelogo.path
   req.body.imagesidebar=req.files.imagesidebar.path
+  req.body.brands=req.body.brands.split(",");
   let resw=await adminService.saveCategory(req.body);
   console.log(resw);
 
@@ -99,7 +100,7 @@ adminController.saveCategory=async(req,res)=>{
 
 adminController.getParentsCategory=async(req,res)=>{
 let parent_cate=await adminService.getParentCategories();
-let response=parent_cate.map(ele=>ele.category_name);
+let response=parent_cate.map(ele=>ele.name);
   res.json({"categories":response});
 
   

@@ -9,7 +9,7 @@ const categoriesSchema= new Schema({
     imagesidebar:String,
     name:String,
     brands:[String],
-    metaitle:String, // to be inserted in meta_tag
+    metatitle:String, // to be inserted in meta_tag
     heading:String,
     parentcategory:{
         type:String,

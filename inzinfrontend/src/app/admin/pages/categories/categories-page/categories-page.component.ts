@@ -37,6 +37,7 @@ export class CategoriesPageComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  selectedbrand:string[]=[];
   brands=[{
     id: 'multiple1',
     text: 'Multiple 1'
@@ -210,9 +211,9 @@ openSnackBar(message:string) {
 
   onSubmit()
   {
-   
+   //console.log(this.selectedbrand);
  
-      if(this.selectedFilelogo)
+      if(this.selectedFilelogo && this.selectedFilesidebar && this.selectedbrand.length>0)
       {
    
         const fd=new FormData();
@@ -223,7 +224,7 @@ openSnackBar(message:string) {
         fd.append('name',this.f.name.value);
         fd.append('metatitle',this.f.metatitle.value);
         fd.append('heading',this.f.heading.value);
-        fd.append('brands',this.f.brands.value);
+        fd.append('brands',this.selectedbrand.join(","));
         fd.append('description',this.f.description.value);
         fd.append('keywords',this.f.keywords.value);
        
@@ -247,7 +248,7 @@ openSnackBar(message:string) {
       }
 
       else{
-        this.openSnackBar("Please Select the icon!!");
+        this.openSnackBar("Please Fill All the Fields");
       }
   
   
@@ -259,7 +260,7 @@ openSnackBar(message:string) {
   getParentCategories()
   {
     this.adminservice.getParentCategory().subscribe(data=>{
-      //console.log("cate",data["categories"]);
+      console.log("cate",data["categories"]);
       this.parentCategories=data["categories"];
 
     })
@@ -287,7 +288,11 @@ openSnackBar(message:string) {
   {
     this.selectedFilesidebar=<File>event.target.files[0];
   }
-  
+  // for multiselect
+  changed(data)
+  {
+this.selectedbrand=data.value;
+  }
 
 ngOnInit()
 {

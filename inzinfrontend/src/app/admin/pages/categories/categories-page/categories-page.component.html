@@ -120,30 +120,28 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail3">Brands</label><br>
-                <select2 [data]="exampleData"
+                <select2 [data]="exampleData" 
          [options]="options"
          [width]="500"
          [value]="value"
+         (valueChanged)="changed($event)"
          
 ></select2>
               </div>
               
               <div class="form-group">
                 <label for="exampleInputPassword4">Metatitle</label>
-                <input type="password" class="form-control" formControlName="metatitle" placeholder="Password">
+                <input type="text" class="form-control" formControlName="metatitle" placeholder="Password">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword4">Heading</label>
-                <input type="password" class="form-control" formControlName="heading" placeholder="Heading">
+                <input type="text" class="form-control" formControlName="heading" placeholder="Heading">
               </div>
               <div class="form-group">
-                <label for="exampleSelectPrimary">Primary</label>
-                <select class="form-control border-primary" id="exampleSelectPrimary">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <label for="exampleSelectPrimary">Parent Category</label>
+                <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
+                  <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
+                 
                 </select>
               </div>
               <div class="form-group">
