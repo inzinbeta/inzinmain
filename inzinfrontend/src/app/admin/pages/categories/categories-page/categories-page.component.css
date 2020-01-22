@@ -78,3 +78,7 @@
       opacity: 0;
     }
   }
+.mat-cell, .mat-footer-cell {
+    font-size: 14px;
+    border: 1px solid #ddd;
+}
