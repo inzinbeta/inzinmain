@@ -348,7 +348,7 @@ this.selectedbrand=data.value;
 
 ngOnInit()
 {
-  $('.dropify').dropify({}); 
+  //$('.dropify').dropify({}); 
   this.getParentCategories();
   this.getAllCategories();
   this.categoryForm = this.formBuilder.group({
