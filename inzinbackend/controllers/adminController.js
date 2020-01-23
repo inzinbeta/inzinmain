@@ -159,6 +159,51 @@ adminController.getAllBrands=async(req,res)=>{
 
 }
 
+adminController.saveBrand=async(req,res)=>{
+
+  req.body.imagelogo=req.files.imagelogo.path
+  req.body.imagesidebar=req.files.imagesidebar.path
+let _brandsave=await adminService.saveBrand(req.body);
+if(_brandsave)
+{
+  res.json({status:true})
+}
+
+else{
+  res.json({status:false})
+}
+
+}
+
+adminController.updateBrand=async(req,res)=>{
+  req.body.imagelogo=req.files.imagelogo.path
+  req.body.imagesidebar=req.files.imagesidebar.path
+  let _brandsave=await adminService.saveBrand(req.body);
+  if(_brandsave)
+  {
+    res.json({status:true})
+  }
+  
+  else{
+    res.json({status:false})
+  }
+  
+  }
+
+  adminController.deleteBrand=async(req,res)=>{
+
+    let _brandsave=await adminService.deleteBrand(req.body);
+    if(_brandsave)
+    {
+      res.json({status:true})
+    }
+    
+    else{
+      res.json({status:false})
+    }
+    
+
+  }
 
 
 /**

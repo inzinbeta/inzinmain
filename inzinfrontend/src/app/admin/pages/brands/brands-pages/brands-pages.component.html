@@ -19,7 +19,7 @@
             <button mat-raised-button color="primary" 
             (click)="openDialog()"
             matTooltip="Click To Add A New User"
-            >New Category</button>
+            >New Brand</button>
           </div>
           <div class="col-md-6">
             <div class="example-header ">
@@ -128,35 +128,36 @@
         <ng-template #dialog>
 
           <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            
             <div class="form-group">
-              <label for="exampleInputName1"> Name</label>
+              <label for="exampleSelectPrimary">Brand Category</label>
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
+                <option  value="Premium">Premium</option>
+                <option  value="Premium">Non Premium</option>
+               
+              </select>
+            </div>
+            
+           
+            <div class="form-group">
+              <label for="exampleSelectPrimary">Category</label>
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
+                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
+               
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Brand</label>
               <input type="text" class="form-control" id="exampleInputName1" formControlName="name" placeholder="Name">
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail3">Brands</label><br>
-              <select2 [data]="exampleData" 
-       [options]="options"
-       [width]="500"
-       [value]="value"
-       (valueChanged)="changed($event)"
-       
-></select2>
-            </div>
-            
-            <div class="form-group">
-              <label for="exampleInputPassword4">Metatitle</label>
+              <label for="exampleInputPassword4">Title</label>
               <input type="text" class="form-control" formControlName="metatitle" placeholder="Password">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Heading</label>
               <input type="text" class="form-control" formControlName="heading" placeholder="Heading">
-            </div>
-            <div class="form-group">
-              <label for="exampleSelectPrimary">Parent Category</label>
-              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
-                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
-               
-              </select>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Keywords</label>
@@ -171,27 +172,8 @@
               <label for="exampleInputPassword4">Content</label>
               <angular-editor formControlName="content" id="three" [config]="editorConfig"></angular-editor>
             </div>
-            <div class="form-group">
-              <label>Logo upload</label>
-              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
-              <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" value="{{selectedFilelogo?.name}}" disabled placeholder="Logo">
-                <div class="input-group-append">
-                  <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Sidebar upload</label>
-              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
-              <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" value="{{selectedFilesidebar?.name}}" disabled placeholder="Sidebar">
-                <div class="input-group-append">
-                  <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
-                </div>
-              </div>
-            </div>
+          
+           
 
 
 

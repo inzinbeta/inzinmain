@@ -5,23 +5,21 @@ const categorySchema=require("../models/categories");
 
 const brandSchema=new Schema({
 
-    brand_img:String,//
-    brand:String,//
-    seo_heading:String,//
-    seo_title:String,//
-    content:String,//
-    seo_keywords:String,
-    seo_slug:String,//
-    seo_description:String,//
-    parentcategory:String,//
-   // business_partner:[ ],
-    states:[String],//
-    districts:[{_state:String,_district:String}], // storing respective state with district//
-    slug:String,//
-    investment:String,
-    business_exp:String,
-    sizes:String,
-
+   
+    imagelogo:String, // percategory one icon
+    imagesidebar:String,
+    name:String,
+    brand:String,
+    title:String, // to be inserted in meta_tag
+    heading:String,
+    brandcategory:{
+        type:String,
+       
+    },
+    description:String, // to be shown on particular page of category
+    content:String,
+    keywords:String,
+   
 
 });
 

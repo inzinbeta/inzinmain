@@ -205,6 +205,43 @@ return await User.deleteOne({username:username});
   * 
   */
 adminService.saveBrand=async(data)=>{
+  try{
+    let brand =new Brand(data);
+    return await brand.save();
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.updateBrand=async(brand)=>{
+  try{
+    return await Brand.updateOne({_id:brand._id},brand)
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.deleteBrand=async(brand)=>{
+try{
+return await Brand.deleteOne({_id:brand._id});
+}
+
+catch(e)
+{
+
+}
 
 }
 
