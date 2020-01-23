@@ -250,42 +250,38 @@
                 <angular-editor formControlName="content" id="three" [config]="editorConfig"></angular-editor>
               </div>
               <div class="form-group">
-                <label>Logo upload</label>
-                <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
                 <div class="input-group col-xs-12">
+                  <label>Logo upload</label>
+                  <div class="col-md-12">
+                  <img id="blah" src="http://placehold.it/120x120"  class="file-upload-browse" (click)="filelogo.click()">
+                  <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
                   <input type="text" class="form-control file-upload-info" value="{{selectedFilelogo?.name}}" disabled placeholder="Logo">
-                  <div class="input-group-append">
-                    <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
+                  </div>
+                  <div class="col-md-12">
+                    <button class="file-upload-browse btn btn-info"  type="button">Remove</button>
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <label>Sidebar upload</label>
-                <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
                 <div class="input-group col-xs-12">
-                  <input type="text" class="form-control file-upload-info" value="{{selectedFilesidebar?.name}}" disabled placeholder="Sidebar">
-                  <div class="input-group-append">
-                    <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
+                  <label>Sidebar upload</label>
+                  <div class="col-md-12">
+                  <img id="blah" src="http://placehold.it/120x120"  class="file-upload-browse" (click)="filelogo.click()">
+                  <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
+                  <input type="text" class="form-control file-upload-info" value="{{selectedFilelogo?.name}}" disabled placeholder="Logo">
+                  </div>
+                  <div class="col-md-12">
+                    <button class="file-upload-browse btn btn-info"  type="button">Remove</button>
                   </div>
                 </div>
               </div>
-
               <button type="submit" class="btn btn-success mr-2">Update</button>
-              
             </form>
-
           </ng-template>
-         
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <app-footer></app-footer>
-          <footer class="footer">
-            <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2017 <a href="#">UrbanUI</a>. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
-            </div>
-          </footer>
           <!-- partial -->
         </div>
         <!-- row-offcanvas ends -->
@@ -294,5 +290,5 @@
     </div>
     <!-- container-scroller -->
   </body>
-  
+
   
