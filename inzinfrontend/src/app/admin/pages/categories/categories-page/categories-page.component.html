@@ -21,169 +21,104 @@
               matTooltip="Click To Add A New User"
               >New Category</button>
             </div>
+            <div class="col-md-6">
+              <div class="example-header ">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+              </div>
+            </div>
           
 
               <div [style.display]="spinner? 'none':'none'" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
              <!---->
            
-             <div class="table-responsive">
-              <table id="order-listing"  datatable class="table">
-                <thead>
-                  <tr>
-                      <th>Order #</th>
-                      <th>Purchased On</th>
-                      <th>Customer</th>
-                      <th>Ship to</th>
-                      <th>Base Price</th>
-                      <th>Purchased Price</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>2012/08/03</td>
-                      <td>Edinburgh</td>
-                      <td>New York</td>
-                      <td>$1500</td>
-                      <td>$3200</td>
-                      <td>
-                        <label class="badge badge-info">On hold</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>2</td>
-                      <td>2015/04/01</td>
-                      <td>Doe</td>
-                      <td>Brazil</td>
-                      <td>$4500</td>
-                      <td>$7500</td>
-                      <td>
-                        <label class="badge badge-danger">Pending</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>3</td>
-                      <td>2010/11/21</td>
-                      <td>Sam</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-success">Closed</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>4</td>
-                      <td>2016/01/12</td>
-                      <td>Sam</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-success">Closed</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>5</td>
-                      <td>2017/12/28</td>
-                      <td>Sam</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-success">Closed</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>6</td>
-                      <td>2000/10/30</td>
-                      <td>Sam</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-info">On-hold</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>7</td>
-                      <td>2011/03/11</td>
-                      <td>Cris</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-success">Closed</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>8</td>
-                      <td>2015/06/25</td>
-                      <td>Tim</td>
-                      <td>Italy</td>
-                      <td>$6300</td>
-                      <td>$2100</td>
-                      <td>
-                        <label class="badge badge-info">On-hold</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>9</td>
-                      <td>2016/11/12</td>
-                      <td>John</td>
-                      <td>Tokyo</td>
-                      <td>$2100</td>
-                      <td>$6300</td>
-                      <td>
-                        <label class="badge badge-success">Closed</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>10</td>
-                      <td>2003/12/26</td>
-                      <td>Tom</td>
-                      <td>Germany</td>
-                      <td>$1100</td>
-                      <td>$2300</td>
-                      <td>
-                        <label class="badge badge-danger">Pending</label>
-                      </td>
-                      <td>
-                        <button class="btn btn-outline-primary">View</button>
-                      </td>
-                  </tr>
-                </tbody>
-              </table>                    
-            </div>
+             <mat-table [dataSource]="dataSource" matSort >
+              <ng-container matColumnDef="imagelogo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Logo</mat-header-cell>
+                <mat-cell *matCellDef="let row"> <img [src]="linkImg(row.imagelogo)" width="42" height="42" alt=""> </mat-cell>
+              </ng-container>
+            <ng-container matColumnDef="imagesidebar">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Sidebar</mat-header-cell>
+              <mat-cell *matCellDef="let row"> <img [src]="linkImg(row.imagesidebar)"  width="42" height="42" alt=""> </mat-cell>
+            </ng-container>
+            
+              <!-- ID Column -->
+              <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                </ng-container>
+              <ng-container matColumnDef="metatitle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Metatitle</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.metatitle}} </mat-cell>
+              </ng-container>
+          
+              <!-- Progress Column -->
+              <ng-container matColumnDef="heading">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Heading </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.heading}}  </mat-cell>
+              </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="brands">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header > Brands </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  style="word-wrap: break-word"> {{row.brandsl}}  </mat-cell>
+                </ng-container>
+
+                  <!-- Progress Column -->
+              <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Description </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.description}}  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="keywords">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Keywords </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.keywords}}  </mat-cell>
+              </ng-container>
+
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="isParent">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header > Isactive </mat-header-cell>
+                  <mat-cell *matCellDef="let row" > {{row.isParent}} </mat-cell>
+                </ng-container>
+
+                  <!-- Progress Column -->
+                  <ng-container matColumnDef="edit" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
+                    <mat-cell *matCellDef="let row" style="cursor:pointer;">
+                      <button mat-raised-button color="primary" 
+                      (click)="editData(row)"
+              matTooltip="Click To Edit"
+              >Edit</button>
+              </mat-cell>
+                      
+                      
+                     
+              
+                  </ng-container>
+
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="delete" >
+                      <mat-header-cell *matHeaderCellDef mat-sort-header > Delete</mat-header-cell>
+                      <mat-cell *matCellDef="let row" style="cursor:pointer;">
+                        
+                        <button mat-raised-button color="primary" 
+                        (click)="deleteData(row)"
+                matTooltip="Click To Delete"
+                >Delete</button>
+                </mat-cell>
+                       
+                    </ng-container>
+          
+            
+        
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
               
           </div>
         
@@ -257,6 +192,8 @@
                   </div>
                 </div>
               </div>
+
+
 
             
           

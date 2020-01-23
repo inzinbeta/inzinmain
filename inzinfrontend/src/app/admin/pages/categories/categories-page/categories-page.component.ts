@@ -11,6 +11,7 @@ import { CategoryModel } from '../../shared/models/CategoryModel';
 import { environment } from '../../../../../environments/environment';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Select2OptionData } from 'ng2-select2';
+declare var $: any;
 @Component({
   selector: 'app-categories-page',
   templateUrl: './categories-page.component.html',
@@ -347,6 +348,7 @@ this.selectedbrand=data.value;
 
 ngOnInit()
 {
+  $('.dropify').dropify({}); 
   this.getParentCategories();
   this.getAllCategories();
   this.categoryForm = this.formBuilder.group({
