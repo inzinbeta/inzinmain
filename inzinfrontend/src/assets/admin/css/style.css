@@ -14786,7 +14786,7 @@ input:focus {
       .navbar .navbar-brand-wrapper .navbar-brand img {
         width: calc(255px - 130px);
         max-width: 100%;
-        height: 28px;
+        width: 100px;
         margin: auto;
         vertical-align: middle; }
     .navbar .navbar-brand-wrapper .brand-logo-mini {
@@ -21934,7 +21934,7 @@ div.tagsinput {
   background-size: cover; }
 
 .auth .login-half-bg {
-  background: url("http://via.placeholder.com/1366x768/f4f4f4/000000");
+  background: url("../images/login_2.jpg");
   background-size: cover; }
 
 .auth.register-full-bg {

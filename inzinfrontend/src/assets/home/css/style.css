@@ -421,13 +421,13 @@ h6 {
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-    background: #ff3a54;
+    background: #eac226;
 }
 
 /* Handle on hover */
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ff3a54;
+    background: #eac226;
 }
 
 /*======================= 
