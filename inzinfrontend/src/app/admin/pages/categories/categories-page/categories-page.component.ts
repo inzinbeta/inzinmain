@@ -301,12 +301,7 @@ openSnackBar(message:string) {
 
       else{
         this.openSnackBar("Please Fill All the Fields");
-      }
-  
-  
-     
-        
-        
+      }      
   }
 
   getParentCategories()

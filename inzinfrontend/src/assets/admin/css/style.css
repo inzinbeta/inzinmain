@@ -17293,6 +17293,9 @@ code {
   .dropdown-menu .dropdown-item:active {
     background: initial; }
 
+.form-group .file-upload-info{
+      display:none;
+    }
 /* Forms */
 .input-group-text, .asColorPicker-trigger {
   background: #ffffff;
