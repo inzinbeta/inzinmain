@@ -207,6 +207,70 @@ adminController.updateBrand=async(req,res)=>{
   }
 
 
+  /**
+   * Premium Brands
+   */
+
+   adminController.savePremiumBrand=async(req,res)=>{
+
+    req.body.imagelogo=req.files.imagelogo.path
+    req.body.imagesidebar=req.files.imagesidebar.path
+  let _brandsave=await adminService.savePremiumBrand(req.body);
+  if(_brandsave)
+  {
+    res.json({status:true})
+  }
+  
+  else{
+    res.json({status:false})
+  }
+
+
+
+
+   }
+
+
+
+   adminController.updatePremiumBrand=async(req,res)=>{
+    req.body.imagelogo=req.files.imagelogo.path
+    req.body.imagesidebar=req.files.imagesidebar.path
+    let _brandsave=await adminService.updatePremiumBrand(req.body);
+    if(_brandsave)
+    {
+      res.json({status:true})
+    }
+    
+    else{
+      res.json({status:false})
+    }
+    
+    }
+  
+    adminController.deletePremiumBrand=async(req,res)=>{
+  
+      let _brandsave=await adminService.deletePremiumBrand(req.body);
+      if(_brandsave)
+      {
+        res.json({status:true})
+      }
+      
+      else{
+        res.json({status:false})
+      }
+      
+  
+    }
+
+
+    adminController.getAllPremiumBrands=async(req,res)=>{
+      let _branddata=await adminService.getPremiumBrands();
+     
+      res.json(_branddata);
+     
+     
+     }
+
 /**
  * 
  * States and Districts

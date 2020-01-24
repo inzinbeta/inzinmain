@@ -12,14 +12,13 @@ import { environment } from '../../../../../environments/environment';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Select2OptionData } from 'ng2-select2';
 import { BrandsModel } from '../../shared/models/BrandsModel';
-declare var $: any;
 
 @Component({
-  selector: 'app-products-page',
-  templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.css']
+  selector: 'app-premiumbrands-page',
+  templateUrl: './premiumbrands-page.component.html',
+  styleUrls: ['./premiumbrands-page.component.css']
 })
-export class ProductsPageComponent implements OnInit {
+export class PremiumbrandsPageComponent implements OnInit {
 
   displayedColumns = ['imagelogo','imagesidebar', 'title','heading','parentcategory','brand','description','keywords','edit','delete'];
   //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
@@ -228,15 +227,8 @@ openSnackBar(message:string) {
         let file_extt=this.selectedFilesidebar.name.split(".");
         fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
         fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
-       
-        fd.append('title',this.f.title.value);
-        fd.append('heading',this.f.heading.value);
         fd.append('brand',this.f.brand.value);
         fd.append('description',this.f.description.value);
-        fd.append('keywords',this.f.keywords.value);
-       
-        fd.append('content',this.f.content.value);
-      
         fd.append('parentcategory',this.f.parentcategory.value);
        console.log(fd);
        
@@ -362,11 +354,21 @@ ngOnInit()
   this.getAllBrands();
   this.categoryForm = this.formBuilder.group({
    title:[""],
-   heading:[""],
-   brand:[""],
+   cnfname:[""],
+   cnfarea:[""],
+   cnfinvestment:[""],
+   cnfteam:[""],
+   distributorname:[""],
+   distributorarea:[""],
+   distributorinvestment:[""],
+   distributorteam:[""],
+   dealername:[""],
+   dealerarea:[""],
+   dealerinvestment:[""],
+   dealerteam:[""],
+   brands:[""],
    description:[""],
-   content:[""],
-   keywords:[""],
+   distributor:[""],
    parentcategory:[""],
    brandcategory:[""]
 

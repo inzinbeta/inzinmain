@@ -9,6 +9,7 @@ const User=require('../models/users');
 const Category=require("../models/categories");
 const StateAndDistrict=require("../models/stateanddistricts");
 const Brand=require('../models/brands');
+const PremiumBrand=require('../models/premiumbrands');
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -275,6 +276,61 @@ adminService.getBrands=async()=>{
 
 
 }
+
+/**
+ * Premium Brands
+ */
+
+adminService.savePremiumBrand=async(data)=>{
+  try{
+    let brand =new PremiumBrand(data);
+    return await brand.save();
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.updatePremiumBrand=async(brand)=>{
+  try{
+    return await PremiumBrand.updateOne({_id:brand._id},brand)
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.deletePremiumBrand=async(brand)=>{
+try{
+return await PremiumBrand.deleteOne({_id:brand._id});
+}
+
+catch(e)
+{
+
+}
+
+}
+
+adminService.getPremiumBrands=async()=>{
+  console.log(await Brand.find({}))
+  return await PremiumBrand.find({});
+
+
+}
+
+
+
 
 /**
  * 

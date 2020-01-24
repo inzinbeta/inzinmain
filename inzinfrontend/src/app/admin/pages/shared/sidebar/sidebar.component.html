@@ -5,7 +5,7 @@
         <a class="nav-link" routerLink="/admin/dashboard">
           <i class="icon-rocket menu-icon"></i>
           <span class="menu-title">Dashboard</span>
-          <span class="badge badge-success">New</span>
+        
         </a>
       </li>
       <li class="nav-item">
@@ -20,18 +20,28 @@
           <span class="menu-title">Products</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/brands">
-          <i class="icon-shield menu-icon"></i>
-          <span class="menu-title">Brands</span>
-        </a>
-      </li>
+     
 
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/categories">
           <i class="icon-shield menu-icon"></i>
           <span class="menu-title">Categories</span>
         </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" (click)="brandexpand=!brandexpand" href="javascript:void(0)" aria-expanded="false" aria-controls="page-layouts">
+          <i class="icon-check menu-icon"></i>
+          <span class="menu-title">Brands</span>
+          
+        </a>
+        <div class="collapse" id="page-layouts" [style.display]="brandexpand?'block':'none'">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item d-none d-lg-block"> <a class="nav-link" routerLink="/admin/brands">Manage Brands</a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/admin/premiumbrands">Manage Premium Brands</a></li>
+            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>
+          </ul>
+        </div>
       </li>
      
     </ul>

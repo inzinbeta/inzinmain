@@ -123,6 +123,39 @@ editBrand(formdata)
 }
 
 
+/**
+ * Premium Brands
+ */
+
+getAllPremiumBrands()
+{
+ return this.http.post<BrandsModel[]>(`http://${environment.url}:${environment.port}/admin/getAllPremiumBrands`,{});
+
+}
+
+
+savePremiumBrand(formdata)
+{
+  console.log("fd",formdata);
+ return this.http.post(`http://${environment.url}:${environment.port}/admin/savePremiumBrand`,formdata);
+
+}
+
+
+deletePremiumrand(category)
+{
+  return this.http.post(`http://${environment.url}:${environment.port}/admin/deletePremiumBrand`,category);
+
+}
+editPremiumBrand(formdata)
+{
+  return this.http.post(`http://${environment.url}:${environment.port}/admin/updatePremiumBrand`,formdata);
+
+}
+
+
+
+
  /**
   * States and Districts
   */

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth-guard.service';
 
-
+// Regsiter every module under admin url here for lazy loading 
 const routes: Routes = [
   
   {
@@ -35,6 +35,11 @@ const routes: Routes = [
   {
     path: 'brands',
     loadChildren: './pages/brands/brands.module#BrandsModule',
+    canActivate:[AuthGuard],
+  },
+  {
+    path: 'premiumbrands',
+    loadChildren: './pages/premiumbrands/premiumbrands.module#PremiumbrandsModule',
     canActivate:[AuthGuard],
   },
 

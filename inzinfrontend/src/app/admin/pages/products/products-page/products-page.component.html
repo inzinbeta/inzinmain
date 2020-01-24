@@ -22,253 +22,274 @@
             >New Product</button>
           </div>
           <div class="col-md-6">
-              <div class="example-header ">
-                <mat-form-field>
-                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                </mat-form-field>
-              </div>
+            <div class="example-header ">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
             </div>
+          </div>
+        
 
             <div [style.display]="spinner? 'block':'none'" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+           <!---->
+         
+           <mat-table [dataSource]="dataSource" matSort >
+            <ng-container matColumnDef="imagelogo">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Logo</mat-header-cell>
+              <mat-cell *matCellDef="let row"> <img [src]="linkImg(row.imagelogo)" width="42" height="42" alt=""> </mat-cell>
+            </ng-container>
+          <ng-container matColumnDef="imagesidebar">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Sidebar</mat-header-cell>
+            <mat-cell *matCellDef="let row"> <img [src]="linkImg(row.imagesidebar)"  width="42" height="42" alt=""> </mat-cell>
+          </ng-container>
+          
            
-          <mat-table [dataSource]="dataSource" matSort >
-          
-              <!-- ID Column -->
-              <ng-container matColumnDef="photo_icon">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Icon</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> <img  height="42" width="42"  [src]="linkImg(row.photo_icon)" alt=""> </mat-cell>
-                </ng-container>
-              <ng-container matColumnDef="category_name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.category_name}} </mat-cell>
-              </ng-container>
-          
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+            </ng-container>
+        
+            <!-- Progress Column -->
+            <ng-container matColumnDef="heading">
+              <mat-header-cell *matHeaderCellDef mat-sort-header > Heading </mat-header-cell>
+              <mat-cell *matCellDef="let row" > {{row.heading}}  </mat-cell>
+            </ng-container>
+
               <!-- Progress Column -->
-              <ng-container matColumnDef="seo_title">
-                <mat-header-cell *matHeaderCellDef mat-sort-header > Title </mat-header-cell>
-                <mat-cell *matCellDef="let row" > {{row.seo_title}}  </mat-cell>
+              <ng-container matColumnDef="brand">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Brand </mat-header-cell>
+                <mat-cell *matCellDef="let row"  style="word-wrap: break-word"> {{row.brand}}  </mat-cell>
               </ng-container>
 
                 <!-- Progress Column -->
-                <ng-container matColumnDef="seo_heading">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header > Heading </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  style="word-wrap: break-word"> {{row.seo_heading}}  </mat-cell>
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef mat-sort-header > Description </mat-header-cell>
+              <mat-cell *matCellDef="let row" > {{row.description}}  </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="keywords">
+              <mat-header-cell *matHeaderCellDef mat-sort-header > Keywords </mat-header-cell>
+              <mat-cell *matCellDef="let row" > {{row.keywords}}  </mat-cell>
+            </ng-container>
+
+
+              <!-- Progress Column -->
+              <ng-container matColumnDef="parentcategory">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > ParentCategory</mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.parentcategory}} </mat-cell>
+              </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="edit" >
+                  <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
+                  <mat-cell *matCellDef="let row" style="cursor:pointer;">
+                    <button mat-raised-button color="primary" 
+                    (click)="editData(row)"
+            matTooltip="Click To Edit"
+            >Edit</button>
+            </mat-cell>
+                    
+                    
+                   
+            
                 </ng-container>
 
                   <!-- Progress Column -->
-              <ng-container matColumnDef="seo_slug">
-                <mat-header-cell *matHeaderCellDef mat-sort-header > Slug </mat-header-cell>
-                <mat-cell *matCellDef="let row" > {{row.seo_slug}}  </mat-cell>
-              </ng-container>
-
-
-                <!-- Progress Column -->
-                <ng-container matColumnDef="seo_category_Description">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header > Description </mat-header-cell>
-                  <mat-cell *matCellDef="let row" > {{row.seo_category_Description}}  </mat-cell>
-                </ng-container>
+                  <ng-container matColumnDef="delete" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > Delete</mat-header-cell>
+                    <mat-cell *matCellDef="let row" style="cursor:pointer;">
+                      
+                      <button mat-raised-button color="primary" 
+                      (click)="deleteData(row)"
+              matTooltip="Click To Delete"
+              >Delete</button>
+              </mat-cell>
+                     
+                  </ng-container>
+        
           
-                 <!-- Progress Column -->
-                 <ng-container matColumnDef="seo_keywords">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header > Keywords </mat-header-cell>
-                  <mat-cell *matCellDef="let row" > {{row.seo_keywords}}  </mat-cell>
-                </ng-container>
-
-
-                 <!-- Progress Column -->
-                 <ng-container matColumnDef="isParent">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header > IsParent </mat-header-cell>
-                  <mat-cell *matCellDef="let row" > {{row.isParent}}  </mat-cell>
-                </ng-container>
-
-                    <!-- Progress Column -->
-                    <ng-container matColumnDef="edit" >
-                      <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
-                      <mat-cell *matCellDef="let row" style="cursor:pointer;"><mat-icon (click)="editData(row)">edit</mat-icon> </mat-cell>
-                    </ng-container>
-
-                      <!-- Progress Column -->
-                      <ng-container matColumnDef="delete" >
-                        <mat-header-cell *matHeaderCellDef mat-sort-header > Delete</mat-header-cell>
-                        <mat-cell *matCellDef="let row" style="cursor:pointer;"> <mat-icon (click)="deleteData(row)">delete_forever</mat-icon> </mat-cell>
-                      </ng-container>
+      
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+          </mat-table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             
-        
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;">
-              </mat-row>
-            </mat-table>
-          
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
-        <ng-template #dialog>
-          <li>
-        
-            <input type="file"  style="display: none;" accept="image/*" (change)="onFileSelected($event)" #file>
-            <button mat-raised-button color="primary"
-            type="button" 
-            (click)="file.click()"
+      
+
+
        
-        matTooltip="Click To Select the file"
-        >Select Icon</button>
-        <span><mat-label>{{selectedFile?.name}}</mat-label></span>
-              
-              </li><br>
-          <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <ng-template #dialog>
 
-        
-          <ol>
-            <li > 
-              <mat-label>IS Parent?</mat-label><br>
-              <mat-checkbox id="amateur" class="amateur" color="primary"
-              formControlName="isParent" (change)="parentTrue($event)" >Is Parent?</mat-checkbox>
-            </li>
+          <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Logo upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewUrl" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
 
-            <li [style.display]="isParent?'none':'block' ">
-              <mat-form-field>
-                <mat-label>Select Parent Category</mat-label>
-                <mat-select formControlName="parentCategory">
-                  <mat-option *ngFor="let category of parentCategories" [value]="category">
-                    {{category}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </li>
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="maincategory" placeholder="Category Name">
-                </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_title" placeholder="SEO TITLE">
-                 </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_heading" placeholder="SEO HEADING">
-               </mat-form-field>
-            </li>
-
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_slug" placeholder="SEO SLUG">
-                 </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="seo_category_Description"  placeholder="SEO CATEGORY DESCRIPTION"></textarea>
-                </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="page_content"  placeholder="PAGE CONTENT"></textarea>
-            </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="seo_keyword"  placeholder="SEO KEYWORDS"></textarea>
-               </mat-form-field>
-            </li>
-
-             <li>
-              
-              
-                <button mat-raised-button color="primary"
-                type="submit" 
+            <div class="form-group">
+              <label>Sidebar upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewurlSide" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleSelectPrimary">Brand Category</label>
+              <select class="form-control border-primary" formControlName="brandcategory" id="exampleSelectPrimary">
+                <option  value="Premium">Premium</option>
+                <option  value="Premium">Non Premium</option>
+               
+              </select>
+            </div>
+            
            
-            matTooltip="Click To Submit The Form"
-            >Submit</button>
+            <div class="form-group">
+              <label for="exampleSelectPrimary">Category</label>
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimarycc">
+                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
+               
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Brand</label>
+              <input type="text" class="form-control" id="exampleInputName1" formControlName="brand" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Title</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Heading</label>
+              <input type="text" class="form-control" formControlName="heading" placeholder="Heading">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Keywords</label>
+              <angular-editor formControlName="keywords" id="one" [config]="editorConfig"></angular-editor>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Description</label>
+              <angular-editor formControlName="description" id="two" [config]="editorConfig"></angular-editor>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword4">Content</label>
+              <angular-editor formControlName="content" id="three" [config]="editorConfig"></angular-editor>
+            </div>
           
-            </li>
-          </ol>
-        </form>
+           
+
+
+
+          
         
+            <button type="submit" class="btn btn-success mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+
         </ng-template>
 
-
         <ng-template #editdialog>
-          <li>
-        
-            <input type="file"  style="display: none;" accept="image/*" (change)="onFileSelected($event)" #file>
-            <button mat-raised-button color="primary"
-            type="button" 
-            (click)="file.click()"
-       
-        matTooltip="Click To Select the file"
-        >Select Icon</button>
-        <span><mat-label>{{selectedFile?.name}}</mat-label></span>
-              
-              </li><br>
-          <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+          <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Logo upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewUrl" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
 
-        
-          <ol>
-           
-
+            <div class="form-group">
+              <label>Sidebar upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewurlSide" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleSelectPrimary">Brand Category</label>
+              <select class="form-control border-primary" formControlName="brandcategory" id="exampleSelectPrimary22">
+                <option  value="Premium">Premium</option>
+                <option  value="Premium">Non Premium</option>
+               
+              </select>
+            </div>
             
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="maincategory" placeholder="Category Name">
-                </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_title" placeholder="SEO TITLE">
-                 </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_heading" placeholder="SEO HEADING">
-               </mat-form-field>
-            </li>
-
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <input matInput formControlName="seo_slug" placeholder="SEO SLUG">
-                 </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="seo_category_Description"  placeholder="SEO CATEGORY DESCRIPTION"></textarea>
-                </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="page_content"  placeholder="PAGE CONTENT"></textarea>
-            </mat-form-field>
-            </li>
-
-            <li>
-              <mat-form-field  [style.width.px]=327 >
-                <textarea matInput formControlName="seo_keyword"  placeholder="SEO KEYWORDS"></textarea>
-               </mat-form-field>
-            </li>
-
-             <li>
-              
-              
-                <button mat-raised-button color="primary"
-                type="submit" 
            
-            matTooltip="Click To Submit The Form"
-            >Update</button>
+            <div class="form-group">
+              <label for="exampleSelectPrimary">Category</label>
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary1">
+                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
+               
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Brand</label>
+              <input type="text" class="form-control" id="exampleInputName1" formControlName="brand" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Title</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Heading</label>
+              <input type="text" class="form-control" formControlName="heading" placeholder="Heading">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Keywords</label>
+              <angular-editor formControlName="keywords" id="one" [config]="editorConfig"></angular-editor>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Description</label>
+              <angular-editor formControlName="description" id="two" [config]="editorConfig"></angular-editor>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword4">Content</label>
+              <angular-editor formControlName="content" id="three" [config]="editorConfig"></angular-editor>
+            </div>
           
-            </li>
-          </ol>
-        </form>
+           
+
+
+
+          
         
+            <button type="submit" class="btn btn-success mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+
         </ng-template>
        
         <!-- content-wrapper ends -->
@@ -290,4 +311,3 @@
 
   
 </body>
-
