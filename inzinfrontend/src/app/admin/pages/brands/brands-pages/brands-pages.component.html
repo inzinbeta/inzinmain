@@ -30,7 +30,7 @@
           </div>
         
 
-            <div [style.display]="spinner? 'none':'none'" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div [style.display]="spinner? 'block':'none'" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
            <!---->
          
            <mat-table [dataSource]="dataSource" matSort >
@@ -43,14 +43,10 @@
             <mat-cell *matCellDef="let row"> <img [src]="linkImg(row.imagesidebar)"  width="42" height="42" alt=""> </mat-cell>
           </ng-container>
           
-            <!-- ID Column -->
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-              </ng-container>
-            <ng-container matColumnDef="metatitle">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Metatitle</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.metatitle}} </mat-cell>
+           
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
             </ng-container>
         
             <!-- Progress Column -->
@@ -60,9 +56,9 @@
             </ng-container>
 
               <!-- Progress Column -->
-              <ng-container matColumnDef="brands">
-                <mat-header-cell *matHeaderCellDef mat-sort-header > Brands </mat-header-cell>
-                <mat-cell *matCellDef="let row"  style="word-wrap: break-word"> {{row.brandsl}}  </mat-cell>
+              <ng-container matColumnDef="brand">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Brand </mat-header-cell>
+                <mat-cell *matCellDef="let row"  style="word-wrap: break-word"> {{row.brand}}  </mat-cell>
               </ng-container>
 
                 <!-- Progress Column -->
@@ -78,9 +74,9 @@
 
 
               <!-- Progress Column -->
-              <ng-container matColumnDef="isParent">
-                <mat-header-cell *matHeaderCellDef mat-sort-header > Isactive </mat-header-cell>
-                <mat-cell *matCellDef="let row" > {{row.isParent}} </mat-cell>
+              <ng-container matColumnDef="parentcategory">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > ParentCategory</mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.parentcategory}} </mat-cell>
               </ng-container>
 
                 <!-- Progress Column -->
@@ -128,10 +124,36 @@
         <ng-template #dialog>
 
           <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-            
+            <div class="form-group">
+              <label>Logo upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewUrl" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sidebar upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewurlSide" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               <label for="exampleSelectPrimary">Brand Category</label>
-              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
+              <select class="form-control border-primary" formControlName="brandcategory" id="exampleSelectPrimary">
                 <option  value="Premium">Premium</option>
                 <option  value="Premium">Non Premium</option>
                
@@ -141,7 +163,7 @@
            
             <div class="form-group">
               <label for="exampleSelectPrimary">Category</label>
-              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimarycc">
                 <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
                
               </select>
@@ -149,11 +171,11 @@
 
             <div class="form-group">
               <label for="exampleInputName1">Brand</label>
-              <input type="text" class="form-control" id="exampleInputName1" formControlName="name" placeholder="Name">
+              <input type="text" class="form-control" id="exampleInputName1" formControlName="brand" placeholder="Name">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Title</label>
-              <input type="text" class="form-control" formControlName="metatitle" placeholder="Password">
+              <input type="text" class="form-control" formControlName="title" placeholder="Password">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Heading</label>
@@ -186,37 +208,63 @@
         </ng-template>
 
         <ng-template #editdialog>
-
-          <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onEdit()">
+          <form class="forms-sample" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label for="exampleInputName1"> Name</label>
-              <input type="text" class="form-control" id="exampleInputName1" formControlName="name" placeholder="Name">
+              <label>Logo upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewUrl" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="filelogo.click()" type="button">Upload</button>                          
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sidebar upload</label>
+              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <div class="image-preview mb-3" >
+                  
+                  <img [src]="previewurlSide" width="82" height="82" />                 
+              </div>
+                <div class="input-group-append">
+                  <button class="file-upload-browse btn btn-info" (click)="fileside.click()" type="button">Upload</button>                          
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail3">Brands</label><br>
-              <select2 [data]="exampleData" 
-       [options]="options"
-       [width]="500"
-       [value]="value"
-       (valueChanged)="changed($event)"
-       
-></select2>
+              <label for="exampleSelectPrimary">Brand Category</label>
+              <select class="form-control border-primary" formControlName="brandcategory" id="exampleSelectPrimary22">
+                <option  value="Premium">Premium</option>
+                <option  value="Premium">Non Premium</option>
+               
+              </select>
             </div>
             
+           
             <div class="form-group">
-              <label for="exampleInputPassword4">Metatitle</label>
-              <input type="text" class="form-control" formControlName="metatitle" placeholder="Password">
+              <label for="exampleSelectPrimary">Category</label>
+              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary1">
+                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
+               
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Brand</label>
+              <input type="text" class="form-control" id="exampleInputName1" formControlName="brand" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword4">Title</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="Password">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Heading</label>
               <input type="text" class="form-control" formControlName="heading" placeholder="Heading">
-            </div>
-            <div class="form-group">
-              <label for="exampleSelectPrimary">Parent Category</label>
-              <select class="form-control border-primary" formControlName="parentcategory" id="exampleSelectPrimary">
-                <option *ngFor="let category of parentCategories" value="{{category}}">{{category}}</option>
-               
-              </select>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Keywords</label>
@@ -231,36 +279,15 @@
               <label for="exampleInputPassword4">Content</label>
               <angular-editor formControlName="content" id="three" [config]="editorConfig"></angular-editor>
             </div>
-            <div class="form-group">
-              <label>Logo upload</label>
-              <div class="col-md-12"></div>
-              <img id="blah" src="http://placehold.it/120x120"  class="file-upload-browse" (click)="filelogo.click()">
-              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelected($event)" #filelogo  class="file-upload-default">
-              <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" value="{{selectedFilelogo?.name}}" disabled placeholder="Logo">
-                <div class="input-group-append">
-                  <button class="file-upload-browse btn btn-info" type="button">Remove</button>                          
-                </div>
-              </div>
-            </div>
+          
+           
 
-            <div class="form-group">
-              <label>Sidebar upload</label>
-              <div class="col-md-12"></div>
-              <img id="blah" src="http://placehold.it/120x120"  class="file-upload-browse" (click)="filelogo.click()">
-              <input type="file" style="display: none;" accept="image/*" (change)="onFileSelectedside($event)" #fileside  class="file-upload-default">
-              <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" value="{{selectedFilesidebar?.name}}" disabled placeholder="Sidebar">
-                <div class="input-group-append">
-                  <button class="file-upload-browse btn btn-info" type="button">Remove</button>                          
-                </div>
-              </div>
-            </div>
+
 
           
         
-            <button type="submit" class="btn btn-success mr-2">Update</button>
-            
+            <button type="submit" class="btn btn-success mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
           </form>
 
         </ng-template>

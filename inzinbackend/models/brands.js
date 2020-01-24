@@ -8,7 +8,6 @@ const brandSchema=new Schema({
    
     imagelogo:String, // percategory one icon
     imagesidebar:String,
-    name:String,
     brand:String,
     title:String, // to be inserted in meta_tag
     heading:String,
@@ -19,6 +18,7 @@ const brandSchema=new Schema({
     description:String, // to be shown on particular page of category
     content:String,
     keywords:String,
+    parentcategory:String,
    
 
 });

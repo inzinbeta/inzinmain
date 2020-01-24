@@ -20,16 +20,10 @@ declare var $: any;
 export class CategoriesPageComponent implements OnInit {
 
   displayedColumns = ['imagelogo','imagesidebar','name', 'metatitle','heading','brands','description','keywords','isParent','edit','delete'];
-  //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
   dataSource: MatTableDataSource<CategoryModel>;
   categoryForm:FormGroup;
   public contactList: FormArray;
-  email = new FormControl('', [Validators.required, Validators.email]);
-  username=new FormControl('', [Validators.required]);
-  password=new FormControl('', [Validators.required]);
-  name=new FormControl('', [Validators.required]);
-  errors:any={};
-  spinner:boolean=true;
+  spinner:boolean=false;
   isParent:boolean=false;
   parentCategories:string[]=["home","menu"];
   selectedFilelogo=null;
@@ -39,6 +33,9 @@ export class CategoriesPageComponent implements OnInit {
   selectedItems = [];
   dropdownSettings = {};
   selectedbrand:string[]=[];
+
+  previewUrl:any="assets/admin/images/download.jpeg";
+  previewurlSide:any="assets/admin/images/download.jpeg";
   brands=[{
     id: 'multiple1',
     text: 'Multiple 1'
@@ -147,6 +144,7 @@ openSnackBar(message:string) {
   editData(row)
   {
 
+    console.log(row._id);
   //  console.log(row.brands);
     const dialogRef = this.dialog.open(this.edittemplate, {
       height: '500px',
@@ -156,7 +154,10 @@ openSnackBar(message:string) {
 
    
     // seeting the form values accordingly except username
+    this.previewUrl=this.linkImg(row.imagelogo);
+    this.previewurlSide=this.linkImg(row.imagesidebar);
     this.f.name.setValue(row.name);
+    this.f._id.setValue(row._id);
     this.f.metatitle.setValue(row.metatitle);
     this.f.heading.setValue(row.heading);
     //this.f.seo_slug.setValue(row.seo_slug);
@@ -169,19 +170,16 @@ openSnackBar(message:string) {
     dialogRef.afterClosed().subscribe(result => {
       this.categoryForm.reset();
       this.value=[];
+      this.previewurlSide="assets/admin/images/download.jpeg";
+      this.previewUrl="assets/admin/images/download.jpeg";
      
     });
   }
 
   deleteData(row)
   {
-    console.log(row);
-    let parentcategory;
-    if(row.isParent)
-    {
-    parentcategory=null;
-    }
-    this.adminservice.deleteCategory(row.category_name,parentcategory).subscribe(data=>{
+   
+    this.adminservice.deleteCategory(row).subscribe(data=>{
       console.log(data);
       this.getAllCategories();
     })
@@ -279,7 +277,7 @@ openSnackBar(message:string) {
         fd.append('brands',this.selectedbrand.join(","));
         fd.append('description',this.f.description.value);
         fd.append('keywords',this.f.keywords.value);
-       
+        fd.append('_id',this.f._id.value);
         fd.append('content',this.f.content.value);
         if(this.f.parentcategory.value)
         {
@@ -291,7 +289,7 @@ openSnackBar(message:string) {
         fd.append('parentcategory',this.f.parentcategory.value);
        console.log(fd);
        
-        this.adminservice.saveCategory(fd).subscribe(data=>{
+        this.adminservice.editCategory(fd).subscribe(data=>{
           this.openSnackBar(data["message"]);
           this.closeDialog();
           this.getAllCategories();
@@ -329,11 +327,26 @@ openSnackBar(message:string) {
   onFileSelected(event)
   {
     this.selectedFilelogo=<File>event.target.files[0];
+    var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.previewUrl = reader.result;
+      }
+    
   }
 
   onFileSelectedside(event)
   {
     this.selectedFilesidebar=<File>event.target.files[0];
+    var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.previewurlSide = reader.result;
+      }
   }
   // for multiselect
   changed(data)
@@ -354,7 +367,8 @@ ngOnInit()
    description:[""],
    content:[""],
    keywords:[""],
-   parentcategory:[""]
+   parentcategory:[""],
+   _id:[""] ,// only for editing purpose
    
  });
 

@@ -109,7 +109,7 @@ let response=parent_cate.map(ele=>ele.name);
 // getting all categories using aggreagtion pipe line in node js
 
 adminController.getAllCategories=async(req,res)=>{
-  let data_res=await adminService.getParentCategories();
+  let data_res=await adminService.getAllCategories();
   
 
   res.json(data_res);
@@ -118,13 +118,14 @@ adminController.getAllCategories=async(req,res)=>{
 
 adminController.deleteCategory=async(req,res)=>{
 
-let _res=await adminService.deleteCategory(req.body.category._id);
+let _res=await adminService.deleteCategory(req.body._id);
 console.log(_res);
 res.json({"status":true});
 
 }
 
 adminController.updateCategory=async(req,res)=>{
+  console.log(req.body);
   req.body.imagelogo=req.files.imagelogo.path
   req.body.imagesidebar=req.files.imagesidebar.path
   req.body.brands=req.body.brands.split(",");
@@ -133,16 +134,16 @@ adminController.updateCategory=async(req,res)=>{
 
   if(resw)
   {
-    res.json({status:true,"message":"Category Added"})
+    res.json({status:true,"message":"Category Updated"})
   }
 
   else{
-    res.json({status:false,"message":"Category Already exists"})
+    res.json({status:false,"message":"Internal Server Error"})
   }
 
   console.log(resw);
 
-res.json({"status":true,"message":_res});
+
 
 
 }
@@ -152,7 +153,7 @@ Brands
 */
 
 adminController.getAllBrands=async(req,res)=>{
- let _branddata=adminService.getBrands();
+ let _branddata=await adminService.getBrands();
 
  res.json(_branddata);
 

@@ -107,7 +107,7 @@ openSnackBar(message:string) {
     {
     parentcategory=null;
     }
-    this.adminservice.deleteCategory(row.category_name,parentcategory).subscribe(data=>{
+    this.adminservice.deleteCategory(row.category_name).subscribe(data=>{
       console.log(data);
       this.getAllCategories();
     })

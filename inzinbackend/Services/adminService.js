@@ -123,7 +123,23 @@ return await User.deleteOne({username:username});
  */
 
   // it returns the categories that are not embedded in the documents
+  // only getting the parent categories
  adminService.getParentCategories=async()=>{
+
+  let category_array= await Category.find({isParent:true});
+  if(category_array)
+  {
+     return category_array;
+  }
+
+  else{
+    return [];
+  }
+
+ }
+
+
+ adminService.getAllCategories=async()=>{
 
   let category_array= await Category.find();
   if(category_array)
@@ -136,6 +152,8 @@ return await User.deleteOne({username:username});
   }
 
  }
+
+ 
 
  // GET ALL CATEGORIES 
 /**
@@ -192,8 +210,14 @@ return await User.deleteOne({username:username});
 
  adminService.updateCategory=async(category)=>
  {
-
- return await Category.updateOne({category_name:category.name},category);
+if(category.isParent=="no")
+{
+  category.isParent=false;
+}
+else{
+  category.isParent=true;
+}
+ return await Category.updateOne({_id:category._id},category);
 
 
  }
@@ -246,7 +270,7 @@ catch(e)
 }
 
 adminService.getBrands=async()=>{
-
+  console.log(await Brand.find({}))
   return await Brand.find({});
 
 

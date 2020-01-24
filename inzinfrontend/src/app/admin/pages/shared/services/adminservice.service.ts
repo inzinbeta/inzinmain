@@ -79,9 +79,9 @@ export class AdminserviceService {
  }
 
 
- deleteCategory(category,parentCategory)
+ deleteCategory(category)
  {
-   return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteCategory`,{category:category,parentCategory:parentCategory});
+   return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteCategory`,category);
 
  }
  editCategory(formdata)
@@ -101,6 +101,27 @@ getAllBrands()
  return this.http.post<BrandsModel[]>(`http://${environment.url}:${environment.port}/admin/getAllBrands`,{});
 
 }
+
+
+saveBrand(formdata)
+{
+  console.log("fd",formdata);
+ return this.http.post(`http://${environment.url}:${environment.port}/admin/saveBrand`,formdata);
+
+}
+
+
+deleteBrand(category)
+{
+  return this.http.post(`http://${environment.url}:${environment.port}/admin/deleteBrand`,category);
+
+}
+editBrand(formdata)
+{
+  return this.http.post(`http://${environment.url}:${environment.port}/admin/updateBrand`,formdata);
+
+}
+
 
  /**
   * States and Districts

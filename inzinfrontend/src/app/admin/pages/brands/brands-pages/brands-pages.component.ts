@@ -11,6 +11,7 @@ import { CategoryModel } from '../../shared/models/CategoryModel';
 import { environment } from '../../../../../environments/environment';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Select2OptionData } from 'ng2-select2';
+import { BrandsModel } from '../../shared/models/BrandsModel';
 declare var $: any;
 
 @Component({
@@ -20,9 +21,9 @@ declare var $: any;
 })
 export class BrandsPagesComponent implements OnInit {
 
-  displayedColumns = ['imagelogo','imagesidebar','name', 'metatitle','heading','brands','description','keywords','isParent','edit','delete'];
+  displayedColumns = ['imagelogo','imagesidebar', 'title','heading','parentcategory','brand','description','keywords','edit','delete'];
   //users:UserModel[]=[{username:"hello",password:"Hello",name:"Logan"}];
-  dataSource: MatTableDataSource<CategoryModel>;
+  dataSource: MatTableDataSource<BrandsModel>;
   categoryForm:FormGroup;
   public contactList: FormArray;
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -30,7 +31,7 @@ export class BrandsPagesComponent implements OnInit {
   password=new FormControl('', [Validators.required]);
   name=new FormControl('', [Validators.required]);
   errors:any={};
-  spinner:boolean=true;
+  spinner:boolean=false;
   isParent:boolean=false;
   parentCategories:string[]=["home","menu"];
   selectedFilelogo=null;
@@ -40,6 +41,8 @@ export class BrandsPagesComponent implements OnInit {
   selectedItems = [];
   dropdownSettings = {};
   selectedbrand:string[]=[];
+  previewUrl:any="assets/admin/images/download.jpeg";
+  previewurlSide:any="assets/admin/images/download.jpeg";
   brands=[{
     id: 'multiple1',
     text: 'Multiple 1'
@@ -157,8 +160,8 @@ openSnackBar(message:string) {
 
    
     // seeting the form values accordingly except username
-    this.f.name.setValue(row.name);
-    this.f.metatitle.setValue(row.metatitle);
+    
+    this.f.title.setValue(row.title);
     this.f.heading.setValue(row.heading);
     //this.f.seo_slug.setValue(row.seo_slug);
     this.f.description.setValue(row.description);
@@ -166,25 +169,24 @@ openSnackBar(message:string) {
     this.f.keywords.setValue(row.keywords);
     //this.f.isParent(row.isParent);
     this.f.parentcategory.setValue(row.parentcategory);
-    this.value = row.brands
+    this.f.brandcategory.setValue(row.brandcategory);
+    this.f.brand.setValue(row.brand);
     dialogRef.afterClosed().subscribe(result => {
       this.categoryForm.reset();
       this.value=[];
+      this.selectedFilelogo="assets/admin/images/download.jpeg";
+      this.selectedFilesidebar="assets/admin/images/download.jpeg";
+     
      
     });
   }
 
   deleteData(row)
   {
-    console.log(row);
-    let parentcategory;
-    if(row.isParent)
-    {
-    parentcategory=null;
-    }
-    this.adminservice.deleteCategory(row.category_name,parentcategory).subscribe(data=>{
+   
+    this.adminservice.deleteBrand(row).subscribe(data=>{
       console.log(data);
-      this.getAllCategories();
+      this.getAllBrands();
     })
 
   }
@@ -215,8 +217,10 @@ openSnackBar(message:string) {
   onSubmit()
   {
    //console.log(this.selectedbrand);
+
  
-      if(this.selectedFilelogo && this.selectedFilesidebar && this.selectedbrand.length>0)
+ 
+      if(this.selectedFilelogo && this.selectedFilesidebar)
       {
    
         const fd=new FormData();
@@ -224,28 +228,22 @@ openSnackBar(message:string) {
         let file_extt=this.selectedFilesidebar.name.split(".");
         fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
         fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
-        fd.append('name',this.f.name.value);
-        fd.append('metatitle',this.f.metatitle.value);
+       
+        fd.append('title',this.f.title.value);
         fd.append('heading',this.f.heading.value);
-        fd.append('brands',this.selectedbrand.join(","));
+        fd.append('brand',this.f.brand.value);
         fd.append('description',this.f.description.value);
         fd.append('keywords',this.f.keywords.value);
        
         fd.append('content',this.f.content.value);
-        if(this.f.parentcategory.value)
-        {
-          fd.append('isParent',"no");
-        }
-        else{
-          fd.append('isParent',"yes");
-        }
+      
         fd.append('parentcategory',this.f.parentcategory.value);
        console.log(fd);
        
-        this.adminservice.saveCategory(fd).subscribe(data=>{
+        this.adminservice.saveBrand(fd).subscribe(data=>{
           this.openSnackBar(data["message"]);
           this.closeDialog();
-          this.getAllCategories();
+          this.getAllBrands();
           //console.log(data["message"]);
         })
       }
@@ -266,67 +264,62 @@ openSnackBar(message:string) {
   {
    //console.log(this.selectedbrand);
  
-      if(this.selectedFilelogo && this.selectedFilesidebar && this.selectedbrand.length>0)
-      {
-   
-        const fd=new FormData();
-        let file_ext=this.selectedFilelogo.name.split(".");
-        let file_extt=this.selectedFilesidebar.name.split(".");
-        fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
-        fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
-        fd.append('name',this.f.name.value);
-        fd.append('metatitle',this.f.metatitle.value);
-        fd.append('heading',this.f.heading.value);
-        fd.append('brands',this.selectedbrand.join(","));
-        fd.append('description',this.f.description.value);
-        fd.append('keywords',this.f.keywords.value);
-       
-        fd.append('content',this.f.content.value);
-        if(this.f.parentcategory.value)
-        {
-          fd.append('isParent',"no");
-        }
-        else{
-          fd.append('isParent',"yes");
-        }
-        fd.append('parentcategory',this.f.parentcategory.value);
-       console.log(fd);
-       
-        this.adminservice.saveCategory(fd).subscribe(data=>{
-          this.openSnackBar(data["message"]);
-          this.closeDialog();
-          this.getAllCategories();
-          //console.log(data["message"]);
-        })
-      }
+   if(this.selectedFilelogo && this.selectedFilesidebar)
+   {
 
-      else{
-        this.openSnackBar("Please Fill All the Fields");
-      }
-  
-  
-     
+     const fd=new FormData();
+     let file_ext=this.selectedFilelogo.name.split(".");
+     let file_extt=this.selectedFilesidebar.name.split(".");
+     fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
+     fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
+    
+     fd.append('title',this.f.title.value);
+     fd.append('heading',this.f.heading.value);
+     fd.append('brand',this.f.brand.value);
+     fd.append('description',this.f.description.value);
+     fd.append('keywords',this.f.keywords.value);
+    
+     fd.append('content',this.f.content.value);
+   
+     fd.append('parentcategory',this.f.parentcategory.value);
+    console.log(fd);
+    
+     this.adminservice.editBrand(fd).subscribe(data=>{
+       this.openSnackBar(data["message"]);
+       this.closeDialog();
+       this.getAllBrands();
+       //console.log(data["message"]);
+     })
+   }
+
+   else{
+     this.openSnackBar("Please Fill All the Fields");
+   }
+
+
         
         
   }
 
   getParentCategories()
   {
-    this.adminservice.getParentCategory().subscribe(data=>{
-      console.log("cate",data["categories"]);
-      this.parentCategories=data["categories"];
+    this.adminservice.getAllCategory().subscribe(data=>{
+      console.log(JSON.stringify(data));
+      // getting all categories name for dropdown in brands
+      this.parentCategories=data.map(({name})=>name);
 
     })
   }
 
-  getAllCategories()
-  {
+  getAllBrands()
+  { 
+    // Brands Data to be shown in the datatable
 
     this.spinner=true;
  
-    this.adminservice.getAllCategory().subscribe(data=>{
+    this.adminservice.getAllBrands().subscribe(data=>{
       console.log(data);
-      this.dataSource = new MatTableDataSource <CategoryModel>(data);
+      this.dataSource = new MatTableDataSource <BrandsModel>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.spinner=false;
@@ -335,11 +328,26 @@ openSnackBar(message:string) {
   onFileSelected(event)
   {
     this.selectedFilelogo=<File>event.target.files[0];
+    var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.previewUrl = reader.result;
+      }
+    
   }
 
   onFileSelectedside(event)
   {
     this.selectedFilesidebar=<File>event.target.files[0];
+    var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.previewurlSide = reader.result;
+      }
   }
   // for multiselect
   changed(data)
@@ -351,16 +359,18 @@ ngOnInit()
 {
   //$('.dropify').dropify({}); 
   this.getParentCategories();
-  this.getAllCategories();
+  this.getAllBrands();
   this.categoryForm = this.formBuilder.group({
-   name:["",Validators.required],
-   metatitle:[""],
+   title:[""],
    heading:[""],
-   brands:[""],
+   brand:[""],
    description:[""],
    content:[""],
    keywords:[""],
-   parentcategory:[""]
+   parentcategory:[""],
+   brandcategory:[""]
+
+  
    
  });
 
