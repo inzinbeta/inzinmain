@@ -217,6 +217,8 @@ openSnackBar(message:string) {
   {
    //console.log(this.selectedbrand);
 
+
+ 
  
  
       if(this.selectedFilelogo && this.selectedFilesidebar)
@@ -224,12 +226,25 @@ openSnackBar(message:string) {
    
         const fd=new FormData();
         let file_ext=this.selectedFilelogo.name.split(".");
-        let file_extt=this.selectedFilesidebar.name.split(".");
+        //let file_extt=this.selectedFilesidebar.name.split(".");
         fd.append('imagelogo',this.selectedFilelogo,`categoryicon.${file_ext[1]}`);
-        fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
+        //fd.append('imagesidebar',this.selectedFilesidebar,`categoryicon.${file_extt[1]}`);
         fd.append('brand',this.f.brand.value);
         fd.append('description',this.f.description.value);
         fd.append('parentcategory',this.f.parentcategory.value);
+        fd.append('cnfname',this.f.cnfname.value);
+        fd.append('cnfarea',this.f.cnfarea.value);
+        fd.append('cnfinvestment',this.f.cnfinvestmente.value);
+        fd.append('cnfteam',this.f.cnfteam.value);
+        fd.append('distributorname',this.f.distributorname.value);
+        fd.append('distributorarea',this.f.distributorarea.value);
+        fd.append('distributorinvestment',this.f.distributorinvestment.value);
+        fd.append('distributorteam',this.f.distributorteam.value);
+        fd.append('dealername',this.f.dealername.value);
+        fd.append('dealerarea',this.f.dealerarea.value);
+        fd.append('dealerinvestment',this.f.dealerinvestment.value);
+        fd.append('dealerteam',this.f.dealerteam.value);
+
        console.log(fd);
        
         this.adminservice.saveBrand(fd).subscribe(data=>{
@@ -353,7 +368,7 @@ ngOnInit()
   this.getParentCategories();
   this.getAllBrands();
   this.categoryForm = this.formBuilder.group({
-   title:[""],
+  
    cnfname:[""],
    cnfarea:[""],
    cnfinvestment:[""],
@@ -366,7 +381,7 @@ ngOnInit()
    dealerarea:[""],
    dealerinvestment:[""],
    dealerteam:[""],
-   brands:[""],
+   brands:[""], // premium selected brands in the category brandcategory
    description:[""],
    distributor:[""],
    parentcategory:[""],
