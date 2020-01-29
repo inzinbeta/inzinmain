@@ -43,6 +43,18 @@ const routes: Routes = [
     canActivate:[AuthGuard],
   },
 
+  {
+    path: 'tags',
+    loadChildren: './pages/tags/tags.module#TagsModule',
+    canActivate:[AuthGuard],
+  },
+
+  {
+    path: 'homeslider',
+    loadChildren: './pages/homeslider/homeslider.module#HomesliderModule',
+    canActivate:[AuthGuard],
+  },
+
 ];
 
 @NgModule({
