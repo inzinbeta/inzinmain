@@ -177,17 +177,18 @@ return await User.deleteOne({username:username});
  */
 
  adminService.saveCategory=async(data)=>{
-  
+ // console.log(JSON.parse(data));
    try{
 
     let category=new Category(data);
-      category.subcategories=[]; // assigning empty array to subcategory
-       return await category.save();
+      
+       await category.save();
+       return await Category.find();
 
    }
    catch(e)
    {
-
+console.log(e);
    }
   
   
@@ -195,32 +196,16 @@ return await User.deleteOne({username:username});
 
 
  adminService.deleteCategory=async(categoryid)=>{
-  let category_=await Category.findById(categoryid);
-  if(category_.isParent)
-  {
-  let _one=  Category.deleteOne({_id:categoryid});
-    let _two=Category.deleteMany({parentcategory:category_.name});
-    return await Promise.all([_one,_two])
-
-  }
-  else{
-    return await Category.deleteOne({_id:categoryid});
-  }
+  await Category.deleteOne({_id:categoryid});
+  return await Category.find();
 
  }
 
- adminService.updateCategory=async(category)=>
+ adminService.updateCategory=async(category,_id)=>
  {
-if(category.isParent=="no")
-{
-  category.isParent=false;
-}
-else{
-  category.isParent=true;
-}
- return await Category.updateOne({_id:category._id},category);
-
-
+console.log(category);
+ await Category.updateOne({_id:_id},{ $set: category });
+ return await Category.find();
  }
 
 

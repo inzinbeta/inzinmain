@@ -75,24 +75,53 @@ adminController.deleteUser=async(req,res)=>{
 // Uploading the catgories
 
 adminController.saveCategory=async(req,res)=>{
-  //console.log(req);
+
+  console.log("parse",req.body);
+  let formavalues=JSON.parse(req.body.formavalues);
+  if(req.files.imagelogo)
+  {
+    formavalues.imagelogo=req.files.imagelogo.path
+  }
+
+  if(req.files.imagesidebar)
+  {
+    formavalues.imagesidebar=req.files.imagesidebar.path
+  }
   
-  req.body.imagelogo=req.files.imagelogo.path
-  req.body.imagesidebar=req.files.imagesidebar.path
-  req.body.brands=req.body.brands.split(",");
-  let resw=await adminService.saveCategory(req.body);
-  console.log(resw);
+  
+  formavalues.brands=formavalues.brand
+  if(formavalues.parentcategory=="")
+  {
+    formavalues.isParent=true;
+  }
+
+  else{
+    formavalues.isParent=false;
+  }
+  let resw;
+ if(req.body.save=="yes")
+ {
+   console.log("Save called");
+  resw=await adminService.saveCategory(formavalues);
+ }
+else if(req.body.update=="yes"){
+  console.log("Update called",req.body._id);
+  resw=await adminService.updateCategory(formavalues,req.body._id)
+}
+
+  
+ // console.log(resw);
 
   if(resw)
   {
-    res.json({status:true,"message":"Category Added"})
+    res.json({status:true,"message":"Category Added",data:resw})
   }
 
   else{
     res.json({status:false,"message":"Category Already exists"})
   }
 
-  console.log(resw);
+  //console.log(resw);
   
 
 
@@ -117,10 +146,11 @@ adminController.getAllCategories=async(req,res)=>{
 }
 
 adminController.deleteCategory=async(req,res)=>{
+  console.log("delete called",req.body);
 
-let _res=await adminService.deleteCategory(req.body._id);
-console.log(_res);
-res.json({"status":true});
+let _res=await adminService.deleteCategory(req.body.categoryid);
+
+res.json({status:true,"message":"Category Deleted",data:_res})
 
 }
 
@@ -130,7 +160,7 @@ adminController.updateCategory=async(req,res)=>{
   req.body.imagesidebar=req.files.imagesidebar.path
   req.body.brands=req.body.brands.split(",");
   let resw=await adminService.updateCategory(req.body);
-  console.log(resw);
+ 
 
   if(resw)
   {
