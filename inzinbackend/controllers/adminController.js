@@ -368,6 +368,50 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
      
      
      }
+/**
+ * 
+ * Tags
+ * 
+ */
+adminController.getAllTags=async(req,res)=>{
+
+  let _data=await adminService.getAllTags();
+
+  res.status(200).json({status:true,data:_data})
+
+
+}
+
+
+adminController.saveTags=async(req,res)=>{
+  console.log(req.body);
+
+  let _data;
+  if(req.body.save=="yes")
+  {
+  _data= await adminService.saveTags(req.body.tag);
+  }
+else if(req.body.update=="yes")
+{
+  _data= await adminService.updateTag(req.body.tag,req.body._id);
+}
+  
+
+  res.status(200).json({status:true,data:_data,message:"Tag Saved"});
+  
+}
+
+
+
+
+
+adminController.deleteTags=async(req,res)=>{
+  //console.log(req.body);
+  let _data=await adminService.deleteTag(req.body._id);
+
+  res.status(200).json({status:true,data:_data})
+  
+}
 
 /**
  * 

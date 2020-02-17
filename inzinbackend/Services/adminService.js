@@ -10,6 +10,7 @@ const Category=require("../models/categories");
 const StateAndDistrict=require("../models/stateanddistricts");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
+const Tags=require('../models/tags');
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -322,9 +323,68 @@ adminService.getPremiumBrands=async()=>{
 
 }
 
+/**
+ * Tags
+ */
+
+adminService.getAllTags=async()=>{
+   try{
+
+    return await Tags.find(); // mongoose 
+   }
+   catch(e)
+   {
+
+   }
 
 
+}
 
+adminService.saveTags=async(tags)=>{
+
+  try{
+   let _tag=new Tags(tags);
+   await _tag.save(); // 
+  return await Tags.find(); // mongoose 
+   }
+   catch(e)
+   {
+console.log(e);
+   }
+
+
+}
+
+
+adminService.updateTag=async(tags,tagid)=>{
+
+try
+{
+   await Tags.updateOne({_id:tagid},{$set:tags});
+   return await Tags.find(); // mongoose 
+
+}
+catch(e)
+{
+
+}
+
+
+}
+
+adminService.deleteTag=async(tagid)=>{
+
+  try
+  {
+     await Tags.deleteOne({_id:tagid});
+     return await Tags.find(); // mongoose 
+  
+  }
+  catch(e)
+  {
+  
+  }
+}
 /**
  * 
  * States and Districts for Brands

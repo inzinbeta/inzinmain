@@ -56,6 +56,15 @@ router.delete("/deletePremiumBrand",adminMiddleware.registerUser,adminController
 
 
 
+/**
+ * Tags
+ */
+
+router.post("/getAllTags",adminMiddleware.registerUser,adminController.getAllTags);
+router.post("/saveTags",adminMiddleware.registerUser,multipartMiddleware,adminController.saveTags)
+//router.post("/updateTags",adminMiddleware.registerUser,multipartMiddleware,adminController.updateTags)
+router.post("/deleteTags",adminMiddleware.registerUser,adminController.deleteTags)
+
 
 /**
  * 
