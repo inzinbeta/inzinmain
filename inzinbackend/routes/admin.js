@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
  router.post("/getAllBrands",adminMiddleware.registerUser,adminController.getAllBrands);
  router.post("/saveBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.saveBrand)
  router.put("/updateBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updateBrand)
- router.delete("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand)
+ router.post("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand)
 
 /**
  * Premium Brands

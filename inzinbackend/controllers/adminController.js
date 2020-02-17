@@ -76,53 +76,60 @@ adminController.deleteUser=async(req,res)=>{
 
 adminController.saveCategory=async(req,res)=>{
 
-  console.log("parse",req.body);
-  let formavalues=JSON.parse(req.body.formavalues);
-  if(req.files.imagelogo)
-  {
-    formavalues.imagelogo=req.files.imagelogo.path
-  }
+  try{
 
-  if(req.files.imagesidebar)
-  {
-    formavalues.imagesidebar=req.files.imagesidebar.path
+    let formavalues=JSON.parse(req.body.formavalues);
+    if(req.files.imagelogo)
+    {
+      formavalues.imagelogo=req.files.imagelogo.path
+    }
+  
+    if(req.files.imagesidebar)
+    {
+      formavalues.imagesidebar=req.files.imagesidebar.path
+    }
+    
+    
+    formavalues.brands=formavalues.brand
+    if(formavalues.parentcategory=="")
+    {
+      formavalues.isParent=true;
+    }
+  
+    else{
+      formavalues.isParent=false;
+    }
+    let resw;
+   if(req.body.save=="yes")
+   {
+     console.log("Save called");
+    resw=await adminService.saveCategory(formavalues);
+   }
+  else if(req.body.update=="yes"){
+    console.log("Update called",req.body._id);
+    resw=await adminService.updateCategory(formavalues,req.body._id)
   }
   
+    
+   // console.log(resw);
   
-  formavalues.brands=formavalues.brand
-  if(formavalues.parentcategory=="")
+    if(resw)
+    {
+      res.json({status:true,"message":"Category Added",data:resw})
+    }
+  
+    else{
+      res.json({status:false,"message":"Category Already exists"})
+    }
+  
+    //console.log(resw);
+    
+  }
+  catch(e)
   {
-    formavalues.isParent=true;
+    console.log(e);
   }
-
-  else{
-    formavalues.isParent=false;
-  }
-  let resw;
- if(req.body.save=="yes")
- {
-   console.log("Save called");
-  resw=await adminService.saveCategory(formavalues);
- }
-else if(req.body.update=="yes"){
-  console.log("Update called",req.body._id);
-  resw=await adminService.updateCategory(formavalues,req.body._id)
-}
-
-  
- // console.log(resw);
-
-  if(resw)
-  {
-    res.json({status:true,"message":"Category Added",data:resw})
-  }
-
-  else{
-    res.json({status:false,"message":"Category Already exists"})
-  }
-
-  //console.log(resw);
-  
+ 
 
 
 }
@@ -191,18 +198,57 @@ adminController.getAllBrands=async(req,res)=>{
 }
 
 adminController.saveBrand=async(req,res)=>{
+ 
 
-  req.body.imagelogo=req.files.imagelogo.path
-  req.body.imagesidebar=req.files.imagesidebar.path
-let _brandsave=await adminService.saveBrand(req.body);
-if(_brandsave)
-{
-  res.json({status:true})
-}
+  try{
 
-else{
-  res.json({status:false})
-}
+    let formavalues=JSON.parse(req.body.formavalues);
+    if(req.files.imagelogo)
+    {
+      formavalues.imagelogo=req.files.imagelogo.path
+    }
+  
+    if(req.files.imagesidebar)
+    {
+      formavalues.imagesidebar=req.files.imagesidebar.path
+    }
+    
+    
+    
+    let resw;
+   if(req.body.save=="yes")
+   {
+     console.log("Save called");
+    resw=await adminService.saveBrand(formavalues);
+   }
+  else if(req.body.update=="yes"){
+    console.log("Update called",req.body._id);
+    resw=await adminService.updateBrand(formavalues,req.body._id)
+  }
+  
+    
+   // console.log(resw);
+  
+    if(resw)
+    {
+      res.json({status:true,"message":"Brand Added",data:resw})
+    }
+  
+    else{
+      res.json({status:false,"message":"Brand Already exists"})
+    }
+  
+    //console.log(resw);
+    
+  }
+  catch(e)
+  {
+    console.log(e);
+  }
+ 
+
+
+
 
 }
 
@@ -223,16 +269,14 @@ adminController.updateBrand=async(req,res)=>{
 
   adminController.deleteBrand=async(req,res)=>{
 
-    let _brandsave=await adminService.deleteBrand(req.body);
-    if(_brandsave)
-    {
-      res.json({status:true})
-    }
-    
-    else{
-      res.json({status:false})
-    }
-    
+
+    console.log("delete called",req.body);
+
+let _res=await adminService.deleteBrand(req.body.brandid);
+
+res.json({status:true,"message":"Brand Deleted",data:_res})
+
+   
 
   }
 

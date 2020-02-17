@@ -215,37 +215,41 @@ console.log(category);
   * 
   */
 adminService.saveBrand=async(data)=>{
-  try{
-    let brand =new Brand(data);
-    return await brand.save();
-  }
-  
-
-  catch(e)
-  {
-
-  }
-
-}
-
-
-adminService.updateBrand=async(brand)=>{
-  try{
-    return await Brand.updateOne({_id:brand._id},brand)
-  }
-  
-
-  catch(e)
-  {
-
-  }
-
-}
-
-
-adminService.deleteBrand=async(brand)=>{
 try{
-return await Brand.deleteOne({_id:brand._id});
+    let brand =new Brand(data);
+     await brand.save();
+     return await Brand.find();
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.updateBrand=async(brand,_id)=>{
+  try{
+ 
+    await Brand.updateOne({_id:_id},{ $set:brand });
+    return await Brand.find();
+  }
+  
+
+  catch(e)
+  {
+console.log(e);
+  }
+
+}
+
+
+adminService.deleteBrand=async(brandid)=>{
+try{
+  await Brand.deleteOne({_id:brandid});
+  return await Brand.find();
 }
 
 catch(e)
