@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
  */
 
 router.post("/getAllPremiumBrands",adminMiddleware.registerUser,adminController.getAllPremiumBrands);
-router.post("/savePremiumBrands",adminMiddleware.registerUser,multipartMiddleware,adminController.savePremiumBrand)
+router.post("/savePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.savePremiumBrand)
 router.put("/updatePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updatePremiumBrand)
 router.delete("/deletePremiumBrand",adminMiddleware.registerUser,adminController.deletePremiumBrand)
 

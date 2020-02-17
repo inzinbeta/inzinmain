@@ -273,7 +273,9 @@ adminService.getBrands=async()=>{
 adminService.savePremiumBrand=async(data)=>{
   try{
     let brand =new PremiumBrand(data);
-    return await brand.save();
+    await brand.save();
+    return await PremiumBrand.find();
+   
   }
   
 
@@ -285,9 +287,10 @@ adminService.savePremiumBrand=async(data)=>{
 }
 
 
-adminService.updatePremiumBrand=async(brand)=>{
+adminService.updatePremiumBrand=async(brand,_id)=>{
   try{
-    return await PremiumBrand.updateOne({_id:brand._id},brand)
+     await PremiumBrand.updateOne({_id:_id},{$set:brand})
+    return await PremiumBrand.find();
   }
   
 
@@ -299,20 +302,21 @@ adminService.updatePremiumBrand=async(brand)=>{
 }
 
 
-adminService.deletePremiumBrand=async(brand)=>{
-try{
-return await PremiumBrand.deleteOne({_id:brand._id});
-}
-
-catch(e)
-{
-
-}
+adminService.deletePremiumBrand=async(brandid)=>{
+  try{
+    await PremiumBrand.deleteOne({_id:brandid});
+    return await PremiumBrand.find();
+  }
+  
+  catch(e)
+  {
+  
+  }
 
 }
 
 adminService.getPremiumBrands=async()=>{
-  console.log(await Brand.find({}))
+  //console.log(await Brand.find({}))
   return await PremiumBrand.find({});
 
 

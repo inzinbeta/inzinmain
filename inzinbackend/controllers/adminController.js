@@ -3,14 +3,14 @@ const adminService=require("../Services/adminService");
 const adminController={};
 adminController.registerUser=async(req,res)=>{
 
-    console.log("got");
+    //console.log("got");
     res.json("hii");
 }
 
 
 adminController.userLogin=async(req,res)=>{
-    console.log(req.body.username,req.body.password)
-    console.log(typeof 9);//
+    //console.log(req.body.username,req.body.password)
+    //console.log(typeof 9);//
     let response=await adminService.getUserByUsername(req.body.username,req.body.password);
     res.json(response);
 }
@@ -102,16 +102,16 @@ adminController.saveCategory=async(req,res)=>{
     let resw;
    if(req.body.save=="yes")
    {
-     console.log("Save called");
+     //console.log("Save called");
     resw=await adminService.saveCategory(formavalues);
    }
   else if(req.body.update=="yes"){
-    console.log("Update called",req.body._id);
+    //console.log("Update called",req.body._id);
     resw=await adminService.updateCategory(formavalues,req.body._id)
   }
   
     
-   // console.log(resw);
+   // //console.log(resw);
   
     if(resw)
     {
@@ -122,12 +122,12 @@ adminController.saveCategory=async(req,res)=>{
       res.json({status:false,"message":"Category Already exists"})
     }
   
-    //console.log(resw);
+    ////console.log(resw);
     
   }
   catch(e)
   {
-    console.log(e);
+    //console.log(e);
   }
  
 
@@ -153,7 +153,7 @@ adminController.getAllCategories=async(req,res)=>{
 }
 
 adminController.deleteCategory=async(req,res)=>{
-  console.log("delete called",req.body);
+  //console.log("delete called",req.body);
 
 let _res=await adminService.deleteCategory(req.body.categoryid);
 
@@ -162,7 +162,7 @@ res.json({status:true,"message":"Category Deleted",data:_res})
 }
 
 adminController.updateCategory=async(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
   req.body.imagelogo=req.files.imagelogo.path
   req.body.imagesidebar=req.files.imagesidebar.path
   req.body.brands=req.body.brands.split(",");
@@ -178,7 +178,7 @@ adminController.updateCategory=async(req,res)=>{
     res.json({status:false,"message":"Internal Server Error"})
   }
 
-  console.log(resw);
+  //console.log(resw);
 
 
 
@@ -218,16 +218,16 @@ adminController.saveBrand=async(req,res)=>{
     let resw;
    if(req.body.save=="yes")
    {
-     console.log("Save called");
+     //console.log("Save called");
     resw=await adminService.saveBrand(formavalues);
    }
   else if(req.body.update=="yes"){
-    console.log("Update called",req.body._id);
+    //console.log("Update called",req.body._id);
     resw=await adminService.updateBrand(formavalues,req.body._id)
   }
   
     
-   // console.log(resw);
+   // //console.log(resw);
   
     if(resw)
     {
@@ -238,12 +238,12 @@ adminController.saveBrand=async(req,res)=>{
       res.json({status:false,"message":"Brand Already exists"})
     }
   
-    //console.log(resw);
+    ////console.log(resw);
     
   }
   catch(e)
   {
-    console.log(e);
+    //console.log(e);
   }
  
 
@@ -270,7 +270,7 @@ adminController.updateBrand=async(req,res)=>{
   adminController.deleteBrand=async(req,res)=>{
 
 
-    console.log("delete called",req.body);
+    //console.log("delete called",req.body);
 
 let _res=await adminService.deleteBrand(req.body.brandid);
 
@@ -286,20 +286,51 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
    */
 
    adminController.savePremiumBrand=async(req,res)=>{
+     console.log("the req",req);
 
-    req.body.imagelogo=req.files.imagelogo.path
-    req.body.imagesidebar=req.files.imagesidebar.path
-  let _brandsave=await adminService.savePremiumBrand(req.body);
-  if(_brandsave)
-  {
-    res.json({status:true})
-  }
-  
-  else{
-    res.json({status:false})
-  }
+    try{
 
-
+      let formavalues=JSON.parse(req.body.formavalues);
+      if(req.files.imagelogo)
+      {
+        formavalues.imagelogo=req.files.imagelogo.path
+      }
+    
+     
+      
+      
+      
+      let resw;
+     if(req.body.save=="yes")
+     {
+       //console.log("Save called");
+      resw=await adminService.savePremiumBrand(formavalues);
+     }
+    else if(req.body.update=="yes"){
+      console.log("Update called",req.body._id);
+      resw=await adminService.updatePremiumBrand(formavalues,req.body._id)
+    }
+    
+      
+     // //console.log(resw);
+    
+      if(resw)
+      {
+        res.json({status:true,"message":"Brand Added",data:resw})
+      }
+    
+      else{
+        res.json({status:false,"message":"Brand Already exists"})
+      }
+    
+      ////console.log(resw);
+      
+    }
+    catch(e)
+    {
+      //console.log(e);
+    }
+   
 
 
    }
@@ -323,15 +354,8 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
   
     adminController.deletePremiumBrand=async(req,res)=>{
   
-      let _brandsave=await adminService.deletePremiumBrand(req.body);
-      if(_brandsave)
-      {
-        res.json({status:true})
-      }
-      
-      else{
-        res.json({status:false})
-      }
+      let _brandsave=await adminService.deletePremiumBrand(req.body.brandid);
+      res.json({status:true,"message":"Premium Brand Deleted",data:_res})
       
   
     }

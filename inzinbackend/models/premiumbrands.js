@@ -7,36 +7,30 @@ const premiumbrandSchema=new Schema({
 
    
     imagelogo:String, // percategory one icon
-    imagesidebar:String,
+   
     brand:String,
   
-    brandcategory:{
-        type:String,
-       
-    },
     description:String, // to be shown on particular page of category
    
     parentcategory:String,
-    cnf:{
-        name:String,
-        salesarea:String,
-        investement:String,
-        team:String
-    },
+   
+        cnf:String,
+       
+        cnfarea:String,
+        cnfinvestment:String,
+        cnfsalesteam:String,
+        distributor:String,
+       
+        distributorarea:String,
+        distributorinvestment:String,
+        distributorsalesteam:String,
+        dealer:String,
+       
+        dealerarea:String,
+        dealerinvestment:String,
+        dealersalesteam:String
+   
 
-    distributor:{
-        name:String,
-        salesarea:String,
-        investement:String,
-        team:String
-    },
-
-    dealer:{
-        name:String,
-        salesarea:String,
-        investement:String,
-        team:String
-    }
    
 
 });
