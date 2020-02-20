@@ -23,6 +23,15 @@ router.get('/', function(req, res, next) {
  router.post("/registeruser",adminMiddleware.registerUser,adminController.registerUser);
  router.post("/checkEmail",adminMiddleware.registerUser,adminController.checkEmail);
  router.post("/checkUsername",adminMiddleware.registerUser,adminController.checkUsername);
+ 
+ /**
+  * Tags
+  */
+ 
+ router.post("/getAllTags",adminMiddleware.registerUser,adminController.getAllTags);
+
+
+
  /**
   * Categories
   */
@@ -63,6 +72,13 @@ router.delete("/deletePremiumBrand",adminMiddleware.registerUser,adminController
  */
 
 router.post("/getAllStates",adminMiddleware.registerUser,adminController.getAllStates);
+
+
+/**
+ * All Products
+ */
+router.post("/getAllProducts",adminMiddleware.registerUser,adminController.getAllProducts);
+
 
 
 

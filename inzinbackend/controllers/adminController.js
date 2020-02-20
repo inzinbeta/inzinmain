@@ -283,5 +283,26 @@ adminController.updateBrand=async(req,res)=>{
 
  }
 
+ /**
+  * Tag
+  */
+
+ adminController.getAllTags=async(req,res)=>{
+  let data_res=await adminService.getAllTags();
+  console.log("admincontroller");
+
+  res.json(data_res);
+
+}
+ /**
+  * All Products
+  */
+ adminController.getAllProducts=async(req,res)=>{
+  let data_res=await adminService.getAllProducts();
+  console.log("admincontroller");
+
+  res.json(data_res);
+
+}
 
 module.exports=adminController;

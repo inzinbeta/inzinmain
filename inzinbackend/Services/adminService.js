@@ -8,8 +8,10 @@ const jwt = require("jsonwebtoken");
 const User=require('../models/users');
 const Category=require("../models/categories");
 const StateAndDistrict=require("../models/stateanddistricts");
+const Tags=require("../models/tags");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
+const Products=require("../models/products");
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -343,5 +345,25 @@ return await StateAndDistrict.find({});
 
 
  }
+ /**
+  * Tags
+  */
+ adminService.getAllTags=async()=>{
+ 
+  return await   Tags.find({});
+
+
+}
+
+ /**
+  * All Products
+  */
+ adminService.getAllProducts=async()=>{
+ 
+  return await Products.find({});
+
+
+}
+
 
 module.exports=adminService;
