@@ -67,6 +67,17 @@ router.post("/deleteTags",adminMiddleware.registerUser,adminController.deleteTag
 
 
 /**
+ * Enquiries
+ */
+
+
+router.post("/getAllEnquiries",adminMiddleware.registerUser,adminController.getAllEnquiries);
+router.post("/saveEnquiry",adminMiddleware.registerUser,multipartMiddleware,adminController.saveEnquiry);
+//router.post("/updateTags",adminMiddleware.registerUser,multipartMiddleware,adminController.updateTags)
+router.post("/deleteEnquiry",adminMiddleware.registerUser,adminController.deleteEnquiry);
+
+
+/**
  * 
  * States
  */

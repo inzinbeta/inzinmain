@@ -21,19 +21,31 @@ adminController.getUsers=async(req,res)=>{
 }
 
 adminController.registerUser=async(req,res)=>{
+  console.log(req.body);
+
+  if(req.body.update=="yes")
+  {
+    
+    let _res=await adminService.updateUser(req.body);
+   
+      res.status(200).json({data:_res.data,message:_res.message});
+  }
+
+  else{
+
+    console.log(req.body);
   let username=req.body.username;
   let name=req.body.name;
   let email=req.body.email;
   let password=req.body.password;
   let role=req.body.role;
   let isactive=req.body.isactive || true;
-  if(adminService.saveUser(username,password,role,isactive,name,email))
-  {
-    res.json({message:"Success",status:true});
+  let _res=await adminService.saveUser(username,password,role,isactive,name,email)
+ 
+  res.status(200).json({data:_res.data,message:_res.message});
   }
-  else{
-    res.json({message:"Failed",status:false});
-  }
+  
+  
  
 
 }
@@ -62,8 +74,8 @@ adminController.checkUsername=async(req,res)=>{
 }
 
 adminController.deleteUser=async(req,res)=>{
-  let _res=adminService.deleteUser(req.body.username);
-  res.json(_res);
+  let _res=await adminService.deleteUser(req.body._id);
+  res.json({data:_res.data,message:_res.message});
 }
 
 
@@ -412,6 +424,54 @@ adminController.deleteTags=async(req,res)=>{
   res.status(200).json({status:true,data:_data})
   
 }
+
+
+/**
+ * Emquiries
+ */
+
+
+adminController.getAllEnquiries=async(req,res)=>{
+
+  let _data=await adminService.getAllEnquiries();
+
+  res.status(200).json({status:true,data:_data})
+
+
+}
+
+
+adminController.saveEnquiry=async(req,res)=>{
+  console.log(req.body);
+
+  let _data;
+  if(req.body.save=="yes")
+  {
+  _data= await adminService.saveEnquiry(req.body.tag);
+  }
+else if(req.body.update=="yes")
+{
+  _data= await adminService.updateEnquiry(req.body.tag,req.body._id);
+}
+  
+
+  res.status(200).json({status:true,data:_data,message:"Tag Saved"});
+  
+}
+
+
+
+
+
+adminController.deleteEnquiry=async(req,res)=>{
+  //console.log(req.body);
+  let _data=await adminService.deleteEnquiry(req.body._id);
+
+  res.status(200).json({status:true,data:_data})
+  
+}
+
+
 
 /**
  * 

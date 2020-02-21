@@ -11,6 +11,7 @@ const StateAndDistrict=require("../models/stateanddistricts");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
 const Tags=require('../models/tags');
+const Enquiry=require('../models/enquiries');
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -78,14 +79,18 @@ adminService.getUserByUsername=async(username,password)=>{
 adminService.getAllUsers=async()=>{
 
     
-    return  await User.find({},{_id:0});
+    return  await User.find({});
 
 }
 
 adminService.saveUser=async(...userdata)=>{
-  console.log(userdata)
-  try{
-    let user =new User({
+ try{
+let _userfind=await User.find({username:userdata[0]});
+
+if(! _userfind)
+{
+
+ let user =new User({
 
         username:userdata[0],
         password:userdata[1],
@@ -96,7 +101,31 @@ adminService.saveUser=async(...userdata)=>{
   
       });
   
-      return await user.save();
+       await user.save();
+       return {data: await User.find({}),message:"User Saved"};
+
+    }
+    else{
+      return {data: await User.find({}),message:"User Already Exists"};
+    }
+  }
+    catch(err)
+    {
+        log.error({type:"error while saving new user"+userdata[0],date:new Date(),error:err});
+        return null;
+    }
+   
+
+}
+
+
+adminService.updateUser=async(userdata)=>{
+  console.log(userdata)
+  try{
+    
+  
+       await User.updateOne({_id:userdata._id},{$set:userdata});
+       return {data: await User.find({}),message:"User Saved"};
   }
     catch(err)
     {
@@ -114,8 +143,9 @@ adminService.checkExistingCredentials=async(credential,type)=>{
 
 }
 
-adminService.deleteUser=async(username)=>{
-return await User.deleteOne({username:username});
+adminService.deleteUser=async(_id)=>{
+await User.deleteOne({_id:_id});
+return {data: await User.find({}),message:"User Deleted"};
 
 }
 
@@ -385,6 +415,77 @@ adminService.deleteTag=async(tagid)=>{
   
   }
 }
+
+/**
+ * Enquiries
+ */
+
+
+
+/**
+ * Tags
+ */
+
+adminService.getAllEnquiries=async()=>{
+  try{
+
+   return await Enquiry.find(); // mongoose 
+  }
+  catch(e)
+  {
+
+  }
+
+
+}
+
+adminService.saveEnquiry=async(enquiry)=>{
+
+ try{
+  let _tag=new Enquiry(tags);
+  await _tag.save(); // 
+ return await Enquiry.find(); // mongoose 
+  }
+  catch(e)
+  {
+console.log(e);
+  }
+
+
+}
+
+
+adminService.updateEnquiry=async(tags,tagid)=>{
+
+try
+{
+  await Enquiry.updateOne({_id:tagid},{$set:tags});
+  return await Enquiry.find(); // mongoose 
+
+}
+catch(e)
+{
+
+}
+
+
+}
+
+adminService.deleteEnquiry=async(tagid)=>{
+
+ try
+ {
+    await Enquiry.deleteOne({_id:tagid});
+    return await Enquiry.find(); // mongoose 
+ 
+ }
+ catch(e)
+ {
+ 
+ }
+}
+
+
 /**
  * 
  * States and Districts for Brands
