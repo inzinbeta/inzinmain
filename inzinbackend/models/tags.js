@@ -1,7 +1,4 @@
-<<<<<<< HEAD
  
-=======
->>>>>>> 11db318ee8ccd68fc8719cc43cfbd5ac68a6be76
 const mongoose = require('mongoose');
 // schema maps to a collection
 const Schema = mongoose.Schema;

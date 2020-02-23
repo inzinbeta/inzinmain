@@ -15,6 +15,7 @@ const brandSchema=new Schema({
         type:String,
        
     },
+    specifications:[],
     description:String, // to be shown on particular page of category
     content:String,
     keywords:String,

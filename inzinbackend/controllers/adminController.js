@@ -211,7 +211,7 @@ adminController.getAllBrands=async(req,res)=>{
 
 adminController.saveBrand=async(req,res)=>{
  
-
+console.log(req.body);
   try{
 
     let formavalues=JSON.parse(req.body.formavalues);
@@ -501,7 +501,8 @@ adminController.deleteEnquiry=async(req,res)=>{
   */
  adminController.getAllProducts=async(req,res)=>{
   let data_res=await adminService.getAllProducts();
-  console.log("admincontroller");
+  
+  console.log("admincontroller",data_res);
 
   res.json(data_res);
 

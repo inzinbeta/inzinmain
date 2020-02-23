@@ -98,7 +98,7 @@ router.post("/getAllStates",adminMiddleware.registerUser,adminController.getAllS
  * All Products
  */
 router.post("/getAllProducts",adminMiddleware.registerUser,adminController.getAllProducts);
-
+//router.post("/saveProduct",adminMiddleware.registerUser,adminController.getSave)
 
 
 

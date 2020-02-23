@@ -11,12 +11,9 @@ const StateAndDistrict=require("../models/stateanddistricts");
 const Tags=require("../models/tags");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
-<<<<<<< HEAD
 const Products=require("../models/products");
-=======
-const Tags=require('../models/tags');
+
 const Enquiry=require('../models/enquiries');
->>>>>>> 11db318ee8ccd68fc8719cc43cfbd5ac68a6be76
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
