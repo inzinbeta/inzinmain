@@ -51,7 +51,7 @@ router.get('/', function(req, res, next) {
  router.post("/getAllBrands",adminMiddleware.registerUser,adminController.getAllBrands);
  router.post("/saveBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.saveBrand)
  router.put("/updateBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updateBrand)
- router.delete("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand)
+ router.post("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand)
 
 /**
  * Premium Brands
@@ -59,11 +59,31 @@ router.get('/', function(req, res, next) {
  */
 
 router.post("/getAllPremiumBrands",adminMiddleware.registerUser,adminController.getAllPremiumBrands);
-router.post("/savePremiumBrands",adminMiddleware.registerUser,multipartMiddleware,adminController.savePremiumBrand)
+router.post("/savePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.savePremiumBrand)
 router.put("/updatePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updatePremiumBrand)
 router.delete("/deletePremiumBrand",adminMiddleware.registerUser,adminController.deletePremiumBrand)
 
 
+
+/**
+ * Tags
+ */
+
+router.post("/getAllTags",adminMiddleware.registerUser,adminController.getAllTags);
+router.post("/saveTags",adminMiddleware.registerUser,multipartMiddleware,adminController.saveTags)
+//router.post("/updateTags",adminMiddleware.registerUser,multipartMiddleware,adminController.updateTags)
+router.post("/deleteTags",adminMiddleware.registerUser,adminController.deleteTags)
+
+
+/**
+ * Enquiries
+ */
+
+
+router.post("/getAllEnquiries",adminMiddleware.registerUser,adminController.getAllEnquiries);
+router.post("/saveEnquiry",adminMiddleware.registerUser,multipartMiddleware,adminController.saveEnquiry);
+//router.post("/updateTags",adminMiddleware.registerUser,multipartMiddleware,adminController.updateTags)
+router.post("/deleteEnquiry",adminMiddleware.registerUser,adminController.deleteEnquiry);
 
 
 /**

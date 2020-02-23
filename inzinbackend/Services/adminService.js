@@ -11,7 +11,12 @@ const StateAndDistrict=require("../models/stateanddistricts");
 const Tags=require("../models/tags");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
+<<<<<<< HEAD
 const Products=require("../models/products");
+=======
+const Tags=require('../models/tags');
+const Enquiry=require('../models/enquiries');
+>>>>>>> 11db318ee8ccd68fc8719cc43cfbd5ac68a6be76
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -79,14 +84,18 @@ adminService.getUserByUsername=async(username,password)=>{
 adminService.getAllUsers=async()=>{
 
     
-    return  await User.find({},{_id:0});
+    return  await User.find({});
 
 }
 
 adminService.saveUser=async(...userdata)=>{
-  console.log(userdata)
-  try{
-    let user =new User({
+ try{
+let _userfind=await User.find({username:userdata[0]});
+
+if(! _userfind)
+{
+
+ let user =new User({
 
         username:userdata[0],
         password:userdata[1],
@@ -97,7 +106,31 @@ adminService.saveUser=async(...userdata)=>{
   
       });
   
-      return await user.save();
+       await user.save();
+       return {data: await User.find({}),message:"User Saved"};
+
+    }
+    else{
+      return {data: await User.find({}),message:"User Already Exists"};
+    }
+  }
+    catch(err)
+    {
+        log.error({type:"error while saving new user"+userdata[0],date:new Date(),error:err});
+        return null;
+    }
+   
+
+}
+
+
+adminService.updateUser=async(userdata)=>{
+  console.log(userdata)
+  try{
+    
+  
+       await User.updateOne({_id:userdata._id},{$set:userdata});
+       return {data: await User.find({}),message:"User Saved"};
   }
     catch(err)
     {
@@ -115,8 +148,9 @@ adminService.checkExistingCredentials=async(credential,type)=>{
 
 }
 
-adminService.deleteUser=async(username)=>{
-return await User.deleteOne({username:username});
+adminService.deleteUser=async(_id)=>{
+await User.deleteOne({_id:_id});
+return {data: await User.find({}),message:"User Deleted"};
 
 }
 
@@ -179,17 +213,18 @@ return await User.deleteOne({username:username});
  */
 
  adminService.saveCategory=async(data)=>{
-  
+ // console.log(JSON.parse(data));
    try{
 
     let category=new Category(data);
-      category.subcategories=[]; // assigning empty array to subcategory
-       return await category.save();
+      
+       await category.save();
+       return await Category.find();
 
    }
    catch(e)
    {
-
+console.log(e);
    }
   
   
@@ -197,32 +232,16 @@ return await User.deleteOne({username:username});
 
 
  adminService.deleteCategory=async(categoryid)=>{
-  let category_=await Category.findById(categoryid);
-  if(category_.isParent)
-  {
-  let _one=  Category.deleteOne({_id:categoryid});
-    let _two=Category.deleteMany({parentcategory:category_.name});
-    return await Promise.all([_one,_two])
-
-  }
-  else{
-    return await Category.deleteOne({_id:categoryid});
-  }
+  await Category.deleteOne({_id:categoryid});
+  return await Category.find();
 
  }
 
- adminService.updateCategory=async(category)=>
+ adminService.updateCategory=async(category,_id)=>
  {
-if(category.isParent=="no")
-{
-  category.isParent=false;
-}
-else{
-  category.isParent=true;
-}
- return await Category.updateOne({_id:category._id},category);
-
-
+console.log(category);
+ await Category.updateOne({_id:_id},{ $set: category });
+ return await Category.find();
  }
 
 
@@ -232,37 +251,41 @@ else{
   * 
   */
 adminService.saveBrand=async(data)=>{
-  try{
-    let brand =new Brand(data);
-    return await brand.save();
-  }
-  
-
-  catch(e)
-  {
-
-  }
-
-}
-
-
-adminService.updateBrand=async(brand)=>{
-  try{
-    return await Brand.updateOne({_id:brand._id},brand)
-  }
-  
-
-  catch(e)
-  {
-
-  }
-
-}
-
-
-adminService.deleteBrand=async(brand)=>{
 try{
-return await Brand.deleteOne({_id:brand._id});
+    let brand =new Brand(data);
+     await brand.save();
+     return await Brand.find();
+  }
+  
+
+  catch(e)
+  {
+
+  }
+
+}
+
+
+adminService.updateBrand=async(brand,_id)=>{
+  try{
+ 
+    await Brand.updateOne({_id:_id},{ $set:brand });
+    return await Brand.find();
+  }
+  
+
+  catch(e)
+  {
+console.log(e);
+  }
+
+}
+
+
+adminService.deleteBrand=async(brandid)=>{
+try{
+  await Brand.deleteOne({_id:brandid});
+  return await Brand.find();
 }
 
 catch(e)
@@ -286,7 +309,9 @@ adminService.getBrands=async()=>{
 adminService.savePremiumBrand=async(data)=>{
   try{
     let brand =new PremiumBrand(data);
-    return await brand.save();
+    await brand.save();
+    return await PremiumBrand.find();
+   
   }
   
 
@@ -298,9 +323,10 @@ adminService.savePremiumBrand=async(data)=>{
 }
 
 
-adminService.updatePremiumBrand=async(brand)=>{
+adminService.updatePremiumBrand=async(brand,_id)=>{
   try{
-    return await PremiumBrand.updateOne({_id:brand._id},brand)
+     await PremiumBrand.updateOne({_id:_id},{$set:brand})
+    return await PremiumBrand.find();
   }
   
 
@@ -312,26 +338,157 @@ adminService.updatePremiumBrand=async(brand)=>{
 }
 
 
-adminService.deletePremiumBrand=async(brand)=>{
-try{
-return await PremiumBrand.deleteOne({_id:brand._id});
-}
-
-catch(e)
-{
-
-}
+adminService.deletePremiumBrand=async(brandid)=>{
+  try{
+    await PremiumBrand.deleteOne({_id:brandid});
+    return await PremiumBrand.find();
+  }
+  
+  catch(e)
+  {
+  
+  }
 
 }
 
 adminService.getPremiumBrands=async()=>{
-  console.log(await Brand.find({}))
+  //console.log(await Brand.find({}))
   return await PremiumBrand.find({});
 
 
 }
 
+/**
+ * Tags
+ */
 
+adminService.getAllTags=async()=>{
+   try{
+
+    return await Tags.find(); // mongoose 
+   }
+   catch(e)
+   {
+
+   }
+
+
+}
+
+adminService.saveTags=async(tags)=>{
+
+  try{
+   let _tag=new Tags(tags);
+   await _tag.save(); // 
+  return await Tags.find(); // mongoose 
+   }
+   catch(e)
+   {
+console.log(e);
+   }
+
+
+}
+
+
+adminService.updateTag=async(tags,tagid)=>{
+
+try
+{
+   await Tags.updateOne({_id:tagid},{$set:tags});
+   return await Tags.find(); // mongoose 
+
+}
+catch(e)
+{
+
+}
+
+
+}
+
+adminService.deleteTag=async(tagid)=>{
+
+  try
+  {
+     await Tags.deleteOne({_id:tagid});
+     return await Tags.find(); // mongoose 
+  
+  }
+  catch(e)
+  {
+  
+  }
+}
+
+/**
+ * Enquiries
+ */
+
+
+
+/**
+ * Tags
+ */
+
+adminService.getAllEnquiries=async()=>{
+  try{
+
+   return await Enquiry.find(); // mongoose 
+  }
+  catch(e)
+  {
+
+  }
+
+
+}
+
+adminService.saveEnquiry=async(enquiry)=>{
+
+ try{
+  let _tag=new Enquiry(tags);
+  await _tag.save(); // 
+ return await Enquiry.find(); // mongoose 
+  }
+  catch(e)
+  {
+console.log(e);
+  }
+
+
+}
+
+
+adminService.updateEnquiry=async(tags,tagid)=>{
+
+try
+{
+  await Enquiry.updateOne({_id:tagid},{$set:tags});
+  return await Enquiry.find(); // mongoose 
+
+}
+catch(e)
+{
+
+}
+
+
+}
+
+adminService.deleteEnquiry=async(tagid)=>{
+
+ try
+ {
+    await Enquiry.deleteOne({_id:tagid});
+    return await Enquiry.find(); // mongoose 
+ 
+ }
+ catch(e)
+ {
+ 
+ }
+}
 
 
 /**
