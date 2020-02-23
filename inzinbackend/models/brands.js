@@ -20,7 +20,17 @@ const brandSchema=new Schema({
     content:String,
     keywords:String,
     parentcategory:String,
-   
+    seo_metatitle:String,
+    seo_metadescription:String,
+    seo_metaheading:String,
+    seo_metaheadingdescription:String,
+    seo_keywords:String,
+    mobile:String,
+    address:String,
+    web:String,
+    email:String,
+    socialmedia:String
+
 
 });
 
