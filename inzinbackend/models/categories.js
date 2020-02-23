@@ -19,6 +19,11 @@ const categoriesSchema= new Schema({
     content:String,
     keywords:String,
     isParent:Boolean,
+    seo_metatitle:String,
+    seo_metadescription:String,
+    seo_metaheading:String,
+    seo_metaheadingdescription:String,
+    seo_keywords:String,
     
    
   });
