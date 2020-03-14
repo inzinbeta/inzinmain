@@ -19,6 +19,7 @@ const categoriesSchema= new Schema({
     content:String,
     keywords:String,
     isParent:Boolean,
+
     seo_keywords:String,
     seo_metadescription:String,
     seo_metatitle: String,
@@ -28,5 +29,6 @@ const categoriesSchema= new Schema({
 
 
 });
+
 
 module.exports = mongoose.model('categories', categoriesSchema);
