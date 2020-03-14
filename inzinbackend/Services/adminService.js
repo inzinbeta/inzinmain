@@ -12,6 +12,7 @@ const Tags=require("../models/tags");
 const Brand=require('../models/brands');
 const PremiumBrand=require('../models/premiumbrands');
 const Products=require("../models/products");
+const Section=require("../models/sections");
 
 const Enquiry=require('../models/enquiries');
 
@@ -212,7 +213,7 @@ return {data: await User.find({}),message:"User Deleted"};
  adminService.saveCategory=async(data)=>{
  // console.log(JSON.parse(data));
    try{
-
+console.log(data);
     let category=new Category(data);
       
        await category.save();
@@ -517,6 +518,60 @@ return await StateAndDistrict.find({});
   return await Products.find({});
 
 
+}
+
+
+
+
+/**
+ * Sections
+ */
+
+
+adminService.saveSection=async(section)=>{
+
+  try{
+   let _tag=new Section(tags);
+   await _tag.save(); // 
+  return await Section.find(); // mongoose 
+   }
+   catch(e)
+   {
+console.log(e);
+   }
+
+
+}
+
+
+adminService.updateSection=async(tags,tagid)=>{
+
+try
+{
+   await Section.updateOne({_id:tagid},{$set:tags});
+   return await Section.find(); // mongoose 
+
+}
+catch(e)
+{
+
+}
+
+
+}
+
+adminService.deleteSection=async(tagid)=>{
+
+  try
+  {
+     await Section.deleteOne({_id:tagid});
+     return await Section.find(); // mongoose 
+  
+  }
+  catch(e)
+  {
+  
+  }
 }
 
 

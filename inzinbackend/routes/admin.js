@@ -100,6 +100,15 @@ router.post("/getAllStates",adminMiddleware.registerUser,adminController.getAllS
 router.post("/getAllProducts",adminMiddleware.registerUser,adminController.getAllProducts);
 //router.post("/saveProduct",adminMiddleware.registerUser,adminController.getSave)
 
+/**
+ * Sections
+ */
+
+
+router.post("/getAllSection",adminMiddleware.registerUser,adminController.getAllTags);
+router.post("/saveSection",adminMiddleware.registerUser,multipartMiddleware,adminController.saveTags)
+//router.post("/updateTags",adminMiddleware.registerUser,multipartMiddleware,adminController.updateTags)
+router.post("/deleteSection",adminMiddleware.registerUser,adminController.deleteTags)
 
 
 module.exports = router;
