@@ -1,8 +1,0 @@
-The directory structure of the app is as following
-src/app
-    1-admin module
-      1.1-pages  
-            login modules and other modules
-      1.2 -shared modules 
-           footer /navbar /services /etc
-        

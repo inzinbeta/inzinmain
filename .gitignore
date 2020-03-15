@@ -1,6 +1,3 @@
-/inzinfrontend/node_modules
-/inzinbackend/node_modules
-/inzinbackend/logs
-/inzinfrontend/dist
-/inzinbackend/.env
+node_modules
+.env
 
