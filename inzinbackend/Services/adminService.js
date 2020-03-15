@@ -249,6 +249,7 @@ console.log(category);
   * 
   */
 adminService.saveBrand=async(data)=>{
+    console.log("brand",data);
 try{
     let brand =new Brand(data);
      await brand.save();
