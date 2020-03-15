@@ -3,21 +3,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const categoriesSchema= new Schema({
-
-
     imagelogo:String, // percategory one icon
     imagesidebar:String,
     name:String,
-    brands:[String],
-    metatitle:String, // to be inserted in meta_tag
-    heading:String,
+    slug:[String],
+
     parentcategory:{
         type:String,
         default:"NA"
     },
     description:String, // to be shown on particular page of category
-    content:String,
-    keywords:String,
+
     isParent:Boolean,
 
     seo_keywords:String,
