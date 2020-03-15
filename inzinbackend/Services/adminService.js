@@ -374,7 +374,7 @@ adminService.getAllTags=async()=>{
 }
 
 adminService.saveTags=async(tags)=>{
-
+console.log(tags);
   try{
    let _tag=new Tags(tags);
    await _tag.save(); // 
