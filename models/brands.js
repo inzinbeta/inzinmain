@@ -6,7 +6,7 @@ const categorySchema=require("../models/categories");
 const brandSchema=new Schema({
 
 
-
+    services:[],
     name:String,
     brandcategory:String,
     slug: String,

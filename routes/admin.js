@@ -58,10 +58,10 @@ router.get('/', function(req, res, next) {
  * 
  */
 
-router.post("/getAllPremiumBrands",adminMiddleware.registerUser,adminController.getAllPremiumBrands);
-router.post("/savePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.savePremiumBrand)
-router.put("/updatePremiumBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updatePremiumBrand)
-router.delete("/deletePremiumBrand",adminMiddleware.registerUser,adminController.deletePremiumBrand)
+router.post("/getAllServices",adminMiddleware.registerUser,adminController.getAllServices);
+router.post("/saveServices",adminMiddleware.registerUser,multipartMiddleware,adminController.saveServices)
+
+router.post("/deleteServices",adminMiddleware.registerUser,adminController.deleteServices)
 
 
 

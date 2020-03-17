@@ -10,7 +10,7 @@ const Category=require("../models/categories");
 const StateAndDistrict=require("../models/stateanddistricts");
 const Tags=require("../models/tags");
 const Brand=require('../models/brands');
-const PremiumBrand=require('../models/premiumbrands');
+const Services=require('../models/services');
 const Products=require("../models/products");
 const Section=require("../models/sections");
 
@@ -305,11 +305,11 @@ adminService.getBrands=async()=>{
  * Premium Brands
  */
 
-adminService.savePremiumBrand=async(data)=>{
+adminService.saveServices=async(data)=>{
   try{
-    let brand =new PremiumBrand(data);
+    let brand =new Services(data);
     await brand.save();
-    return await PremiumBrand.find();
+    return await Services.find();
    
   }
   
@@ -322,10 +322,10 @@ adminService.savePremiumBrand=async(data)=>{
 }
 
 
-adminService.updatePremiumBrand=async(brand,_id)=>{
+adminService.updateServices=async(brand,_id)=>{
   try{
-     await PremiumBrand.updateOne({_id:_id},{$set:brand})
-    return await PremiumBrand.find();
+     await Services.updateOne({_id:_id},{$set:brand})
+    return await Services.find();
   }
   
 
@@ -337,10 +337,10 @@ adminService.updatePremiumBrand=async(brand,_id)=>{
 }
 
 
-adminService.deletePremiumBrand=async(brandid)=>{
+adminService.deleteServices=async(brandid)=>{
   try{
-    await PremiumBrand.deleteOne({_id:brandid});
-    return await PremiumBrand.find();
+    await Services.deleteOne({_id:brandid});
+    return await Services.find();
   }
   
   catch(e)
@@ -350,9 +350,9 @@ adminService.deletePremiumBrand=async(brandid)=>{
 
 }
 
-adminService.getPremiumBrands=async()=>{
+adminService.getServices=async()=>{
   //console.log(await Brand.find({}))
-  return await PremiumBrand.find({});
+  return await Services.find({});
 
 
 }

@@ -297,7 +297,7 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
    * Premium Brands
    */
 
-   adminController.savePremiumBrand=async(req,res)=>{
+   adminController.saveServices=async(req,res)=>{
      console.log("the req",req);
 
     try{
@@ -316,11 +316,11 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
      if(req.body.save=="yes")
      {
        //console.log("Save called");
-      resw=await adminService.savePremiumBrand(formavalues);
+      resw=await adminService.saveServices(formavalues);
      }
     else if(req.body.update=="yes"){
       console.log("Update called",req.body._id);
-      resw=await adminService.updatePremiumBrand(formavalues,req.body._id)
+      resw=await adminService.updateServices(formavalues,req.body._id)
     }
     
       
@@ -328,11 +328,11 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
     
       if(resw)
       {
-        res.json({status:true,"message":"Brand Added",data:resw})
+        res.json({status:true,"message":"Service Added",data:resw})
       }
     
       else{
-        res.json({status:false,"message":"Brand Already exists"})
+        res.json({status:false,"message":"Service Already exists"})
       }
     
       ////console.log(resw);
@@ -349,32 +349,18 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
 
 
 
-   adminController.updatePremiumBrand=async(req,res)=>{
-    req.body.imagelogo=req.files.imagelogo.path
-    req.body.imagesidebar=req.files.imagesidebar.path
-    let _brandsave=await adminService.updatePremiumBrand(req.body);
-    if(_brandsave)
-    {
-      res.json({status:true})
-    }
-    
-    else{
-      res.json({status:false})
-    }
-    
-    }
-  
-    adminController.deletePremiumBrand=async(req,res)=>{
-  
-      let _brandsave=await adminService.deletePremiumBrand(req.body.brandid);
-      res.json({status:true,"message":"Premium Brand Deleted",data:_res})
+
+    adminController.deleteServices=async(req,res)=>{
+  console.log(req.body);
+      let _brandsave=await adminService.deleteServices(req.body.brandid);
+      res.json({status:true,"message":"Service Deleted",data:_brandsave})
       
   
     }
 
 
-    adminController.getAllPremiumBrands=async(req,res)=>{
-      let _branddata=await adminService.getPremiumBrands();
+    adminController.getAllServices=async(req,res)=>{
+      let _branddata=await adminService.getServices();
      
       res.json(_branddata);
      
