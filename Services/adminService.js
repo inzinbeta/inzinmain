@@ -523,6 +523,54 @@ return await StateAndDistrict.find({});
 
 
 
+adminService.saveProduct=async(tags)=>{
+    console.log(tags);
+    try{
+        let _tag=new Products(tags);
+        await _tag.save(); //
+        return await Products.find(); // mongoose
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+
+
+}
+
+
+adminService.updateProduct=async(tags,tagid)=>{
+
+    try
+    {
+        await Products.updateOne({_id:tagid},{$set:tags});
+        return await Products.find(); // mongoose
+
+    }
+    catch(e)
+    {
+
+    }
+
+
+}
+
+adminService.deleteProduct=async(tagid)=>{
+
+    try
+    {
+        await Products.deleteOne({_id:tagid});
+        return await Products.find(); // mongoose
+
+    }
+    catch(e)
+    {
+
+    }
+}
+
+
+
 
 /**
  * Sections

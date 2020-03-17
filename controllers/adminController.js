@@ -494,4 +494,68 @@ adminController.deleteEnquiry=async(req,res)=>{
 
 }
 
+
+adminController.saveProduct=async(req,res)=>{
+
+    try{
+console.log(req.body);
+        let formavalues=JSON.parse(req.body.formavalues);
+        if(req.files.imagelogo)
+        {
+            formavalues.imagelogo=req.files.imagelogo.path
+        }
+
+
+
+
+
+
+        let resw;
+        if(req.body.save=="yes")
+        {
+            //console.log("Save called");
+            resw=await adminService.saveProduct(formavalues);
+        }
+        else if(req.body.update=="yes"){
+            //console.log("Update called",req.body._id);
+            resw=await adminService.updateProduct(formavalues,req.body._id)
+        }
+
+
+        // //console.log(resw);
+
+        if(resw)
+        {
+            res.json({status:true,"message":"Product Added",data:resw})
+        }
+
+        else{
+            res.json({status:false,"message":"Product Already exists"})
+        }
+
+        ////console.log(resw);
+
+    }
+    catch(e)
+    {
+        //console.log(e);
+    }
+
+
+
+}
+
+
+
+
+
+adminController.deleteProduct=async(req,res)=>{
+    //console.log(req.body);
+    let _data=await adminService.deleteProduct(req.body._id);
+
+    res.status(200).json({status:true,data:_data,message:'Deleted Product'})
+
+}
+
+
 module.exports=adminController;
