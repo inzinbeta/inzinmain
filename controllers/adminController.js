@@ -367,6 +367,85 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
      
      }
 /**
+ * Offers
+  */
+
+
+
+
+adminController.saveOffer=async(req,res)=>{
+    console.log("the req",req);
+
+    try{
+
+        let formavalues=JSON.parse(req.body.formavalues);
+        if(req.files.imagelogo)
+        {
+            formavalues.imagelogo=req.files.imagelogo.path
+        }
+
+
+
+
+
+        let resw;
+        if(req.body.save=="yes")
+        {
+            //console.log("Save called");
+            resw=await adminService.saveOffer(formavalues);
+        }
+        else if(req.body.update=="yes"){
+            console.log("Update called",req.body._id);
+            resw=await adminService.updateOffer(formavalues,req.body._id)
+        }
+
+
+        // //console.log(resw);
+
+        if(resw)
+        {
+            res.json({status:true,"message":"Offer Added",data:resw})
+        }
+
+        else{
+            res.json({status:false,"message":"Offer Already exists"})
+        }
+
+        ////console.log(resw);
+
+    }
+    catch(e)
+    {
+        //console.log(e);
+    }
+
+
+
+}
+
+
+
+
+adminController.deleteOffer=async(req,res)=>{
+    console.log(req.body);
+    let _brandsave=await adminService.deleteOffer(req.body.brandid);
+    res.json({status:true,"message":"Service Deleted",data:_brandsave})
+
+
+}
+
+
+adminController.getAllOffers=async(req,res)=>{
+    let _branddata=await adminService.getAllOffers();
+
+    res.json(_branddata);
+
+
+}
+
+
+
+/**
  * 
  * Tags
  * 

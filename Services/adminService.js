@@ -13,6 +13,7 @@ const Brand=require('../models/brands');
 const Services=require('../models/services');
 const Products=require("../models/products");
 const Section=require("../models/sections");
+const Offers=require("../models/offers");
 
 const Enquiry=require('../models/enquiries');
 
@@ -356,6 +357,71 @@ adminService.getServices=async()=>{
 
 
 }
+
+/**
+ * Offers
+ */
+
+
+
+
+
+
+adminService.saveOffer=async(data)=>{
+    try{
+        let brand =new Offers(data);
+        await brand.save();
+        return await Offers.find();
+
+    }
+
+
+    catch(e)
+    {
+
+    }
+
+}
+
+
+adminService.updateOffer=async(brand,_id)=>{
+    try{
+        await Offers.updateOne({_id:_id},{$set:brand})
+        return await Offers.find();
+    }
+
+
+    catch(e)
+    {
+
+    }
+
+}
+
+
+adminService.deleteOffer=async(brandid)=>{
+    try{
+        await Offers.deleteOne({_id:brandid});
+        return await Offers.find();
+    }
+
+    catch(e)
+    {
+
+    }
+
+}
+
+adminService.getAllOffers=async()=>{
+    //console.log(await Brand.find({}))
+    return await Offers.find({});
+
+
+}
+
+
+
+
 
 /**
  * Tags

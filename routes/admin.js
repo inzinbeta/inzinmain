@@ -64,6 +64,12 @@ router.post("/saveServices",adminMiddleware.registerUser,multipartMiddleware,adm
 router.post("/deleteServices",adminMiddleware.registerUser,adminController.deleteServices)
 
 
+router.post("/getAllOffers",adminMiddleware.registerUser,adminController.getAllOffers);
+router.post("/saveOffer",adminMiddleware.registerUser,multipartMiddleware,adminController.saveOffer)
+
+router.post("/deleteOffer",adminMiddleware.registerUser,adminController.deleteOffer)
+
+
 
 /**
  * Tags
