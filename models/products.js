@@ -9,7 +9,7 @@ const     productsSchema= new Schema({
     tags: [String],
 
     brand: String,
-
+    specifications:[],
     category: String,
     subcategory: [String, ],
     metatitle:String,
