@@ -444,6 +444,86 @@ adminController.getAllOffers=async(req,res)=>{
 }
 
 
+/**
+ * Home
+ */
+
+
+
+
+adminController.saveHome=async(req,res)=>{
+    console.log("the req",req);
+
+    try{
+
+        let formavalues=JSON.parse(req.body.formavalues);
+        if(req.files.imagelogo)
+        {
+            formavalues.imagelogo=req.files.imagelogo.path
+        }
+
+
+
+
+
+        let resw;
+        if(req.body.save=="yes")
+        {
+            //console.log("Save called");
+            resw=await adminService.saveHome(formavalues);
+        }
+        else if(req.body.update=="yes"){
+            console.log("Update called",req.body._id);
+            resw=await adminService.updateHome(formavalues,req.body._id)
+        }
+
+
+        // //console.log(resw);
+
+        if(resw)
+        {
+            res.json({status:true,"message":"Offer Added",data:resw})
+        }
+
+        else{
+            res.json({status:false,"message":"Offer Already exists"})
+        }
+
+        ////console.log(resw);
+
+    }
+    catch(e)
+    {
+        //console.log(e);
+    }
+
+
+
+}
+
+
+
+
+adminController.deleteHome=async(req,res)=>{
+    console.log(req.body);
+    let _brandsave=await adminService.deleteHome(req.body.categoryid);
+    res.json({status:true,"message":"Banner Deleted",data:_brandsave})
+
+
+}
+
+
+adminController.getAllHome=async(req,res)=>{
+    let _branddata=await adminService.getAllHome();
+
+    res.json(_branddata);
+
+
+}
+
+
+
+
 
 /**
  * 

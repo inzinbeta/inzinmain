@@ -14,7 +14,7 @@ const Services=require('../models/services');
 const Products=require("../models/products");
 const Section=require("../models/sections");
 const Offers=require("../models/offers");
-
+const Home =require("../models/home");
 const Enquiry=require('../models/enquiries');
 
 const SimpleNodeLogger = require('simple-node-logger'),
@@ -418,6 +418,66 @@ adminService.getAllOffers=async()=>{
 
 
 }
+
+/**
+ * Home banner
+ */
+
+
+
+adminService.saveHome=async(data)=>{
+    try{
+        let brand =new Home(data);
+        await brand.save();
+        return await Home.find();
+
+    }
+
+
+    catch(e)
+    {
+
+    }
+
+}
+
+
+adminService.updateHome=async(brand,_id)=>{
+    try{
+        await Home.updateOne({_id:_id},{$set:brand})
+        return await Home.find();
+    }
+
+
+    catch(e)
+    {
+
+    }
+
+}
+
+
+adminService.deleteHome=async(brandid)=>{
+    try{
+        console.log(brandid);
+        await Home.deleteOne({_id:brandid});
+        return await Home.find();
+    }
+
+    catch(e)
+    {
+
+    }
+
+}
+
+adminService.getAllHome=async()=>{
+    //console.log(await Brand.find({}))
+    return await Home.find({});
+
+
+}
+
 
 
 

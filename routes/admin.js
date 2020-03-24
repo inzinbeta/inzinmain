@@ -71,6 +71,11 @@ router.post("/deleteOffer",adminMiddleware.registerUser,adminController.deleteOf
 
 
 
+router.post("/getAllHome",adminMiddleware.registerUser,adminController.getAllHome);
+router.post("/saveHome",adminMiddleware.registerUser,multipartMiddleware,adminController.saveHome)
+
+router.post("/deleteHome",adminMiddleware.registerUser,adminController.deleteHome)
+
 /**
  * Tags
  */
