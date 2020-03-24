@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const categorySchema=require("../models/categories");
 
-const homeSchema=new Schema({
+const howitworksSchema=new Schema({
 
 
     date:{
@@ -12,10 +12,11 @@ const homeSchema=new Schema({
     },
     imagelogo:String, // percategory one icon
     landingurl:String,
+    content:String
 
 
 
 
 });
 
-module.exports = mongoose.model('home', homeSchema);
+module.exports = mongoose.model('howitworks', howitworksSchema);

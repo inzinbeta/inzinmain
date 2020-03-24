@@ -16,6 +16,7 @@ const Section=require("../models/sections");
 const Offers=require("../models/offers");
 const Home =require("../models/home");
 const Enquiry=require('../models/enquiries');
+const HowItworks=require('../models/howitworks');
 
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -479,7 +480,65 @@ adminService.getAllHome=async()=>{
 }
 
 
+/**
+ * How it works
+ */
 
+
+
+adminService.saveHowItworks=async(data)=>{
+    try{
+        console.log("service",data);
+        let brand =new HowItworks(data);
+        await brand.save();
+        return await HowItworks.find();
+
+    }
+
+
+    catch(e)
+    {
+console.log(e);
+    }
+
+}
+
+
+adminService.updateHowItworks=async(brand,_id)=>{
+    try{
+        await HowItworks.updateOne({_id:_id},{$set:brand})
+        return await HowItworks.find();
+    }
+
+
+    catch(e)
+    {
+
+    }
+
+}
+
+
+adminService.deleteHowItworks=async(brandid)=>{
+    try{
+
+        await HowItworks.deleteOne({_id:brandid});
+        return await HowItworks.find();
+    }
+
+    catch(e)
+    {
+
+    }
+
+}
+
+adminService.getAllHowItworks=async()=>{
+    //console.log(await Brand.find({}))
+    return await HowItworks.find({});
+
+
+}
 
 
 

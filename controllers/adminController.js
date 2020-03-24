@@ -525,6 +525,79 @@ adminController.getAllHome=async(req,res)=>{
 
 
 
+adminController.saveHowItworks=async(req,res)=>{
+
+
+    try{
+
+        let formavalues=JSON.parse(req.body.formavalues);
+        if(req.files.imagelogo)
+        {
+            formavalues.imagelogo=req.files.imagelogo.path
+        }
+
+
+
+
+
+        let resw;
+        if(req.body.save=="yes")
+        {
+            //console.log("Save called");
+            resw=await adminService.saveHowItworks(formavalues);
+        }
+        else if(req.body.update=="yes"){
+            console.log("Update called",req.body._id);
+            resw=await adminService.updateHowItworks(formavalues,req.body._id)
+        }
+
+
+        // //console.log(resw);
+
+        if(resw)
+        {
+            res.json({status:true,"message":" Added",data:resw})
+        }
+
+        else{
+            res.json({status:false,"message":" Already exists"})
+        }
+
+        ////console.log(resw);
+
+    }
+    catch(e)
+    {
+        //console.log(e);
+    }
+
+
+
+}
+
+
+
+
+adminController.deleteHowItworks=async(req,res)=>{
+    console.log(req.body);
+    let _brandsave=await adminService.deleteHowItworks(req.body.categoryid);
+    res.json({status:true,"message":"Banner Deleted",data:_brandsave})
+
+
+}
+
+
+adminController.getAllHowItworks=async(req,res)=>{
+    let _branddata=await adminService.getAllHowItworks();
+
+    res.json(_branddata);
+
+
+}
+
+
+
+
 /**
  * 
  * Tags
