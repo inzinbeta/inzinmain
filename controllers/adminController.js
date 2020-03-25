@@ -1,4 +1,6 @@
 const adminService=require("../Services/adminService");
+const mongoose = require('mongoose');
+
 
 const adminController={};
 adminController.registerUser=async(req,res)=>{
@@ -596,6 +598,52 @@ adminController.getAllHowItworks=async(req,res)=>{
 }
 
 
+/**
+ * Site info
+ */
+
+
+adminController.saveInfo=async(req,res)=>{
+
+
+    try{
+
+
+      let _data= await  adminService.saveInfo(req.body);
+
+        res.json({message:"Success",data:_data}).status(200);
+
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+
+
+
+}
+
+
+
+
+adminController.getInfo=async(req,res)=>{
+
+
+    try{
+         let _data=await  adminService.getInfo();
+
+      res.json({message:"Success",data:_data}).status(200);
+
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+
+
+
+}
+
 
 
 /**
@@ -754,7 +802,7 @@ console.log(req.body);
         }
 
 
-        // //console.log(resw);
+        console.log("hh",resw);
 
         if(resw)
         {
@@ -769,8 +817,7 @@ console.log(req.body);
 
     }
     catch(e)
-    {
-        //console.log(e);
+    {console.log(e);
     }
 
 

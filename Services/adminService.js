@@ -17,7 +17,8 @@ const Offers=require("../models/offers");
 const Home =require("../models/home");
 const Enquiry=require('../models/enquiries');
 const HowItworks=require('../models/howitworks');
-
+const SiteInfo=require('../models/siteinfo')
+const mongoose=require("mongoose");
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
         logFilePath:'./logs/logs.json',
@@ -709,7 +710,7 @@ return await StateAndDistrict.find({});
 
 
 adminService.saveProduct=async(tags)=>{
-    console.log(tags);
+
     try{
         let _tag=new Products(tags);
         await _tag.save(); //
@@ -728,13 +729,14 @@ adminService.updateProduct=async(tags,tagid)=>{
 
     try
     {
+        console.log("hey",tags);
         await Products.updateOne({_id:tagid},{$set:tags});
         return await Products.find(); // mongoose
 
     }
     catch(e)
     {
-
+        console.log(e);
     }
 
 
@@ -806,6 +808,52 @@ adminService.deleteSection=async(tagid)=>{
   {
   
   }
+}
+
+/**
+ * Site Info
+ */
+adminService.saveInfo=async(data)=>{
+    try{
+    if(!data._id)
+    {
+      await  new SiteInfo(data).save();
+        return await SiteInfo.find();
+    }
+
+    else{
+        let id=data._id;
+        delete data._id;
+        await SiteInfo.update({_id:id},{$set:data});
+
+        return await SiteInfo.find()
+    }
+
+
+
+    }
+
+    catch (e) {
+     console.log(e);
+    }
+  ;
+}
+
+
+adminService.getInfo=async(data)=>{
+
+
+    try{
+
+
+
+        return SiteInfo.find()
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+    ;
 }
 
 

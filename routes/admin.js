@@ -82,6 +82,13 @@ router.post("/saveHowItworks",adminMiddleware.registerUser,multipartMiddleware,a
 
 router.post("/deleteHowItworks",adminMiddleware.registerUser,adminController.deleteHowItworks);
 
+
+router.post("/getSiteInfo",adminMiddleware.registerUser,adminController.getInfo);
+router.post("/saveSiteInfo",adminMiddleware.registerUser,multipartMiddleware,adminController.saveInfo)
+
+
+
+
 /**
  * Tags
  */
