@@ -645,6 +645,88 @@ adminController.getInfo=async(req,res)=>{
 }
 
 
+/**
+ * Business Profile
+ */
+
+
+
+
+
+
+
+
+adminController.saveBusinessProfile=async(req,res)=>{
+
+ try{
+
+        let formavalues=JSON.parse(req.body.formavalues);
+
+        for(let i=1;i<=4;i++)
+        {
+            if(req.files[`slider${i}`])
+            {
+                formavalues[`slider${i}`]=req.files[`slider${i}`].path
+            }
+        }
+
+
+
+
+
+
+        let resw;
+        if(req.body.save=="yes")
+        {
+            console.log("Save called",formavalues);
+            resw=await adminService.saveBusinessProfile(formavalues);
+        }
+        else if(req.body.update=="yes"){
+            console.log("Update called",req.body._id);
+            resw=await adminService.updateBusinessProfile(formavalues,req.body._id)
+        }
+
+
+        // //console.log(resw);
+
+      res.json({sttaus:true,message:"Success",data:resw});
+        ////console.log(resw);
+
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+
+
+
+}
+
+adminController.getBusinessProfile=async(req,res)=>{
+
+
+    try {
+        let _data=await adminService.getBusinessProfile();
+        res.json({sttaus:true,message:"Success",data:_data});
+    }
+catch (e) {
+    console.log(e);
+}
+}
+
+
+adminController.deleteBusinessProfile=async(req,res)=>{
+
+console.log(req.body);
+    try {
+let _data=await  adminService.deleteBusinessProfile(req.body._id);
+res.json({data:_data,message:"Success"});
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 
 /**
  * 

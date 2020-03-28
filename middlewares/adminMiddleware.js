@@ -2,7 +2,7 @@ const adminService=require("../Services/adminService");
 const adminMiddleware={};
 adminMiddleware.registerUser=async(req,res,next)=>{
 
-    console.log("got");
+
     next();
 }
 

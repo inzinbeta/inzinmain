@@ -87,6 +87,19 @@ router.post("/getSiteInfo",adminMiddleware.registerUser,adminController.getInfo)
 router.post("/saveSiteInfo",adminMiddleware.registerUser,multipartMiddleware,adminController.saveInfo)
 
 
+/**
+ * Business Profile
+ */
+
+
+router.post("/saveBusinessProfile",adminMiddleware.registerUser,multipartMiddleware,adminController.saveBusinessProfile)
+router.post("/getBusinessProfile",adminMiddleware.registerUser,multipartMiddleware,adminController.getBusinessProfile);
+router.post("/deleteBusinessProfile",adminMiddleware.registerUser,multipartMiddleware,adminController.deleteBusinessProfile);
+
+
+
+
+
 
 
 /**

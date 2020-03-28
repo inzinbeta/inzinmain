@@ -17,7 +17,8 @@ const Offers=require("../models/offers");
 const Home =require("../models/home");
 const Enquiry=require('../models/enquiries');
 const HowItworks=require('../models/howitworks');
-const SiteInfo=require('../models/siteinfo')
+const SiteInfo=require('../models/siteinfo');
+const BusinessProfile=require('../models/businessprofile')
 const mongoose=require("mongoose");
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
@@ -855,6 +856,64 @@ adminService.getInfo=async(data)=>{
     }
     ;
 }
+
+
+/**
+ * Businesss PRofile
+ */
+
+
+adminService.getBusinessProfile=async()=>{
+
+    try {
+        return await BusinessProfile.find();
+    }
+
+    catch (e) {
+
+    }
+}
+
+
+adminService.saveBusinessProfile=async(data)=>{
+    try{
+       await new BusinessProfile(data).save();
+       return await BusinessProfile.find();
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+    ;
+}
+
+
+adminService.updateBusinessProfile=async(data,id)=>{
+    try{
+        console.log(data);
+        console.log(id);
+        await  BusinessProfile.update({_id:id},{$set:data})
+        return await BusinessProfile.find();
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+    ;
+}
+
+adminService.deleteBusinessProfile=async(data)=>{
+    try{
+        await  BusinessProfile.deleteOne({_id:data})
+        return await BusinessProfile.find();
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+
+}
+
 
 
 module.exports=adminService;
