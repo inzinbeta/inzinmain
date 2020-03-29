@@ -12,7 +12,10 @@ const businessProfileSchema= new Schema({
     slider1:String,
     slider2:String,
     slider3:String,
-    slider4:String
+    slider4:String,
+    related1:String,
+    related2:String,
+    related3:String,
 
 
 });

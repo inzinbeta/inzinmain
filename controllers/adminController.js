@@ -659,6 +659,7 @@ adminController.getInfo=async(req,res)=>{
 adminController.saveBusinessProfile=async(req,res)=>{
 
  try{
+     console.log(req.files);
 
         let formavalues=JSON.parse(req.body.formavalues);
 
@@ -671,11 +672,20 @@ adminController.saveBusinessProfile=async(req,res)=>{
         }
 
 
+     for(let i=1;i<=3;i++)
+     {
+         if(req.files[`related${i}`])
+         {
+             formavalues[`related${i}`]=req.files[`related${i}`].path
+         }
+     }
 
 
 
 
-        let resw;
+
+
+     let resw;
         if(req.body.save=="yes")
         {
             console.log("Save called",formavalues);
