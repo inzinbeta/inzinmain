@@ -5,7 +5,7 @@ const adminController=require("../controllers/adminController");
 const adminMiddleware=require("../middlewares/adminMiddleware");
 const  multipart  =  require('connect-multiparty');
 const  multipartMiddleware  =  multipart({ uploadDir:  './uploads' });
-
+const { categoryValidationRules, validate } = require('../middlewares/validator')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
   */
 
 
- router.post("/saveCategory",adminMiddleware.registerUser,multipartMiddleware,adminController.saveCategory);
+ router.post("/saveCategory",categoryValidationRules(),validate,multipartMiddleware,adminController.saveCategory);
 
  router.post("/getParentsCategory",adminMiddleware.registerUser,adminController.getParentsCategory);
 
@@ -50,9 +50,13 @@ router.get('/', function(req, res, next) {
   */
  router.post("/getAllBrands",adminMiddleware.registerUser,adminController.getAllBrands);
  router.post("/saveBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.saveBrand)
- router.put("/updateBrand",adminMiddleware.registerUser,multipartMiddleware,adminController.updateBrand)
- router.post("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand)
-
+ router.post("/updateBrandCity",adminMiddleware.registerUser,multipartMiddleware,adminController.updateBrandCity);
+ router.post("/deleteBrand",adminMiddleware.registerUser,adminController.deleteBrand);
+/**
+ * For checking the avilability of brand for a city if it is booked or available
+ */
+router.post("/getAllBrandavailability",adminMiddleware.registerUser,adminController.getBrandAvailability);
+//router.post("/deleteBrand",adminMiddleware.registerUser,adminController.updateBrandStatus);
 /**
  * Premium Brands
  * 

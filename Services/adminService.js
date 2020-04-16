@@ -20,6 +20,7 @@ const HowItworks=require('../models/howitworks');
 const SiteInfo=require('../models/siteinfo');
 const BusinessProfile=require('../models/businessprofile')
 const mongoose=require("mongoose");
+const av=require("../models/avilability");
 const SimpleNodeLogger = require('simple-node-logger'),
     opts = {
         logFilePath:'./logs/logs.json',
@@ -38,6 +39,7 @@ adminService.getUserByUsername=async(username,password)=>{
           return {"status":false,message:"User Not Found"};
         } 
         else {
+          console.log("ee",user);
           // checking password here for user
           if (password == user.password) {
     
@@ -281,6 +283,39 @@ adminService.updateBrand=async(brand,_id)=>{
   {
 console.log(e);
   }
+
+}
+
+
+
+adminService.updateBrandCity=async(brand)=>{
+    try{
+console.log("----",brand);
+        await new av(brand).save();
+        return await av.find();
+    }
+
+
+    catch(e)
+    {
+        console.log(e);
+    }
+
+}
+
+
+adminService.getBrandAvailability=async()=>{
+    try{
+
+
+        return await av.find();
+    }
+
+
+    catch(e)
+    {
+        console.log(e);
+    }
 
 }
 
@@ -562,7 +597,8 @@ adminService.getAllTags=async()=>{
 }
 
 adminService.saveTags=async(tags)=>{
-console.log(tags);
+
+    console.log(tags);
   try{
    let _tag=new Tags(tags);
    await _tag.save(); // 

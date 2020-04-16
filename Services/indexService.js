@@ -23,6 +23,7 @@ mongoose.connect(process.env.MONGO_LOCAL_CONN_URL,{ useUnifiedTopology: true, us
 
 indexService.getUserByUsername=async(username,password)=>{
     try {
+        console.log("called");
         let user = await User.findOne({
           username: username,
           isactive:true

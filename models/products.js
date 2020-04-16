@@ -6,15 +6,13 @@ const     productsSchema= new Schema({
 
 
     imagelogo:String, // percategory one icon
-    tags: [String],
+    tags: [],
 
     brand: String,
     specifications:[],
     category: String,
-    subcategory: [String, ],
+    subcategory: [String],
     metatitle:String,
-    colour: String,
-    size: String,
     name: String,
     slug: String,
     stock:String,

@@ -6,6 +6,7 @@ const businessProfileSchema= new Schema({
 
     title: String,
     heading: String,
+    slug:String,
     specifications: [],
 
     description:String,
@@ -16,6 +17,11 @@ const businessProfileSchema= new Schema({
     related1:String,
     related2:String,
     related3:String,
+    seo_keywords:String,
+    seo_metadescription:String,
+    seo_metatitle: String,
+    seo_metaheading: String,
+    seo_metaheadingdescription: String,
 
 
 });

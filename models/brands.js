@@ -47,6 +47,11 @@ const brandSchema=new Schema({
     workshopsalesteam:String,
     imagelogo:String, // percategory one icon
     imagesidebar:String,
+    bookedcity:[
+        {
+            districts:[],
+            status:String
+        }]
 
 
 

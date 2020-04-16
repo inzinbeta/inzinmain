@@ -266,22 +266,41 @@ console.log(req.body);
 
 }
 
-adminController.updateBrand=async(req,res)=>{
-  req.body.imagelogo=req.files.imagelogo.path
-  req.body.imagesidebar=req.files.imagesidebar.path
-  let _brandsave=await adminService.saveBrand(req.body);
-  if(_brandsave)
-  {
-    res.json({status:true})
-  }
-  
-  else{
-    res.json({status:false})
-  }
+adminController.updateBrandCity=async(req,res)=>{
+
+
+    try{
+        let data=await adminService.updateBrandCity(req.body)
+        res.json({status:200,data:data});
+    }
+
+    catch(e)
+    {
+        console.log(e);
+    }
   
   }
 
-  adminController.deleteBrand=async(req,res)=>{
+
+
+
+adminController.getBrandAvailability=async(req,res)=>{
+
+
+    try{
+        let data=await adminService.getBrandAvailability();
+        res.json({status:200,data:data});
+    }
+
+    catch(e)
+    {
+        console.log(e);
+    }
+
+}
+
+
+adminController.deleteBrand=async(req,res)=>{
 
 
     //console.log("delete called",req.body);
@@ -870,16 +889,12 @@ adminController.deleteEnquiry=async(req,res)=>{
 adminController.saveProduct=async(req,res)=>{
 
     try{
-console.log(req.body);
+         console.log(req.body);
         let formavalues=JSON.parse(req.body.formavalues);
         if(req.files.imagelogo)
         {
             formavalues.imagelogo=req.files.imagelogo.path
         }
-
-
-
-
 
 
         let resw;
