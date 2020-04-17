@@ -105,7 +105,7 @@ adminController.saveCategory=async(req,res)=>{
     
     
     formavalues.brands=formavalues.brand
-    if(formavalues.parentcategory=="")
+    if(formavalues.parentcategory=="" || formavalues.parentcategory=="None")
     {
       formavalues.isParent=true;
     }
@@ -116,7 +116,7 @@ adminController.saveCategory=async(req,res)=>{
     let resw;
    if(req.body.save=="yes")
    {
-     ////console.log("Save called");
+    console.log("Save called");
     resw=await adminService.saveCategory(formavalues);
    }
   else if(req.body.update=="yes"){
@@ -271,7 +271,7 @@ adminController.updateBrandCity=async(req,res)=>{
 
     try{
         let data=await adminService.updateBrandCity(req.body)
-        res.json({status:200,data:data});
+        res.json({status:200,data:data,message:"Availability Added"});
     }
 
     catch(e)
@@ -759,7 +759,7 @@ res.json({data:_data,message:"Success"});
 
 /**
  * 
- * Tags
+ * Tagssa
  * 
  */
 adminController.getAllTags=async(req,res)=>{

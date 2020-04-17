@@ -217,7 +217,7 @@ return {data: await User.find({}),message:"User Deleted"};
  */
 
  adminService.saveCategory=async(data)=>{
- // //console.log(JSON.parse(data));
+// console.log("000000",JSON.parse(data));
    try{
 //console.log(data);
     let category=new Category(data);
@@ -228,7 +228,7 @@ return {data: await User.find({}),message:"User Deleted"};
    }
    catch(e)
    {
-//console.log(e);
+console.log(e);
    }
   
   

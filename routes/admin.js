@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
   */
 
 
- router.post("/saveCategory",categoryValidationRules(),validate,multipartMiddleware,adminController.saveCategory);
+ router.post("/saveCategory",multipartMiddleware,adminController.saveCategory);
 
  router.post("/getParentsCategory",adminMiddleware.registerUser,adminController.getParentsCategory);
 

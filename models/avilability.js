@@ -9,6 +9,8 @@ const avSchema=new Schema({
             districts:[],
             status:String,
             brandname:String,
+            state:String,
+            businessprofile:String
 
 
 
