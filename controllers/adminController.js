@@ -5,14 +5,14 @@ const mongoose = require('mongoose');
 const adminController={};
 adminController.registerUser=async(req,res)=>{
 
-    //console.log("got");
+    ////console.log("got");
     res.json("hii");
 }
 
 
 adminController.userLogin=async(req,res)=>{
-    //console.log(req.body.username,req.body.password)
-    //console.log(typeof 9);//
+    ////console.log(req.body.username,req.body.password)
+    ////console.log(typeof 9);//
     let response=await adminService.getUserByUsername(req.body.username,req.body.password);
     res.json(response);
 }
@@ -23,7 +23,7 @@ adminController.getUsers=async(req,res)=>{
 }
 
 adminController.registerUser=async(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
 
   if(req.body.update=="yes")
   {
@@ -35,7 +35,7 @@ adminController.registerUser=async(req,res)=>{
 
   else{
 
-    console.log(req.body);
+    //console.log(req.body);
   let username=req.body.username;
   let name=req.body.name;
   let email=req.body.email;
@@ -116,16 +116,16 @@ adminController.saveCategory=async(req,res)=>{
     let resw;
    if(req.body.save=="yes")
    {
-     //console.log("Save called");
+     ////console.log("Save called");
     resw=await adminService.saveCategory(formavalues);
    }
   else if(req.body.update=="yes"){
-    //console.log("Update called",req.body._id);
+    ////console.log("Update called",req.body._id);
     resw=await adminService.updateCategory(formavalues,req.body._id)
   }
   
     
-   // //console.log(resw);
+   // ////console.log(resw);
   
     if(resw)
     {
@@ -136,12 +136,12 @@ adminController.saveCategory=async(req,res)=>{
       res.json({status:false,"message":"Category Already exists"})
     }
   
-    ////console.log(resw);
+    //////console.log(resw);
     
   }
   catch(e)
   {
-    //console.log(e);
+    ////console.log(e);
   }
  
 
@@ -167,7 +167,7 @@ adminController.getAllCategories=async(req,res)=>{
 }
 
 adminController.deleteCategory=async(req,res)=>{
-  //console.log("delete called",req.body);
+  ////console.log("delete called",req.body);
 
 let _res=await adminService.deleteCategory(req.body.categoryid);
 
@@ -176,7 +176,7 @@ res.json({status:true,"message":"Category Deleted",data:_res})
 }
 
 adminController.updateCategory=async(req,res)=>{
-  //console.log(req.body);
+  ////console.log(req.body);
   req.body.imagelogo=req.files.imagelogo.path
   req.body.imagesidebar=req.files.imagesidebar.path
   req.body.brands=req.body.brands.split(",");
@@ -192,7 +192,7 @@ adminController.updateCategory=async(req,res)=>{
     res.json({status:false,"message":"Internal Server Error"})
   }
 
-  //console.log(resw);
+  ////console.log(resw);
 
 
 
@@ -213,7 +213,7 @@ adminController.getAllBrands=async(req,res)=>{
 
 adminController.saveBrand=async(req,res)=>{
  
-console.log(req.body);
+//console.log(req.body);
   try{
 
     let formavalues=JSON.parse(req.body.formavalues);
@@ -232,16 +232,16 @@ console.log(req.body);
     let resw;
    if(req.body.save=="yes")
    {
-     //console.log("Save called");
+     ////console.log("Save called");
     resw=await adminService.saveBrand(formavalues);
    }
   else if(req.body.update=="yes"){
-    //console.log("Update called",req.body._id);
+    ////console.log("Update called",req.body._id);
     resw=await adminService.updateBrand(formavalues,req.body._id)
   }
   
     
-   // //console.log(resw);
+   // ////console.log(resw);
   
     if(resw)
     {
@@ -252,12 +252,12 @@ console.log(req.body);
       res.json({status:false,"message":"Brand Already exists"})
     }
   
-    ////console.log(resw);
+    //////console.log(resw);
     
   }
   catch(e)
   {
-    //console.log(e);
+    ////console.log(e);
   }
  
 
@@ -276,7 +276,7 @@ adminController.updateBrandCity=async(req,res)=>{
 
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
   
   }
@@ -294,7 +294,7 @@ adminController.getBrandAvailability=async(req,res)=>{
 
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 }
@@ -303,7 +303,7 @@ adminController.getBrandAvailability=async(req,res)=>{
 adminController.deleteBrand=async(req,res)=>{
 
 
-    //console.log("delete called",req.body);
+    ////console.log("delete called",req.body);
 
 let _res=await adminService.deleteBrand(req.body.brandid);
 
@@ -319,7 +319,7 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
    */
 
    adminController.saveServices=async(req,res)=>{
-     console.log("the req",req);
+     //console.log("the req",req);
 
     try{
 
@@ -336,16 +336,16 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
       let resw;
      if(req.body.save=="yes")
      {
-       //console.log("Save called");
+       ////console.log("Save called");
       resw=await adminService.saveServices(formavalues);
      }
     else if(req.body.update=="yes"){
-      console.log("Update called",req.body._id);
+      //console.log("Update called",req.body._id);
       resw=await adminService.updateServices(formavalues,req.body._id)
     }
     
       
-     // //console.log(resw);
+     // ////console.log(resw);
     
       if(resw)
       {
@@ -356,12 +356,12 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
         res.json({status:false,"message":"Service Already exists"})
       }
     
-      ////console.log(resw);
+      //////console.log(resw);
       
     }
     catch(e)
     {
-      //console.log(e);
+      ////console.log(e);
     }
    
 
@@ -372,7 +372,7 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
 
 
     adminController.deleteServices=async(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
       let _brandsave=await adminService.deleteServices(req.body.brandid);
       res.json({status:true,"message":"Service Deleted",data:_brandsave})
       
@@ -395,7 +395,7 @@ res.json({status:true,"message":"Brand Deleted",data:_res})
 
 
 adminController.saveOffer=async(req,res)=>{
-    console.log("the req",req);
+    //console.log("the req",req);
 
     try{
 
@@ -412,16 +412,16 @@ adminController.saveOffer=async(req,res)=>{
         let resw;
         if(req.body.save=="yes")
         {
-            //console.log("Save called");
+            ////console.log("Save called");
             resw=await adminService.saveOffer(formavalues);
         }
         else if(req.body.update=="yes"){
-            console.log("Update called",req.body._id);
+            //console.log("Update called",req.body._id);
             resw=await adminService.updateOffer(formavalues,req.body._id)
         }
 
 
-        // //console.log(resw);
+        // ////console.log(resw);
 
         if(resw)
         {
@@ -432,12 +432,12 @@ adminController.saveOffer=async(req,res)=>{
             res.json({status:false,"message":"Offer Already exists"})
         }
 
-        ////console.log(resw);
+        //////console.log(resw);
 
     }
     catch(e)
     {
-        //console.log(e);
+        ////console.log(e);
     }
 
 
@@ -448,7 +448,7 @@ adminController.saveOffer=async(req,res)=>{
 
 
 adminController.deleteOffer=async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     let _brandsave=await adminService.deleteOffer(req.body.brandid);
     res.json({status:true,"message":"Service Deleted",data:_brandsave})
 
@@ -473,7 +473,7 @@ adminController.getAllOffers=async(req,res)=>{
 
 
 adminController.saveHome=async(req,res)=>{
-    console.log("the req",req);
+    //console.log("the req",req);
 
     try{
 
@@ -490,16 +490,16 @@ adminController.saveHome=async(req,res)=>{
         let resw;
         if(req.body.save=="yes")
         {
-            //console.log("Save called");
+            ////console.log("Save called");
             resw=await adminService.saveHome(formavalues);
         }
         else if(req.body.update=="yes"){
-            console.log("Update called",req.body._id);
+            //console.log("Update called",req.body._id);
             resw=await adminService.updateHome(formavalues,req.body._id)
         }
 
 
-        // //console.log(resw);
+        // ////console.log(resw);
 
         if(resw)
         {
@@ -510,12 +510,12 @@ adminController.saveHome=async(req,res)=>{
             res.json({status:false,"message":"Offer Already exists"})
         }
 
-        ////console.log(resw);
+        //////console.log(resw);
 
     }
     catch(e)
     {
-        //console.log(e);
+        ////console.log(e);
     }
 
 
@@ -526,7 +526,7 @@ adminController.saveHome=async(req,res)=>{
 
 
 adminController.deleteHome=async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     let _brandsave=await adminService.deleteHome(req.body.categoryid);
     res.json({status:true,"message":"Banner Deleted",data:_brandsave})
 
@@ -564,16 +564,16 @@ adminController.saveHowItworks=async(req,res)=>{
         let resw;
         if(req.body.save=="yes")
         {
-            //console.log("Save called");
+            ////console.log("Save called");
             resw=await adminService.saveHowItworks(formavalues);
         }
         else if(req.body.update=="yes"){
-            console.log("Update called",req.body._id);
+            //console.log("Update called",req.body._id);
             resw=await adminService.updateHowItworks(formavalues,req.body._id)
         }
 
 
-        // //console.log(resw);
+        // ////console.log(resw);
 
         if(resw)
         {
@@ -584,12 +584,12 @@ adminController.saveHowItworks=async(req,res)=>{
             res.json({status:false,"message":" Already exists"})
         }
 
-        ////console.log(resw);
+        //////console.log(resw);
 
     }
     catch(e)
     {
-        //console.log(e);
+        ////console.log(e);
     }
 
 
@@ -600,7 +600,7 @@ adminController.saveHowItworks=async(req,res)=>{
 
 
 adminController.deleteHowItworks=async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     let _brandsave=await adminService.deleteHowItworks(req.body.categoryid);
     res.json({status:true,"message":"Banner Deleted",data:_brandsave})
 
@@ -635,7 +635,7 @@ adminController.saveInfo=async(req,res)=>{
     }
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 
@@ -656,7 +656,7 @@ adminController.getInfo=async(req,res)=>{
     }
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 
@@ -678,7 +678,7 @@ adminController.getInfo=async(req,res)=>{
 adminController.saveBusinessProfile=async(req,res)=>{
 
  try{
-     console.log(req.files);
+     //console.log(req.files);
 
         let formavalues=JSON.parse(req.body.formavalues);
 
@@ -707,24 +707,24 @@ adminController.saveBusinessProfile=async(req,res)=>{
      let resw;
         if(req.body.save=="yes")
         {
-            console.log("Save called",formavalues);
+            //console.log("Save called",formavalues);
             resw=await adminService.saveBusinessProfile(formavalues);
         }
         else if(req.body.update=="yes"){
-            console.log("Update called",req.body._id);
+            //console.log("Update called",req.body._id);
             resw=await adminService.updateBusinessProfile(formavalues,req.body._id)
         }
 
 
-        // //console.log(resw);
+        // ////console.log(resw);
 
       res.json({sttaus:true,message:"Success",data:resw});
-        ////console.log(resw);
+        //////console.log(resw);
 
     }
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 
@@ -739,20 +739,20 @@ adminController.getBusinessProfile=async(req,res)=>{
         res.json({sttaus:true,message:"Success",data:_data});
     }
 catch (e) {
-    console.log(e);
+    //console.log(e);
 }
 }
 
 
 adminController.deleteBusinessProfile=async(req,res)=>{
 
-console.log(req.body);
+//console.log(req.body);
     try {
 let _data=await  adminService.deleteBusinessProfile(req.body._id);
 res.json({data:_data,message:"Success"});
     }
     catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 }
 
@@ -763,17 +763,19 @@ res.json({data:_data,message:"Success"});
  * 
  */
 adminController.getAllTags=async(req,res)=>{
+   
 
-  let _data=await adminService.getAllTags();
+  let _data=await adminService.getAllTags(req.body.type);
 
-  res.status(200).json({status:true,data:_data})
+
+  res.status(200).json(_data)
 
 
 }
 
 
 adminController.saveTags=async(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
 
   let _data;
   if(req.body.save=="yes")
@@ -795,7 +797,7 @@ else if(req.body.update=="yes")
 
 
 adminController.deleteTags=async(req,res)=>{
-  //console.log(req.body);
+  ////console.log(req.body);
   let _data=await adminService.deleteTag(req.body._id);
 
   res.status(200).json({status:true,data:_data,message:'Deleted Tag'})
@@ -819,7 +821,7 @@ adminController.getAllEnquiries=async(req,res)=>{
 
 
 adminController.saveEnquiry=async(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
 
   let _data;
   if(req.body.save=="yes")
@@ -841,7 +843,7 @@ else if(req.body.update=="yes")
 
 
 adminController.deleteEnquiry=async(req,res)=>{
-  //console.log(req.body);
+  ////console.log(req.body);
   let _data=await adminService.deleteEnquiry(req.body._id);
 
   res.status(200).json({status:true,data:_data})
@@ -866,20 +868,14 @@ adminController.deleteEnquiry=async(req,res)=>{
   * Tag
   */
 
- adminController.getAllTags=async(req,res)=>{
-  let data_res=await adminService.getAllTags();
-  console.log("admincontroller");
 
-  res.json(data_res);
-
-}
  /**
   * All Products
   */
  adminController.getAllProducts=async(req,res)=>{
   let data_res=await adminService.getAllProducts();
   
-  console.log("admincontroller",data_res);
+  //console.log("admincontroller",data_res);
 
   res.json(data_res);
 
@@ -889,7 +885,7 @@ adminController.deleteEnquiry=async(req,res)=>{
 adminController.saveProduct=async(req,res)=>{
 
     try{
-         console.log(req.body);
+         //console.log(req.body);
         let formavalues=JSON.parse(req.body.formavalues);
         if(req.files.imagelogo)
         {
@@ -900,16 +896,16 @@ adminController.saveProduct=async(req,res)=>{
         let resw;
         if(req.body.save=="yes")
         {
-            //console.log("Save called");
+            ////console.log("Save called");
             resw=await adminService.saveProduct(formavalues);
         }
         else if(req.body.update=="yes"){
-            //console.log("Update called",req.body._id);
+            ////console.log("Update called",req.body._id);
             resw=await adminService.updateProduct(formavalues,req.body._id)
         }
 
 
-        console.log("hh",resw);
+        //console.log("hh",resw);
 
         if(resw)
         {
@@ -920,11 +916,11 @@ adminController.saveProduct=async(req,res)=>{
             res.json({status:false,"message":"Product Already exists"})
         }
 
-        ////console.log(resw);
+        //////console.log(resw);
 
     }
     catch(e)
-    {console.log(e);
+    {//console.log(e);
     }
 
 
@@ -936,7 +932,7 @@ adminController.saveProduct=async(req,res)=>{
 
 
 adminController.deleteProduct=async(req,res)=>{
-    //console.log(req.body);
+    ////console.log(req.body);
     let _data=await adminService.deleteProduct(req.body._id);
 
     res.status(200).json({status:true,data:_data,message:'Deleted Product'})

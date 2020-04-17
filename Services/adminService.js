@@ -39,7 +39,7 @@ adminService.getUserByUsername=async(username,password)=>{
           return {"status":false,message:"User Not Found"};
         } 
         else {
-          console.log("ee",user);
+          //console.log("ee",user);
           // checking password here for user
           if (password == user.password) {
     
@@ -129,7 +129,7 @@ if(! _userfind)
 
 
 adminService.updateUser=async(userdata)=>{
-  console.log(userdata)
+  //console.log(userdata)
   try{
     
   
@@ -217,9 +217,9 @@ return {data: await User.find({}),message:"User Deleted"};
  */
 
  adminService.saveCategory=async(data)=>{
- // console.log(JSON.parse(data));
+ // //console.log(JSON.parse(data));
    try{
-console.log(data);
+//console.log(data);
     let category=new Category(data);
       
        await category.save();
@@ -228,7 +228,7 @@ console.log(data);
    }
    catch(e)
    {
-console.log(e);
+//console.log(e);
    }
   
   
@@ -243,7 +243,7 @@ console.log(e);
 
  adminService.updateCategory=async(category,_id)=>
  {
-console.log(category);
+//console.log(category);
  await Category.updateOne({_id:_id},{ $set: category });
  return await Category.find();
  }
@@ -255,7 +255,7 @@ console.log(category);
   * 
   */
 adminService.saveBrand=async(data)=>{
-    console.log("brand",data);
+    //console.log("brand",data);
 try{
     let brand =new Brand(data);
      await brand.save();
@@ -281,7 +281,7 @@ adminService.updateBrand=async(brand,_id)=>{
 
   catch(e)
   {
-console.log(e);
+//console.log(e);
   }
 
 }
@@ -290,7 +290,7 @@ console.log(e);
 
 adminService.updateBrandCity=async(brand)=>{
     try{
-console.log("----",brand);
+//console.log("----",brand);
         await new av(brand).save();
         return await av.find();
     }
@@ -298,7 +298,7 @@ console.log("----",brand);
 
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 }
@@ -314,7 +314,7 @@ adminService.getBrandAvailability=async()=>{
 
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 }
@@ -334,7 +334,7 @@ catch(e)
 }
 
 adminService.getBrands=async()=>{
-  console.log(await Brand.find({}))
+  //console.log(await Brand.find({}))
   return await Brand.find({});
 
 
@@ -390,7 +390,7 @@ adminService.deleteServices=async(brandid)=>{
 }
 
 adminService.getServices=async()=>{
-  //console.log(await Brand.find({}))
+  ////console.log(await Brand.find({}))
   return await Services.find({});
 
 
@@ -451,7 +451,7 @@ adminService.deleteOffer=async(brandid)=>{
 }
 
 adminService.getAllOffers=async()=>{
-    //console.log(await Brand.find({}))
+    ////console.log(await Brand.find({}))
     return await Offers.find({});
 
 
@@ -497,7 +497,7 @@ adminService.updateHome=async(brand,_id)=>{
 
 adminService.deleteHome=async(brandid)=>{
     try{
-        console.log(brandid);
+        //console.log(brandid);
         await Home.deleteOne({_id:brandid});
         return await Home.find();
     }
@@ -510,7 +510,7 @@ adminService.deleteHome=async(brandid)=>{
 }
 
 adminService.getAllHome=async()=>{
-    //console.log(await Brand.find({}))
+    ////console.log(await Brand.find({}))
     return await Home.find({});
 
 
@@ -525,7 +525,7 @@ adminService.getAllHome=async()=>{
 
 adminService.saveHowItworks=async(data)=>{
     try{
-        console.log("service",data);
+        //console.log("service",data);
         let brand =new HowItworks(data);
         await brand.save();
         return await HowItworks.find();
@@ -535,7 +535,7 @@ adminService.saveHowItworks=async(data)=>{
 
     catch(e)
     {
-console.log(e);
+//console.log(e);
     }
 
 }
@@ -571,7 +571,7 @@ adminService.deleteHowItworks=async(brandid)=>{
 }
 
 adminService.getAllHowItworks=async()=>{
-    //console.log(await Brand.find({}))
+    ////console.log(await Brand.find({}))
     return await HowItworks.find({});
 
 
@@ -583,10 +583,18 @@ adminService.getAllHowItworks=async()=>{
  * Tags
  */
 
-adminService.getAllTags=async()=>{
+adminService.getAllTags=async(type)=>{
    try{
+       console.log("Service Called----------------",type)
+       if(type=="all")
+       {
+           return await Tags.find(); // mongoose
+       }
+       else{
+           return await Tags.find({type:type}); // mongoose
+       }
 
-    return await Tags.find(); // mongoose 
+
    }
    catch(e)
    {
@@ -598,7 +606,7 @@ adminService.getAllTags=async()=>{
 
 adminService.saveTags=async(tags)=>{
 
-    console.log(tags);
+    //console.log(tags);
   try{
    let _tag=new Tags(tags);
    await _tag.save(); // 
@@ -606,7 +614,7 @@ adminService.saveTags=async(tags)=>{
    }
    catch(e)
    {
-console.log(e);
+//console.log(e);
    }
 
 
@@ -675,7 +683,7 @@ adminService.saveEnquiry=async(enquiry)=>{
   }
   catch(e)
   {
-console.log(e);
+//console.log(e);
   }
 
 
@@ -727,12 +735,7 @@ return await StateAndDistrict.find({});
  /**
   * Tags
   */
- adminService.getAllTags=async()=>{
- 
-  return await   Tags.find({});
 
-
-}
 
  /**
   * All Products
@@ -755,7 +758,7 @@ adminService.saveProduct=async(tags)=>{
     }
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 
@@ -766,14 +769,14 @@ adminService.updateProduct=async(tags,tagid)=>{
 
     try
     {
-        console.log("hey",tags);
+        //console.log("hey",tags);
         await Products.updateOne({_id:tagid},{$set:tags});
         return await Products.find(); // mongoose
 
     }
     catch(e)
     {
-        console.log(e);
+        //console.log(e);
     }
 
 
@@ -810,7 +813,7 @@ adminService.saveSection=async(section)=>{
    }
    catch(e)
    {
-console.log(e);
+//console.log(e);
    }
 
 
@@ -871,7 +874,7 @@ adminService.saveInfo=async(data)=>{
     }
 
     catch (e) {
-     console.log(e);
+     //console.log(e);
     }
   ;
 }
@@ -888,7 +891,7 @@ adminService.getInfo=async(data)=>{
     }
 
     catch (e) {
-        console.log(e);
+        //console.log(e);
     }
     ;
 }
@@ -918,7 +921,7 @@ adminService.saveBusinessProfile=async(data)=>{
     }
 
     catch (e) {
-        console.log(e);
+        //console.log(e);
     }
     ;
 }
@@ -926,14 +929,14 @@ adminService.saveBusinessProfile=async(data)=>{
 
 adminService.updateBusinessProfile=async(data,id)=>{
     try{
-        console.log(data);
-        console.log(id);
+        //console.log(data);
+        //console.log(id);
         await  BusinessProfile.update({_id:id},{$set:data})
         return await BusinessProfile.find();
     }
 
     catch (e) {
-        console.log(e);
+        //console.log(e);
     }
     ;
 }
@@ -945,7 +948,7 @@ adminService.deleteBusinessProfile=async(data)=>{
     }
 
     catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 
 }
