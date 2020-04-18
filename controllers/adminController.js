@@ -3,11 +3,7 @@ const mongoose = require('mongoose');
 
 
 const adminController={};
-adminController.registerUser=async(req,res)=>{
 
-    ////console.log("got");
-    res.json("hii");
-}
 
 
 adminController.userLogin=async(req,res)=>{
@@ -885,7 +881,7 @@ adminController.deleteEnquiry=async(req,res)=>{
 adminController.saveProduct=async(req,res)=>{
 
     try{
-         //console.log(req.body);
+      
         let formavalues=JSON.parse(req.body.formavalues);
         if(req.files.imagelogo)
         {
@@ -896,17 +892,16 @@ adminController.saveProduct=async(req,res)=>{
         let resw;
         if(req.body.save=="yes")
         {
-            ////console.log("Save called");
+    
             resw=await adminService.saveProduct(formavalues);
         }
         else if(req.body.update=="yes"){
-            ////console.log("Update called",req.body._id);
+       
             resw=await adminService.updateProduct(formavalues,req.body._id)
         }
 
 
-        //console.log("hh",resw);
-
+      
         if(resw)
         {
             res.json({status:true,"message":"Product Added",data:resw})
@@ -916,13 +911,19 @@ adminController.saveProduct=async(req,res)=>{
             res.json({status:false,"message":"Product Already exists"})
         }
 
-        //////console.log(resw);
+
 
     }
     catch(e)
     {//console.log(e);
     }
 
+
+/**
+ * Save Profile picture
+ * 
+ * 
+ */
 
 
 }
@@ -938,6 +939,27 @@ adminController.deleteProduct=async(req,res)=>{
     res.status(200).json({status:true,data:_data,message:'Deleted Product'})
 
 }
+
+
+adminController.saveProfilePic=async(req,res)=>{
+
+
+
+  await adminService.savePicture(req.files.file.originalFilename.split(".")[0],req.files.file.path);
+  res.json({message:"Success"}).status(200);
+ 
+ 
+ }
+
+ adminController.getProfilePic=async(req,res)=>{
+
+ 
+
+  let data=await adminService.getPicture(req.body.type);
+  res.json({message:"Success",data:data}).status(200);
+ 
+ 
+ }
 
 
 module.exports=adminController;

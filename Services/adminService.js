@@ -18,15 +18,29 @@ const Home =require("../models/home");
 const Enquiry=require('../models/enquiries');
 const HowItworks=require('../models/howitworks');
 const SiteInfo=require('../models/siteinfo');
-const BusinessProfile=require('../models/businessprofile')
+const BusinessProfile=require('../models/businessprofile');
+const Picture=require('../models/pictures')
 const mongoose=require("mongoose");
 const av=require("../models/avilability");
-const SimpleNodeLogger = require('simple-node-logger'),
-    opts = {
-        logFilePath:'./logs/logs.json',
-        timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
-    },
-log = SimpleNodeLogger.createSimpleLogger( opts );
+const winston = require('winston');
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: {
+    service: 'user-service'
+  },
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    //
+    new winston.transports.File({
+      filename: './logs/error.log',
+      level: 'error'
+    }),
+
+  ]
+});
 const adminService={};
 
 adminService.getUserByUsername=async(username,password)=>{
@@ -217,9 +231,9 @@ return {data: await User.find({}),message:"User Deleted"};
  */
 
  adminService.saveCategory=async(data)=>{
-// console.log("000000",JSON.parse(data));
+
    try{
-//console.log(data);
+
     let category=new Category(data);
       
        await category.save();
@@ -228,7 +242,10 @@ return {data: await User.find({}),message:"User Deleted"};
    }
    catch(e)
    {
-console.log(e);
+    logger.log({
+      level: 'error',
+      message: error
+    });
    }
   
   
@@ -236,16 +253,36 @@ console.log(e);
 
 
  adminService.deleteCategory=async(categoryid)=>{
+try {
   await Category.deleteOne({_id:categoryid});
   return await Category.find();
+  
+} catch (error) {
+  logger.log({
+    level: 'error',
+    message: error
+  });
+  
+}
+
+  
 
  }
 
  adminService.updateCategory=async(category,_id)=>
  {
-//console.log(category);
- await Category.updateOne({_id:_id},{ $set: category });
- return await Category.find();
+  
+  try {
+    await Category.updateOne({_id:_id},{ $set: category });
+    return await Category.find();
+    
+  } catch (error) {
+    logger.log({
+      level: 'error',
+      message: error
+    });
+  }
+ 
  }
 
 
@@ -290,7 +327,7 @@ adminService.updateBrand=async(brand,_id)=>{
 
 adminService.updateBrandCity=async(brand)=>{
     try{
-//console.log("----",brand);
+
         await new av(brand).save();
         return await av.find();
     }
@@ -298,7 +335,7 @@ adminService.updateBrandCity=async(brand)=>{
 
     catch(e)
     {
-        //console.log(e);
+        console.log(e);
     }
 
 }
@@ -631,7 +668,10 @@ try
 }
 catch(e)
 {
-
+  logger.log({
+    level: 'error',
+    message: e
+  });
 }
 
 
@@ -768,15 +808,15 @@ adminService.saveProduct=async(tags)=>{
 adminService.updateProduct=async(tags,tagid)=>{
 
     try
-    {
-        //console.log("hey",tags);
+    {  console.log(tags);
+      console.log(tagid);
         await Products.updateOne({_id:tagid},{$set:tags});
         return await Products.find(); // mongoose
 
     }
     catch(e)
     {
-        //console.log(e);
+        console.log(e);
     }
 
 
@@ -953,6 +993,26 @@ adminService.deleteBusinessProfile=async(data)=>{
 
 }
 
+adminService.savePicture=async(filename,url)=>{
+try {
+  let pic=new Picture({type:filename,url:url})
+  return await pic.save();
+} catch (error) {
+  
 
+  logger.log({
+    level: 'error',
+    message: e
+  });
+}
+ 
+
+}
+
+adminService.getPicture=async(type)=>{
+
+  return await Picture.find({type:type}).sort({uploadDate: -1});
+
+}
 
 module.exports=adminService;

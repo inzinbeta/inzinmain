@@ -10,7 +10,7 @@ const brandSchema=new Schema({
     name:String,
     brandcategory:String,
     slug: String,
-    tags:[String],
+    tags:[],
     parentcategory: String,
     subcategory:String,
 

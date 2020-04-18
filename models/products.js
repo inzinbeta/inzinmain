@@ -11,7 +11,7 @@ const     productsSchema= new Schema({
     brand: String,
     specifications:[],
     category: String,
-    subcategory: [String],
+    subcategory: [],
     metatitle:String,
     name: String,
     slug: String,
