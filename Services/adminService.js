@@ -88,7 +88,10 @@ adminService.getUserByUsername=async(username,password)=>{
           }
         }
       } catch (err) {
-        log.error({type:"error while requesting username",date:new Date(),error:err});
+        logger.log({
+          level: 'error',
+          message: e
+        });
         return{
             status:false,
             message:"Internal Server Error Occurred"
@@ -134,7 +137,10 @@ if(! _userfind)
   }
     catch(err)
     {
-        log.error({type:"error while saving new user"+userdata[0],date:new Date(),error:err});
+      logger.log({
+        level: 'error',
+        message: e
+      });
         return null;
     }
    
@@ -152,7 +158,10 @@ adminService.updateUser=async(userdata)=>{
   }
     catch(err)
     {
-        log.error({type:"error while saving new user"+userdata[0],date:new Date(),error:err});
+      logger.log({
+        level: 'error',
+        message: e
+      });
         return null;
     }
    
@@ -210,21 +219,6 @@ return {data: await User.find({}),message:"User Deleted"};
 
  
 
- // GET ALL CATEGORIES 
-/**
- * adminService.getAllCategories=async()=>{
-   return await Category.aggregate([
-    {$unwind:"$subcategories"},
-    { $project: { "_id": 0 }}
-
-   ])
-
-
-
- }
- * 
- */
- 
 
  /*
  Categories
@@ -302,7 +296,10 @@ try{
 
   catch(e)
   {
-
+    logger.log({
+      level: 'error',
+      message: e
+    });
   }
 
 }
@@ -318,7 +315,10 @@ adminService.updateBrand=async(brand,_id)=>{
 
   catch(e)
   {
-//console.log(e);
+    logger.log({
+      level: 'error',
+      message: e
+    });
   }
 
 }
@@ -335,7 +335,10 @@ adminService.updateBrandCity=async(brand)=>{
 
     catch(e)
     {
-        console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -351,7 +354,10 @@ adminService.getBrandAvailability=async()=>{
 
     catch(e)
     {
-        //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -365,7 +371,10 @@ try{
 
 catch(e)
 {
-
+  logger.log({
+    level: 'error',
+    message: e
+  });
 }
 
 }
@@ -392,6 +401,10 @@ adminService.saveServices=async(data)=>{
 
   catch(e)
   {
+    logger.log({
+      level: 'error',
+      message: e
+    });
 
   }
 
@@ -407,7 +420,10 @@ adminService.updateServices=async(brand,_id)=>{
 
   catch(e)
   {
-
+    logger.log({
+      level: 'error',
+      message: e
+    });
   }
 
 }
@@ -421,6 +437,10 @@ adminService.deleteServices=async(brandid)=>{
   
   catch(e)
   {
+    logger.log({
+      level: 'error',
+      message: e
+    });
   
   }
 
@@ -453,7 +473,10 @@ adminService.saveOffer=async(data)=>{
 
     catch(e)
     {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -468,7 +491,10 @@ adminService.updateOffer=async(brand,_id)=>{
 
     catch(e)
     {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -482,7 +508,10 @@ adminService.deleteOffer=async(brandid)=>{
 
     catch(e)
     {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -511,7 +540,10 @@ adminService.saveHome=async(data)=>{
 
     catch(e)
     {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -526,7 +558,10 @@ adminService.updateHome=async(brand,_id)=>{
 
     catch(e)
     {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -541,6 +576,10 @@ adminService.deleteHome=async(brandid)=>{
 
     catch(e)
     {
+      logger.log({
+        level: 'error',
+        message: e
+      });
 
     }
 
@@ -572,7 +611,10 @@ adminService.saveHowItworks=async(data)=>{
 
     catch(e)
     {
-//console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
@@ -587,6 +629,10 @@ adminService.updateHowItworks=async(brand,_id)=>{
 
     catch(e)
     {
+      logger.log({
+        level: 'error',
+        message: e
+      });
 
     }
 
@@ -602,6 +648,10 @@ adminService.deleteHowItworks=async(brandid)=>{
 
     catch(e)
     {
+      logger.log({
+        level: 'error',
+        message: e
+      });
 
     }
 
@@ -622,7 +672,7 @@ adminService.getAllHowItworks=async()=>{
 
 adminService.getAllTags=async(type)=>{
    try{
-       console.log("Service Called----------------",type)
+       
        if(type=="all")
        {
            return await Tags.find(); // mongoose
@@ -635,6 +685,10 @@ adminService.getAllTags=async(type)=>{
    }
    catch(e)
    {
+    logger.log({
+      level: 'error',
+      message: e
+    });
 
    }
 
@@ -651,7 +705,10 @@ adminService.saveTags=async(tags)=>{
    }
    catch(e)
    {
-//console.log(e);
+    logger.log({
+      level: 'error',
+      message: e
+    });
    }
 
 
@@ -687,6 +744,10 @@ adminService.deleteTag=async(tagid)=>{
   }
   catch(e)
   {
+    logger.log({
+      level: 'error',
+      message: e
+    });
   
   }
 }
@@ -708,6 +769,10 @@ adminService.getAllEnquiries=async()=>{
   }
   catch(e)
   {
+    logger.log({
+      level: 'error',
+      message: e
+    });
 
   }
 
@@ -723,7 +788,10 @@ adminService.saveEnquiry=async(enquiry)=>{
   }
   catch(e)
   {
-//console.log(e);
+    logger.log({
+      level: 'error',
+      message: e
+    });
   }
 
 
@@ -740,7 +808,10 @@ try
 }
 catch(e)
 {
-
+  logger.log({
+    level: 'error',
+    message: e
+  });
 }
 
 
@@ -756,7 +827,10 @@ adminService.deleteEnquiry=async(tagid)=>{
  }
  catch(e)
  {
- 
+  logger.log({
+    level: 'error',
+    message: e
+  });
  }
 }
 
@@ -798,7 +872,10 @@ adminService.saveProduct=async(tags)=>{
     }
     catch(e)
     {
-        //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 
@@ -816,7 +893,10 @@ adminService.updateProduct=async(tags,tagid)=>{
     }
     catch(e)
     {
-        console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 
@@ -832,6 +912,10 @@ adminService.deleteProduct=async(tagid)=>{
     }
     catch(e)
     {
+      logger.log({
+        level: 'error',
+        message: e
+      });
 
     }
 }
@@ -853,7 +937,10 @@ adminService.saveSection=async(section)=>{
    }
    catch(e)
    {
-//console.log(e);
+    logger.log({
+      level: 'error',
+      message: e
+    });
    }
 
 
@@ -870,6 +957,10 @@ try
 }
 catch(e)
 {
+  logger.log({
+    level: 'error',
+    message: e
+  });
 
 }
 
@@ -885,7 +976,10 @@ adminService.deleteSection=async(tagid)=>{
   
   }
   catch(e)
-  {
+  { logger.log({
+    level: 'error',
+    message: e
+  });
   
   }
 }
@@ -914,7 +1008,10 @@ adminService.saveInfo=async(data)=>{
     }
 
     catch (e) {
-     //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
   ;
 }
@@ -931,7 +1028,10 @@ adminService.getInfo=async(data)=>{
     }
 
     catch (e) {
-        //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
     ;
 }
@@ -949,7 +1049,10 @@ adminService.getBusinessProfile=async()=>{
     }
 
     catch (e) {
-
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 }
 
@@ -976,7 +1079,10 @@ adminService.updateBusinessProfile=async(data,id)=>{
     }
 
     catch (e) {
-        //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
     ;
 }
@@ -988,7 +1094,10 @@ adminService.deleteBusinessProfile=async(data)=>{
     }
 
     catch (e) {
-        //console.log(e);
+      logger.log({
+        level: 'error',
+        message: e
+      });
     }
 
 }
