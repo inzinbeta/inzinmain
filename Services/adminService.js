@@ -111,8 +111,8 @@ adminService.getAllUsers=async()=>{
 
 adminService.saveUser=async(...userdata)=>{
  try{
-let _userfind=await User.find({username:userdata[0]});
-
+let _userfind=await User.findOne({username:userdata[0]});
+console.log(_userfind);
 if(! _userfind)
 {
 

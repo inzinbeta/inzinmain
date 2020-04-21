@@ -11,8 +11,8 @@ const brandSchema=new Schema({
     brandcategory:String,
     slug: String,
     tags:[],
-    parentcategory: String,
-    subcategory:String,
+    parentcategory: [],
+    subcategory:[],
 
     keywords: String,
     description:String,
