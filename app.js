@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'uploads')));
 
 const corsOptions = {
-  origin: ['http://localhost:4200','http://localhost:4500'],
+  origin: ['http://104.237.10.152','http://localhost:4200','http://localhost:4500'],
   credentials: true,
 
 }
